@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,6 +12,9 @@ namespace Form113.Helper
 {
     public static class MyHelper
     {
+
+        //VALIDER
+        #region FieldSet
         /// <summary>
         /// Html.MyFieldsethelper( "Legende de la section" ) 
         /// </summary>
@@ -20,8 +24,82 @@ namespace Form113.Helper
         public static FormFieldset MyFieldsetHelper(this HtmlHelper self, string legend)
         {
             return new FormFieldset(self, legend);
+        } 
+        #endregion
+
+        //VALIDER
+        #region TextBox Password
+        /// <summary>
+        /// Html.MyTextBoxFor( model => Model."NameId" , "Taille de cellule (4)") 
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="self"></param>
+        /// <param name="expression"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public static MvcHtmlString MyTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, int size = 4)
+        {
+            var BR = new TagBuilder("br/");
+
+            var divTag = new TagBuilder("div");
+            divTag.AddCssClass("form-group");
+
+            var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
+            divTag.InnerHtml = Label.ToString();
+
+            var divInnerTag = new TagBuilder("div");
+            divInnerTag.AddCssClass(string.Format("col-sm-{0}", 12 - size));
+
+            var TexteBox = self.TextBoxFor(expression, new { @class = "form-control" });
+            var ValidationMessage = self.ValidationMessageFor(expression, "", new { @class = "text-danger" });
+
+            divInnerTag.InnerHtml = TexteBox.ToString();
+            divInnerTag.InnerHtml += ValidationMessage.ToString();
+
+            divTag.InnerHtml += divInnerTag.ToString() + BR.ToString();
+            return new MvcHtmlString(divTag.ToString());
+            /*
+            @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control" } })
+            */
         }
 
+        /// <summary>
+        /// Html.MyPasswordFor( model => Model."NameId" , "Taille de cellule (4)") 
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="self"></param>
+        /// <param name="expression"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public static MvcHtmlString MyPasswordFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, int size = 4)
+        {
+            var BR = new TagBuilder("br/");
+
+            var divTag = new TagBuilder("div");
+            divTag.AddCssClass("form-group");
+
+            var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
+            divTag.InnerHtml = Label.ToString();
+
+            var divInnerTag = new TagBuilder("div");
+            divInnerTag.AddCssClass(string.Format("col-sm-{0}", 12 - size));
+
+            var TexteBox = self.PasswordFor(expression, new { @class = "form-control" });
+            var ValidationMessage = self.ValidationMessageFor(expression, "", new { @class = "text-danger" });
+
+            divInnerTag.InnerHtml = TexteBox.ToString() + ValidationMessage.ToString();
+
+            divTag.InnerHtml += divInnerTag.ToString() + BR.ToString();
+            return new MvcHtmlString(divTag.ToString());
+            /*
+            @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control" } })
+            */
+        }
+        #endregion
+
+        //VALIDER
         #region Pagination
         private static string LiATagBuilder(string classe, string contenu)
         {
@@ -153,6 +231,7 @@ namespace Form113.Helper
         }
         #endregion
 
+        //A VALIDER
         #region DropDownList CheckBoxList
         /// <summary>
         /// Html.MyDropDownListFor( model => Model."NameId" , "Liste a Lire (List<SelectListItem>)" , "id a preselectionner (0)" , "Classe (null)" , "Taille de cellule (4)") 
@@ -300,188 +379,111 @@ namespace Form113.Helper
         }
         #endregion
 
-        #region TextBox Password
-        /// <summary>
-        /// Html.MyTextBoxFor( model => Model."NameId" , "Taille de cellule (4)") 
-        /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TProperty"></typeparam>
-        /// <param name="self"></param>
-        /// <param name="expression"></param>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        public static MvcHtmlString MyTextBoxFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, int size = 4)
+        //VALIDER
+        #region Carousel
+        private static string ButtonPrecedentSuivantCarousele(string ID)
         {
-            var BR = new TagBuilder("br/");
+            var sb = new StringBuilder();
 
-            var divTag = new TagBuilder("div");
-            divTag.AddCssClass("form-group");
+            var A = new TagBuilder("a");
+            A.AddCssClass("left carousel-control");
+            A.Attributes.Add("href", "#" + ID);
+            A.Attributes.Add("role", "button");
+            A.Attributes.Add("data-slide", "prev");
 
-            var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
-            divTag.InnerHtml = Label.ToString();
+            var span = new TagBuilder("span");
+            span.AddCssClass("glyphicon glyphicon-chevron-left");
+            span.Attributes.Add("aria-hidden", "true");
+            A.InnerHtml = span.ToString();
 
-            var divInnerTag = new TagBuilder("div");
-            divInnerTag.AddCssClass(string.Format("col-sm-{0}", 12 - size));
+            span = new TagBuilder("span");
+            span.AddCssClass("sr-only");
+            span.InnerHtml = "Previous";
+            A.InnerHtml += span.ToString();
 
-            var TexteBox = self.TextBoxFor(expression, new { @class = "form-control" });
-            var ValidationMessage = self.ValidationMessageFor(expression, "", new { @class = "text-danger" });
+            sb.Append(A.ToString());
 
-            divInnerTag.InnerHtml = TexteBox.ToString();
-            divInnerTag.InnerHtml += ValidationMessage.ToString();
+            A = new TagBuilder("a");
+            A.AddCssClass("right carousel-control");
+            A.Attributes.Add("href", "#" + ID);
+            A.Attributes.Add("role", "button");
+            A.Attributes.Add("data-slide", "next");
 
-            divTag.InnerHtml += divInnerTag.ToString() + BR.ToString();
-            return new MvcHtmlString(divTag.ToString());
-            /*
-            @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control" } })
-            */
+            span = new TagBuilder("span");
+            span.AddCssClass("glyphicon glyphicon-chevron-right");
+            span.Attributes.Add("aria-hidden", "true");
+            A.InnerHtml = span.ToString();
+
+            span = new TagBuilder("span");
+            span.AddCssClass("sr-only");
+            span.InnerHtml = "Next";
+            A.InnerHtml += span.ToString();
+
+            sb.Append(A.ToString());
+
+            return sb.ToString();
         }
-
         /// <summary>
-        /// Html.MyPasswordFor( model => Model."NameId" , "Taille de cellule (4)") 
-        /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TProperty"></typeparam>
-        /// <param name="self"></param>
-        /// <param name="expression"></param>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        public static MvcHtmlString MyPasswordFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, int size = 4)
-        {
-            var BR = new TagBuilder("br/");
-
-            var divTag = new TagBuilder("div");
-            divTag.AddCssClass("form-group");
-
-            var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
-            divTag.InnerHtml = Label.ToString();
-
-            var divInnerTag = new TagBuilder("div");
-            divInnerTag.AddCssClass(string.Format("col-sm-{0}", 12 - size));
-
-            var TexteBox = self.PasswordFor(expression, new { @class = "form-control" });
-            var ValidationMessage = self.ValidationMessageFor(expression, "", new { @class = "text-danger" });
-
-            divInnerTag.InnerHtml = TexteBox.ToString() + ValidationMessage.ToString();
-
-            divTag.InnerHtml += divInnerTag.ToString() + BR.ToString();
-            return new MvcHtmlString(divTag.ToString());
-            /*
-            @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control" } })
-            */
-        }
-        #endregion
-
-
-        /// <summary>
-        /// Html.MyCarousele( "Page Actuel" , "Nombre de Page en tout" , "Intervalle" (2))
+        /// Html.MyCarousel( "Liste de Photos" , "Id Carousele", "classe carousel", "classe image")
         /// </summary>
         /// <param name="self"></param>
         /// <param name="CurrentPage"></param>
         /// <param name="PageQty"></param>
         /// <param name="Intervalle"></param>
         /// <returns></returns>       
-        //Besoin de l'entity framework
+        public static MvcHtmlString MyCarousel(this HtmlHelper self, List<Photos> ListPhotos, int Id, string classe = "carousel slide", string classeImg = "MonAffichageImage")
+        {
+            var sb = new StringBuilder();
 
-        //public static MvcHtmlString MyCarousele(this HtmlHelper self, int CurrentPage, int PageQty, int Intervalle = 2)
-        //{
-        //    var sb = new StringBuilder();
-        //    //var UL = new TagBuilder("ul");
-        //    //UL.AddCssClass("pagination");
-        //    var str = "<ul class=\"pagination\">";
+            var divTag = new TagBuilder("div");
+            divTag.AddCssClass(classe);
+            divTag.Attributes.Add("id", Id.ToString());
+            divTag.Attributes.Add("data-ride", "carousel");
 
-        //    var classeClick = "pageLink";
-        //    var classeNoClick = "pageLink notclick";
+            var divIntern = new TagBuilder("div");
+            divIntern.AddCssClass("carousel-inner");
+            divIntern.Attributes.Add("role", "listbox");
 
-        //    sb.Append(str);
+            int i = 0;
+            foreach (var item in ListPhotos)
+            {
+                if (i == 0)
+                {
+                    var divPhoto = new TagBuilder("div");
+                    divPhoto.AddCssClass("item active");
 
-        //    int min = Intervalle;
-        //    int max = CurrentPage + Intervalle;
+                    var img = new TagBuilder("img");
+                    img.AddCssClass(classeImg);
+                    img.Attributes.Add("src", "/Uploads/" + item.PhotoName);
+                    img.Attributes.Add("alt", "L'image du Produit est indisponible");
 
-        //    if (CurrentPage >= Intervalle + 2)
-        //    {
-        //        min = CurrentPage - Intervalle;
-        //    }
-        //    if (CurrentPage >= (PageQty - Intervalle - 1))
-        //    {
-        //        max = PageQty - 1;
-        //    }
+                    divPhoto.InnerHtml = img.ToString();
+                    sb.Append(divPhoto.ToString());
+                }
+                else
+                {
+                    var divPhoto = new TagBuilder("div");
+                    divPhoto.AddCssClass("item");
 
-        //    //desactivation premier si element actuel
-        //    if (1 != CurrentPage)
-        //    {
-        //        sb.Append(LiATagBuilder(classeClick, "1"));
-        //        //UL.InnerHtml += LI.ToString();
-        //    }
-        //    else
-        //    {
-        //        //UL.InnerHtml += LI.ToString();
-        //        sb.Append(LiATagBuilder(classeNoClick, "1"));
-        //    }
+                    var img = new TagBuilder("img");
+                    img.AddCssClass(classeImg);
+                    img.Attributes.Add("src", "/Uploads/" + item.PhotoName);
+                    img.Attributes.Add("alt", "L'image du Produit est indisponible");
 
-        //    //Affichage element actuel et intervalle autour de lui
-        //    for (int i = min; i <= max; i++)
-        //    {
-        //        if (i != CurrentPage)
-        //        {
-        //            //UL.InnerHtml += LI.ToString();
-        //            sb.Append(LiATagBuilder(classeClick, i.ToString()));
-        //        }
-        //        else
-        //        {
-        //            //UL.InnerHtml += LI.ToString();
-        //            sb.Append(LiATagBuilder(classeNoClick, i.ToString()));
-        //        }
-        //    }
+                    divPhoto.InnerHtml = img.ToString();
+                    sb.Append(divPhoto.ToString());
+                }
+                i++;
+            }
 
-        //    //desactivation dernier si element actuel
-        //    if (1 != CurrentPage)
-        //    {
-        //        //UL.InnerHtml += LI.ToString();
-        //        sb.Append(LiATagBuilder(classeClick, PageQty.ToString()));
-        //    }
-        //    else
-        //    {
-        //        //UL.InnerHtml += LI.ToString();
-        //        sb.Append(LiATagBuilder(classeNoClick, PageQty.ToString()));
-        //    }
+            divIntern.InnerHtml = sb.ToString();
 
-        //    var strfin = "</ul>";
-        //    sb.Append(strfin);
+            string button = ButtonPrecedentSuivantCarousele(Id.ToString());
+            divTag.InnerHtml = divIntern.ToString() + button;
 
-        //    return new MvcHtmlString(sb.ToString());
-        //}
+            return new MvcHtmlString(divTag.ToString());
+        }
+        #endregion 
 
-        /*
-         <div id="@Model.IdVoiture" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" role="listbox">
-                        @{
-                            int i = 0;
-                            foreach (var item in Model.Photos)
-                            {
-                                if (i == 0)
-                                {
-                                    <div class="item active">
-                                        <img src="~/Uploads/@item.PhotoName" class="MonAffichageImage" alt="L'image de la voiture n'est pas disponible" />
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="item">
-                                        <img src="~/Uploads/@item.PhotoName" class="MonAffichageImage" alt="L'image de la voiture n'est pas disponible" />
-                                    </div>
-                                }
-                                i++;
-                            }}
-                    </div>
-                    <a class="left carousel-control" href="#@Model.IdVoiture" role="button" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control" href="#@Model.IdVoiture" role="button" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-         */
     }
 }
