@@ -1,0 +1,12 @@
+﻿@model SearchViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Recherche de produits</h2>
+
+@Html.BeginForm("Result","Search")
+<input type="text" name="idCategorie" id="idCategorie" />
+<input type="number" name="PrixMini" id="PrixMini">Prix Minimum
+<input type="number" name="PrixMaxi" id="PrixMaxi"/>PrixMaximum
+<input type="submit" value="Rechercher"/>
