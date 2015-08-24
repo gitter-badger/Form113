@@ -21,5 +21,15 @@ namespace Form113.Controllers {
 
             return View();
         }
+
+        /// <summary>
+        /// Controller permettant d'afficher le nombre de produit, Dernier Produits, 
+        /// </summary>
+        /// <returns></returns>
+        [ChildActionOnly]
+        public PartialViewResult HighlightedProduct()
+        {
+            return PartialView("_HighlightedProduct");
+        }
     }
 }
