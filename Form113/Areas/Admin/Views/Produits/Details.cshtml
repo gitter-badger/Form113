@@ -1,0 +1,98 @@
+﻿@model DataLayer.Models.Produits
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Produits</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Couleur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Couleur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAcheteur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdAcheteur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAdresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdAdresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prix)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateMiseEnVente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateMiseEnVente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Promotion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Promotion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pays.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pays.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SousCategories.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SousCategories.Nom)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProduit }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

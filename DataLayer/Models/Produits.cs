@@ -33,6 +33,6 @@ namespace DataLayer.Models
     
         public virtual Pays Pays { get; set; }
         public virtual ICollection<Photos> Photos { get; set; }
-        public virtual SousCategorie SousCategorie { get; set; }
+        public virtual SousCategories SousCategories { get; set; }
     }
 }

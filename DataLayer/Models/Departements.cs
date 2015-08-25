@@ -23,6 +23,7 @@ namespace DataLayer.Models
         public string NumReg { get; set; }
         public string Nom { get; set; }
     
+        public virtual RegionsFR RegionsFR { get; set; }
         public virtual ICollection<Villes> Villes { get; set; }
     }
 }

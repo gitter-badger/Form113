@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Form113Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administrateurs">
           <Key>
             <PropertyRef Name="IdAdministrateur" />
@@ -112,7 +112,7 @@
           <Property Name="NumReg" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="Nom" Type="varchar" MaxLength="35" Nullable="false" />
         </EntityType>
-        <EntityType Name="SousCategorie">
+        <EntityType Name="SousCategories">
           <Key>
             <PropertyRef Name="IdSousCategorie" />
           </Key>
@@ -194,6 +194,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_departements_regions">
+          <End Role="RegionsFR" Type="Self.RegionsFR" Multiplicity="1" />
+          <End Role="Departements" Type="Self.Departements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegionsFR">
+              <PropertyRef Name="NumReg" />
+            </Principal>
+            <Dependent Role="Departements">
+              <PropertyRef Name="NumReg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_photos_produits">
           <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
           <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
@@ -219,10 +231,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Produits_SousCategorie">
-          <End Role="SousCategorie" Type="Self.SousCategorie" Multiplicity="1" />
+          <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="1" />
           <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SousCategorie">
+            <Principal Role="SousCategories">
               <PropertyRef Name="IdSousCategorie" />
             </Principal>
             <Dependent Role="Produits">
@@ -230,14 +242,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SousCategorie_Categories">
+        <Association Name="FK_SousCategory_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
-          <End Role="SousCategorie" Type="Self.SousCategorie" Multiplicity="*" />
+          <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="IdCategorie" />
             </Principal>
-            <Dependent Role="SousCategorie">
+            <Dependent Role="SousCategories">
               <PropertyRef Name="IdCategorie" />
             </Dependent>
           </ReferentialConstraint>
@@ -314,7 +326,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BestArtModelStoreContainer">
+        <EntityContainer Name="Form113ModelStoreContainer">
           <EntitySet Name="Administrateurs" EntityType="Self.Administrateurs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Adresses" EntityType="Self.Adresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
@@ -326,7 +338,7 @@
           <EntitySet Name="Produits" EntityType="Self.Produits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegionsFR" EntityType="Self.RegionsFR" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SousCategorie" EntityType="Self.SousCategorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SousCategories" EntityType="Self.SousCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Villes" EntityType="Self.Villes" Schema="dbo" store:Type="Tables" />
@@ -339,6 +351,10 @@
             <End Role="ZipCodes" EntitySet="ZipCodes" />
             <End Role="Adresses" EntitySet="Adresses" />
           </AssociationSet>
+          <AssociationSet Name="fk_departements_regions" Association="Self.fk_departements_regions">
+            <End Role="RegionsFR" EntitySet="RegionsFR" />
+            <End Role="Departements" EntitySet="Departements" />
+          </AssociationSet>
           <AssociationSet Name="fk_photos_produits" Association="Self.fk_photos_produits">
             <End Role="Produits" EntitySet="Produits" />
             <End Role="Photos" EntitySet="Photos" />
@@ -348,12 +364,12 @@
             <End Role="Produits" EntitySet="Produits" />
           </AssociationSet>
           <AssociationSet Name="FK_Produits_SousCategorie" Association="Self.FK_Produits_SousCategorie">
-            <End Role="SousCategorie" EntitySet="SousCategorie" />
+            <End Role="SousCategories" EntitySet="SousCategories" />
             <End Role="Produits" EntitySet="Produits" />
           </AssociationSet>
-          <AssociationSet Name="FK_SousCategorie_Categories" Association="Self.FK_SousCategorie_Categories">
+          <AssociationSet Name="FK_SousCategory_Categories" Association="Self.FK_SousCategory_Categories">
             <End Role="Categories" EntitySet="Categories" />
-            <End Role="SousCategorie" EntitySet="SousCategorie" />
+            <End Role="SousCategories" EntitySet="SousCategories" />
           </AssociationSet>
           <AssociationSet Name="fk_utilisateurs_adresse" Association="Self.fk_utilisateurs_adresse">
             <End Role="Adresses" EntitySet="Adresses" />
@@ -384,7 +400,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BestArtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Form113Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Administrateurs">
           <Key>
             <PropertyRef Name="IdAdministrateur" />
@@ -411,7 +427,7 @@
           </Key>
           <Property Name="IdCategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Libelle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="SousCategorie" Relationship="Self.FK_SousCategorie_Categories" FromRole="Categories" ToRole="SousCategorie" />
+          <NavigationProperty Name="SousCategories" Relationship="Self.FK_SousCategory_Categories" FromRole="Categories" ToRole="SousCategories" />
         </EntityType>
         <EntityType Name="Continents">
           <Key>
@@ -428,6 +444,7 @@
           <Property Name="NumDep" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="NumReg" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nom" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RegionsFR" Relationship="Self.fk_departements_regions" FromRole="Departements" ToRole="RegionsFR" />
           <NavigationProperty Name="Villes" Relationship="Self.fk_villesbis_departements" FromRole="Departements" ToRole="Villes" />
         </EntityType>
         <EntityType Name="Identites">
@@ -489,7 +506,7 @@
           <Property Name="CodePays" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Pays" Relationship="Self.fk_produits_pays" FromRole="Produits" ToRole="Pays" />
           <NavigationProperty Name="Photos" Relationship="Self.fk_photos_produits" FromRole="Produits" ToRole="Photos" />
-          <NavigationProperty Name="SousCategorie" Relationship="Self.FK_Produits_SousCategorie" FromRole="Produits" ToRole="SousCategorie" />
+          <NavigationProperty Name="SousCategories" Relationship="Self.FK_Produits_SousCategorie" FromRole="Produits" ToRole="SousCategories" />
         </EntityType>
         <EntityType Name="Regions">
           <Key>
@@ -507,16 +524,17 @@
           </Key>
           <Property Name="NumReg" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Nom" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Departements" Relationship="Self.fk_departements_regions" FromRole="RegionsFR" ToRole="Departements" />
         </EntityType>
-        <EntityType Name="SousCategorie">
+        <EntityType Name="SousCategories">
           <Key>
             <PropertyRef Name="IdSousCategorie" />
           </Key>
           <Property Name="IdSousCategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nom" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="IdCategorie" Type="Int32" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK_SousCategorie_Categories" FromRole="SousCategorie" ToRole="Categories" />
-          <NavigationProperty Name="Produits" Relationship="Self.FK_Produits_SousCategorie" FromRole="SousCategorie" ToRole="Produits" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_SousCategory_Categories" FromRole="SousCategories" ToRole="Categories" />
+          <NavigationProperty Name="Produits" Relationship="Self.FK_Produits_SousCategorie" FromRole="SousCategories" ToRole="Produits" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -610,14 +628,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SousCategorie_Categories">
+        <Association Name="FK_SousCategory_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
-          <End Role="SousCategorie" Type="Self.SousCategorie" Multiplicity="*" />
+          <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="IdCategorie" />
             </Principal>
-            <Dependent Role="SousCategorie">
+            <Dependent Role="SousCategories">
               <PropertyRef Name="IdCategorie" />
             </Dependent>
           </ReferentialConstraint>
@@ -631,6 +649,18 @@
             </Principal>
             <Dependent Role="Regions">
               <PropertyRef Name="idContinent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_departements_regions">
+          <End Role="RegionsFR" Type="Self.RegionsFR" Multiplicity="1" />
+          <End Role="Departements" Type="Self.Departements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegionsFR">
+              <PropertyRef Name="NumReg" />
+            </Principal>
+            <Dependent Role="Departements">
+              <PropertyRef Name="NumReg" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -695,10 +725,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Produits_SousCategorie">
-          <End Role="SousCategorie" Type="Self.SousCategorie" Multiplicity="1" />
+          <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="1" />
           <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SousCategorie">
+            <Principal Role="SousCategories">
               <PropertyRef Name="IdSousCategorie" />
             </Principal>
             <Dependent Role="Produits">
@@ -730,7 +760,7 @@
           <EntitySet Name="Produits" EntityType="Self.Produits" />
           <EntitySet Name="Regions" EntityType="Self.Regions" />
           <EntitySet Name="RegionsFR" EntityType="Self.RegionsFR" />
-          <EntitySet Name="SousCategorie" EntityType="Self.SousCategorie" />
+          <EntitySet Name="SousCategories" EntityType="Self.SousCategories" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" />
           <EntitySet Name="Villes" EntityType="Self.Villes" />
@@ -747,13 +777,17 @@
             <End Role="Adresses" EntitySet="Adresses" />
             <End Role="Utilisateurs" EntitySet="Utilisateurs" />
           </AssociationSet>
-          <AssociationSet Name="FK_SousCategorie_Categories" Association="Self.FK_SousCategorie_Categories">
+          <AssociationSet Name="FK_SousCategory_Categories" Association="Self.FK_SousCategory_Categories">
             <End Role="Categories" EntitySet="Categories" />
-            <End Role="SousCategorie" EntitySet="SousCategorie" />
+            <End Role="SousCategories" EntitySet="SousCategories" />
           </AssociationSet>
           <AssociationSet Name="Regions_Continents_fk" Association="Self.Regions_Continents_fk">
             <End Role="Continents" EntitySet="Continents" />
             <End Role="Regions" EntitySet="Regions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_departements_regions" Association="Self.fk_departements_regions">
+            <End Role="RegionsFR" EntitySet="RegionsFR" />
+            <End Role="Departements" EntitySet="Departements" />
           </AssociationSet>
           <AssociationSet Name="fk_villesbis_departements" Association="Self.fk_villesbis_departements">
             <End Role="Departements" EntitySet="Departements" />
@@ -776,7 +810,7 @@
             <End Role="Photos" EntitySet="Photos" />
           </AssociationSet>
           <AssociationSet Name="FK_Produits_SousCategorie" Association="Self.FK_Produits_SousCategorie">
-            <End Role="SousCategorie" EntitySet="SousCategorie" />
+            <End Role="SousCategories" EntitySet="SousCategories" />
             <End Role="Produits" EntitySet="Produits" />
           </AssociationSet>
           <AssociationSet Name="fk_zipcodes_villes" Association="Self.fk_zipcodes_villes">
@@ -789,16 +823,16 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BestArtModelStoreContainer" CdmEntityContainer="BestArtEntities">
+        <EntityContainerMapping StorageEntityContainer="Form113ModelStoreContainer" CdmEntityContainer="BestArtEntities">
           <EntitySetMapping Name="Administrateurs">
-            <EntityTypeMapping TypeName="BestArtModel.Administrateurs">
+            <EntityTypeMapping TypeName="Form113Model.Administrateurs">
               <MappingFragment StoreEntitySet="Administrateurs">
                 <ScalarProperty Name="IdAdministrateur" ColumnName="IdAdministrateur" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Adresses">
-            <EntityTypeMapping TypeName="BestArtModel.Adresses">
+            <EntityTypeMapping TypeName="Form113Model.Adresses">
               <MappingFragment StoreEntitySet="Adresses">
                 <ScalarProperty Name="IdAdresse" ColumnName="IdAdresse" />
                 <ScalarProperty Name="Ligne1" ColumnName="Ligne1" />
@@ -810,7 +844,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="BestArtModel.Categories">
+            <EntityTypeMapping TypeName="Form113Model.Categories">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="IdCategorie" ColumnName="IdCategorie" />
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
@@ -818,7 +852,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Continents">
-            <EntityTypeMapping TypeName="BestArtModel.Continents">
+            <EntityTypeMapping TypeName="Form113Model.Continents">
               <MappingFragment StoreEntitySet="Continents">
                 <ScalarProperty Name="idContinent" ColumnName="idContinent" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -826,7 +860,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departements">
-            <EntityTypeMapping TypeName="BestArtModel.Departements">
+            <EntityTypeMapping TypeName="Form113Model.Departements">
               <MappingFragment StoreEntitySet="Departements">
                 <ScalarProperty Name="NumDep" ColumnName="NumDep" />
                 <ScalarProperty Name="NumReg" ColumnName="NumReg" />
@@ -835,7 +869,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Identites">
-            <EntityTypeMapping TypeName="BestArtModel.Identites">
+            <EntityTypeMapping TypeName="Form113Model.Identites">
               <MappingFragment StoreEntitySet="Identites">
                 <ScalarProperty Name="IdIdentite" ColumnName="IdIdentite" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
@@ -847,7 +881,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pays">
-            <EntityTypeMapping TypeName="BestArtModel.Pays">
+            <EntityTypeMapping TypeName="Form113Model.Pays">
               <MappingFragment StoreEntitySet="Pays">
                 <ScalarProperty Name="CodeIso3" ColumnName="CodeIso3" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -866,7 +900,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Photos">
-            <EntityTypeMapping TypeName="BestArtModel.Photos">
+            <EntityTypeMapping TypeName="Form113Model.Photos">
               <MappingFragment StoreEntitySet="Photos">
                 <ScalarProperty Name="PhotoName" ColumnName="PhotoName" />
                 <ScalarProperty Name="IdProduit" ColumnName="IdProduit" />
@@ -875,7 +909,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Produits">
-            <EntityTypeMapping TypeName="BestArtModel.Produits">
+            <EntityTypeMapping TypeName="Form113Model.Produits">
               <MappingFragment StoreEntitySet="Produits">
                 <ScalarProperty Name="IdProduit" ColumnName="IdProduit" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
@@ -892,7 +926,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Regions">
-            <EntityTypeMapping TypeName="BestArtModel.Regions">
+            <EntityTypeMapping TypeName="Form113Model.Regions">
               <MappingFragment StoreEntitySet="Regions">
                 <ScalarProperty Name="idRegion" ColumnName="idRegion" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -901,16 +935,16 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RegionsFR">
-            <EntityTypeMapping TypeName="BestArtModel.RegionsFR">
+            <EntityTypeMapping TypeName="Form113Model.RegionsFR">
               <MappingFragment StoreEntitySet="RegionsFR">
                 <ScalarProperty Name="NumReg" ColumnName="NumReg" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SousCategorie">
-            <EntityTypeMapping TypeName="BestArtModel.SousCategorie">
-              <MappingFragment StoreEntitySet="SousCategorie">
+          <EntitySetMapping Name="SousCategories">
+            <EntityTypeMapping TypeName="Form113Model.SousCategories">
+              <MappingFragment StoreEntitySet="SousCategories">
                 <ScalarProperty Name="IdSousCategorie" ColumnName="IdSousCategorie" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
                 <ScalarProperty Name="IdCategorie" ColumnName="IdCategorie" />
@@ -918,7 +952,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BestArtModel.sysdiagrams">
+            <EntityTypeMapping TypeName="Form113Model.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -929,7 +963,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Utilisateurs">
-            <EntityTypeMapping TypeName="BestArtModel.Utilisateurs">
+            <EntityTypeMapping TypeName="Form113Model.Utilisateurs">
               <MappingFragment StoreEntitySet="Utilisateurs">
                 <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
                 <ScalarProperty Name="IdAdresse" ColumnName="IdAdresse" />
@@ -940,7 +974,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Villes">
-            <EntityTypeMapping TypeName="BestArtModel.Villes">
+            <EntityTypeMapping TypeName="Form113Model.Villes">
               <MappingFragment StoreEntitySet="Villes">
                 <ScalarProperty Name="CodeINSEE" ColumnName="CodeINSEE" />
                 <ScalarProperty Name="Commune" ColumnName="Commune" />
@@ -961,7 +995,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ZipCodes">
-            <EntityTypeMapping TypeName="BestArtModel.ZipCodes">
+            <EntityTypeMapping TypeName="Form113Model.ZipCodes">
               <MappingFragment StoreEntitySet="ZipCodes">
                 <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
                 <ScalarProperty Name="CodeINSEE" ColumnName="CodeINSEE" />

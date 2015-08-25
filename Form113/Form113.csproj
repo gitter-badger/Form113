@@ -160,6 +160,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProduitsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BestArtController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -194,6 +196,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -248,7 +258,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\BestArt\" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -274,7 +284,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56379</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
