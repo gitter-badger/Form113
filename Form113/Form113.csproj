@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -167,6 +167,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BestArtController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocalisationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
@@ -216,7 +217,14 @@
     <Content Include="Areas\Admin\Views\SousCategories\Details.cshtml" />
     <Content Include="Areas\Admin\Views\SousCategories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SousCategories\Index.cshtml" />
+    <Content Include="Plugins\Chosen\js\bower.json" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Plugins\Chosen\css\chosen.css" />
+    <Content Include="Plugins\Chosen\css\chosen.min.css" />
+    <Content Include="Plugins\Chosen\js\chosen.jquery.js" />
+    <Content Include="Plugins\Chosen\js\chosen.jquery.min.js" />
+    <Content Include="Plugins\Chosen\js\chosen.proto.js" />
+    <Content Include="Plugins\Chosen\js\chosen.proto.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -227,6 +235,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Localisation\js\Localisation.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -278,6 +287,10 @@
       <Project>{f1e494d4-a3c5-420e-b8df-418fe85687e6}</Project>
       <Name>DataLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Search\css\" />
+    <Folder Include="Views\Localisation\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

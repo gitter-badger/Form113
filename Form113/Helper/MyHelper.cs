@@ -249,14 +249,16 @@ namespace Form113.Helper
             //exemple :
             //<select class="" id="colors" name="couleurs" size="10">
             //<option value="">Toutes couleurs</option>
+            
+            MemberExpression member = expression.Body as MemberExpression;
 
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
+            DivTag.Attributes.Add("id", "div" + member.Member.Name);
 
             var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
             DivTag.InnerHtml = Label.ToString();
 
-            MemberExpression member = expression.Body as MemberExpression;
 
             var Select = new TagBuilder("select");
             Select.AddCssClass(string.Format(classe + "col-sm-{0}", size));
@@ -300,14 +302,15 @@ namespace Form113.Helper
             //exemple :
             //<select class="" id="colors" name="couleurs" multiple="multiple" size="10">
             //<option value="">Toutes couleurs</option>
+            MemberExpression member = expression.Body as MemberExpression;
 
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
+            DivTag.Attributes.Add("id", "div" + member.Member.Name);
 
             var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
             DivTag.InnerHtml = Label.ToString();
 
-            MemberExpression member = expression.Body as MemberExpression;
 
             var Select = new TagBuilder("select");
             Select.AddCssClass(string.Format(classe + "col-sm-{0}", size));
@@ -352,8 +355,11 @@ namespace Form113.Helper
         /// <returns></returns>
         public static MvcHtmlString MyCheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<CheckBoxItem> list, long[] ListPreSelect = null, string classe = "col-sm-3", int size = 4)
         {
+            MemberExpression member = expression.Body as MemberExpression;
+
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
+            DivTag.Attributes.Add("id", "div" + member.Member.Name);
 
 
             var sb = new StringBuilder();
@@ -364,7 +370,6 @@ namespace Form113.Helper
             {
                 foreach (CheckBoxItem item in list)
                 {
-                    MemberExpression member = expression.Body as MemberExpression;
 
                     //<label for="@g.ItemId" class="list-group">@g.ItemLabel</label>
 
