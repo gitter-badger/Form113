@@ -12,12 +12,15 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class Commandes_details
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int IdCommande { get; set; }
+        public int IdProduit { get; set; }
+        public Nullable<double> prix_unitaire { get; set; }
+        public Nullable<double> Promotion { get; set; }
+        public Nullable<int> quantite { get; set; }
+    
+        public virtual Commandes Commandes { get; set; }
+        public virtual Produits Produits { get; set; }
     }
 }

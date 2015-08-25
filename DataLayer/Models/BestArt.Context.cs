@@ -28,6 +28,8 @@ namespace DataLayer.Models
         public virtual DbSet<Administrateurs> Administrateurs { get; set; }
         public virtual DbSet<Adresses> Adresses { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
+        public virtual DbSet<Commandes> Commandes { get; set; }
+        public virtual DbSet<Commandes_details> Commandes_details { get; set; }
         public virtual DbSet<Continents> Continents { get; set; }
         public virtual DbSet<Departements> Departements { get; set; }
         public virtual DbSet<Identites> Identites { get; set; }
@@ -37,7 +39,6 @@ namespace DataLayer.Models
         public virtual DbSet<Regions> Regions { get; set; }
         public virtual DbSet<RegionsFR> RegionsFR { get; set; }
         public virtual DbSet<SousCategories> SousCategories { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Utilisateurs> Utilisateurs { get; set; }
         public virtual DbSet<Villes> Villes { get; set; }
         public virtual DbSet<ZipCodes> ZipCodes { get; set; }

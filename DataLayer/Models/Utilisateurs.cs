@@ -14,6 +14,11 @@ namespace DataLayer.Models
     
     public partial class Utilisateurs
     {
+        public Utilisateurs()
+        {
+            this.Commandes = new HashSet<Commandes>();
+        }
+    
         public int IdUtilisateur { get; set; }
         public int IdAdresse { get; set; }
         public System.DateTime DateInscription { get; set; }
@@ -21,6 +26,7 @@ namespace DataLayer.Models
         public Nullable<int> IdIdentite { get; set; }
     
         public virtual Adresses Adresses { get; set; }
+        public virtual ICollection<Commandes> Commandes { get; set; }
         public virtual Identites Identites { get; set; }
     }
 }

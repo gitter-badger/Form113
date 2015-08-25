@@ -21,6 +21,7 @@ namespace DataLayer.Models
     
         public int IdCategorie { get; set; }
         public string Libelle { get; set; }
+        public string Photo { get; set; }
     
         public virtual ICollection<SousCategories> SousCategories { get; set; }
     }

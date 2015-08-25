@@ -73,6 +73,12 @@
     <Compile Include="Models\Categories.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Commandes.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Commandes_details.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Continents.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
@@ -98,9 +104,6 @@
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SousCategories.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Utilisateurs.cs">

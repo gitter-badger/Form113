@@ -4,36 +4,40 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1c43caabe324454bbcd8b33e11431b1e" Name="Diagram1">
-        <EntityTypeShape EntityType="Form113Model.Administrateurs" Width="1.5" PointX="19" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Adresses" Width="1.5" PointX="16.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Categories" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Continents" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Departements" Width="1.5" PointX="10" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Identites" Width="1.5" PointX="16.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Pays" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Photos" Width="1.5" PointX="9.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Produits" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Regions" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.RegionsFR" Width="1.5" PointX="7.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.SousCategories" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Utilisateurs" Width="1.5" PointX="19" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.Villes" Width="1.5" PointX="12.25" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="Form113Model.ZipCodes" Width="1.5" PointX="14.5" PointY="7.25" IsExpanded="true" />
-        <AssociationConnector Association="Form113Model.fk_administrateurs_identites" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.fk_adresses_zipcodes" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.fk_utilisateurs_adresse" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.FK_SousCategory_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.Regions_Continents_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.fk_departements_regions" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.fk_villesbis_departements" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.fk_utilisateurs_identites" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.fk_produits_pays" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.Pays_Regions_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.fk_photos_produits" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.FK_Produits_SousCategorie" ManuallyRouted="false" />
-        <AssociationConnector Association="Form113Model.fk_zipcodes_villes" ManuallyRouted="false" />
+      <Diagram DiagramId="5c127240fcc8430fb3c7c37e97e9ba7d" Name="Diagram1">
+        <EntityTypeShape EntityType="BestArtModel.Administrateurs" Width="1.5" PointX="5.25" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Adresses" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Categories" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Commandes" Width="1.5" PointX="7.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Commandes_details" Width="1.5" PointX="9.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Continents" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Departements" Width="1.5" PointX="1.5" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Identites" Width="1.5" PointX="3" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Pays" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Photos" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Produits" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Regions" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.RegionsFR" Width="1.5" PointX="1.5" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.SousCategories" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Utilisateurs" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.Villes" Width="1.5" PointX="1.5" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BestArtModel.ZipCodes" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <AssociationConnector Association="BestArtModel.fk_administrateurs_identites" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_adresses_zipcodes" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_utilisateurs_adresse" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.FK_SousCategory_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_commande_details_commande" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_commande_utilisateur" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_commande_details_produit" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.Regions_Continents_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_departements_regions" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_villesbis_departements" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_utilisateurs_identites" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_produits_pays" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.Pays_Regions_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_photos_produits" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.FK_Produits_SousCategorie" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_zipcodes_villes" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -16,6 +16,7 @@ namespace DataLayer.Models
     {
         public Produits()
         {
+            this.Commandes_details = new HashSet<Commandes_details>();
             this.Photos = new HashSet<Photos>();
         }
     
@@ -31,6 +32,7 @@ namespace DataLayer.Models
         public Nullable<double> Promotion { get; set; }
         public string CodePays { get; set; }
     
+        public virtual ICollection<Commandes_details> Commandes_details { get; set; }
         public virtual Pays Pays { get; set; }
         public virtual ICollection<Photos> Photos { get; set; }
         public virtual SousCategories SousCategories { get; set; }
