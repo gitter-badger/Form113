@@ -25,6 +25,13 @@ namespace Form113.Controllers
             //    r => r.Categories.OrderBy(d => d.Nom)
             //        .ToDictionary(d => d.NumDep, d => d.Nom)
             //        );
+            var liste = db.Categories.OrderBy(x => x.Libelle).ToList();            
+            foreach(var item in liste)
+            {
+                svm.ListeCategorie.Add(new SelectListItem() { Text = item.Libelle, Value = item.IdCategorie.ToString() }); 
+            } 
+            ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
+
             return View(svm);
         }
     }

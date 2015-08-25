@@ -345,7 +345,7 @@ namespace Form113.Helper
         /// <param name="classe"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public static MvcHtmlString MyCheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<CheckBoxItem> list, long[] ListPreSelect, string classe = "col-sm-3", int size = 4)
+        public static MvcHtmlString MyCheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<CheckBoxItem> list, long[] ListPreSelect = null, string classe = "col-sm-3", int size = 4)
         {
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
