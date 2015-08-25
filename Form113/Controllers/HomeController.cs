@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace Form113.Controllers {
-    public class HomeController : Controller {
+    public class HomeController : BestArtController {
         public ActionResult Index() {
             return View();
         }

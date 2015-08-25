@@ -7,8 +7,14 @@ using System.Web.Mvc;
 using DataLayer.Models;
 namespace Form113.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : BestArtController
     {
+        public SearchController()
+        {
+            var bci = new BreadCrumItem("Search", "Index", "Search");
+            ListeBreadCrumItem.Add(bci);
+        }
+
         // GET: Search
         public ActionResult Index()
         {

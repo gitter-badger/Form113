@@ -11,13 +11,15 @@ using Form113.Models;
 namespace Form113.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : BestArtController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public ManageController()
         {
+            var bci = new BreadCrumItem("Manage", "Index", "Manage");
+            ListeBreadCrumItem.Add(bci);
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)

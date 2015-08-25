@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Form113.Models
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -31,6 +32,21 @@
         </div>
     </div>
     <div class="container body-content">
+        <ol class="breadcrumb">
+            @foreach (BreadCrumItem item in (List<BreadCrumItem>)ViewBag.BreadCrum)
+            {
+                <li class="active">
+                    @if (item.Control == "")
+                    {
+                        @item.Name
+                    }
+                    else
+                    {
+                        @Html.ActionLink(item.Name, item.Action, item.Control)
+                    }
+                </li>
+            }
+        </ol>
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
