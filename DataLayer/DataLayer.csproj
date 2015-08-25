@@ -49,18 +49,96 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Models\Administrateurs.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Adresses.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BestArt.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BestArt.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BestArt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BestArt.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BestArt.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categories.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Continents.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Departements.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Identites.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pays.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Photos.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Produits.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Regions.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RegionsFR.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SousCategorie.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Utilisateurs.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Villes.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ZipCodes.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Models\BestArt.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BestArt.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\BestArt.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BestArt.edmx</DependentUpon>
+      <LastGenOutput>BestArt.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\BestArt.edmx.diagram">
+      <DependentUpon>BestArt.edmx</DependentUpon>
+    </None>
+    <None Include="Models\BestArt.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BestArt.edmx</DependentUpon>
+      <LastGenOutput>BestArt.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
