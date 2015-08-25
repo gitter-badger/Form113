@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using Form113.Models;
 
 namespace Form113.Helper
 {
@@ -231,7 +232,7 @@ namespace Form113.Helper
         }
         #endregion
 
-        //A VALIDER
+        //VALIDER
         #region DropDownList CheckBoxList
         /// <summary>
         /// Html.MyDropDownListFor( model => Model."NameId" , "Liste a Lire (List<SelectListItem>)" , "id a preselectionner (0)" , "Classe (null)" , "Taille de cellule (4)") 
@@ -243,7 +244,7 @@ namespace Form113.Helper
         /// <param name="list"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public static MvcHtmlString MyDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<SelectListItem> list, int PreSelect = 0, string classe = "width100 form-control chosen-select", int size = 4)
+        public static MvcHtmlString MyDropDownListFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<SelectListItem> list, int PreSelect = 0, string classe = "width100 form-control chosen-select ", int size = 4)
         {
             //exemple :
             //<select class="" id="colors" name="couleurs" size="10">
@@ -251,16 +252,16 @@ namespace Form113.Helper
 
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
-            DivTag.AddCssClass(string.Format("col-sm-{0}", size));
 
             var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
             DivTag.InnerHtml = Label.ToString();
 
+            MemberExpression member = expression.Body as MemberExpression;
+
             var Select = new TagBuilder("select");
-            Select.AddCssClass(classe);
-            Select.Attributes.Add("id", expression.Name);
-            Select.Attributes.Add("name", expression.Name);
-            Select.Attributes.Add("size", "10");
+            Select.AddCssClass(string.Format(classe + "col-sm-{0}", size));
+            Select.Attributes.Add("id", member.Member.Name);
+            Select.Attributes.Add("name", member.Member.Name);
 
             var sb = new StringBuilder();
 
@@ -277,7 +278,7 @@ namespace Form113.Helper
                 sb.Append(option.ToString());
             }
             Select.InnerHtml = sb.ToString();
-            DivTag.InnerHtml = Select.ToString();
+            DivTag.InnerHtml += Select.ToString();
 
             return new MvcHtmlString(DivTag.ToString());
         }
@@ -292,7 +293,7 @@ namespace Form113.Helper
         /// <param name="list"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public static MvcHtmlString MyDropDownListMultipleFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<SelectListItem> list, int[] listPreSelect = null, string classe = "width100 form-control chosen-select", int size = 4)
+        public static MvcHtmlString MyDropDownListMultipleFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<SelectListItem> list, int[] listPreSelect = null, string classe = "width100 form-control chosen-select ", int size = 4)
         {
             //exemple :
             //<select class="" id="colors" name="couleurs" multiple="multiple" size="10">
@@ -304,12 +305,13 @@ namespace Form113.Helper
             var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
             DivTag.InnerHtml = Label.ToString();
 
+            MemberExpression member = expression.Body as MemberExpression;
+
             var Select = new TagBuilder("select");
             Select.AddCssClass(string.Format(classe + "col-sm-{0}", size));
-            Select.Attributes.Add("id", expression.Name);
-            Select.Attributes.Add("name", expression.Name);
+            Select.Attributes.Add("id", member.Member.Name);
+            Select.Attributes.Add("name", member.Member.Name);
             Select.Attributes.Add("multiple", "true");
-            Select.Attributes.Add("size", "10");
 
             var sb = new StringBuilder();
 
@@ -326,22 +328,24 @@ namespace Form113.Helper
                 sb.Append(option.ToString());
             }
             Select.InnerHtml = sb.ToString();
-            DivTag.InnerHtml = Select.ToString();
+            DivTag.InnerHtml += Select.ToString();
 
             return new MvcHtmlString(DivTag.ToString());
         }
 
         /// <summary>
-        /// Html.MyDropDownListFor( model => Model."NameId" , "Liste a Lire (List<SelectListItem>)" , "id a preselectionner (0)" , "Classe (null)" , "Taille de cellule (4)") 
+        /// Html.MyCheckBoxListFor( model => Model."NameId" , "Liste a Lire (List<CheckBoxItem>)" , "liste d'id a preselectionner en long[]" , "Classe (null)" , "Taille de cellule (4)") 
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TProperty"></typeparam>
         /// <param name="self"></param>
         /// <param name="expression"></param>
         /// <param name="list"></param>
+        /// <param name="PreSelect"></param>
+        /// <param name="classe"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public static MvcHtmlString MyCheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<SelectListItem> list, int PreSelect = 0, string classe = "col-sm-3", int size = 4)
+        public static MvcHtmlString MyCheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<CheckBoxItem> list, long[] ListPreSelect, string classe = "col-sm-3", int size = 4)
         {
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
@@ -349,29 +353,36 @@ namespace Form113.Helper
 
             var sb = new StringBuilder();
 
-            foreach (var item in list)
+            int i = 0;
+
+            foreach (CheckBoxItem item in list)
             {
+                MemberExpression member = expression.Body as MemberExpression;
 
                 //<label for="@g.ItemId" class="list-group">@g.ItemLabel</label>
 
-                var Label = self.LabelFor(expression, new { @class = "list - group" });
+                var Label = new TagBuilder("label");
+                Label.AddCssClass("list - group");
+                Label.Attributes.Add("for", item.ItemLabel);
+                Label.InnerHtml = item.ItemLabel;
                 DivTag.InnerHtml = Label.ToString();
+
                 var LI = new TagBuilder("li");
                 LI.AddCssClass(classe);
                 var input = new TagBuilder("input");
-                if (PreSelect == int.Parse(item.Value) && PreSelect != 0)
+                if (ListPreSelect.Contains(long.Parse(item.ItemId.ToString())) && ListPreSelect[i] != 0)
                 {
                     input.Attributes.Add("checked", "true");
                 }
                 input.Attributes.Add("type", "checkbox");
-                input.Attributes.Add("id", item.Value);
-                input.Attributes.Add("name", expression.Name);
-                input.Attributes.Add("value", item.Value);
+                input.Attributes.Add("id", item.ItemId.ToString());
+                input.Attributes.Add("name", member.Member.Name);
+                input.Attributes.Add("value", item.ItemId.ToString());
 
-                input.InnerHtml = item.Text.ToString();
                 LI.InnerHtml = Label.ToString() + input.ToString();
 
                 sb.Append(LI.ToString());
+                i++;
             }
             DivTag.InnerHtml = sb.ToString();
 
