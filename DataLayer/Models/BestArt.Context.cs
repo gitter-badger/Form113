@@ -36,7 +36,7 @@ namespace DataLayer.Models
         public virtual DbSet<Produits> Produits { get; set; }
         public virtual DbSet<Regions> Regions { get; set; }
         public virtual DbSet<RegionsFR> RegionsFR { get; set; }
-        public virtual DbSet<SousCategorie> SousCategorie { get; set; }
+        public virtual DbSet<SousCategories> SousCategories { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Utilisateurs> Utilisateurs { get; set; }
         public virtual DbSet<Villes> Villes { get; set; }

@@ -97,7 +97,7 @@
     <Compile Include="Models\RegionsFR.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SousCategorie.cs">
+    <Compile Include="Models\SousCategories.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">

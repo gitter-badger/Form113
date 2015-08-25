@@ -16,12 +16,12 @@ namespace DataLayer.Models
     {
         public Categories()
         {
-            this.SousCategorie = new HashSet<SousCategorie>();
+            this.SousCategories = new HashSet<SousCategories>();
         }
     
         public int IdCategorie { get; set; }
         public string Libelle { get; set; }
     
-        public virtual ICollection<SousCategorie> SousCategorie { get; set; }
+        public virtual ICollection<SousCategories> SousCategories { get; set; }
     }
 }

@@ -1,12 +1,47 @@
-﻿@model SearchViewModel
+﻿@using Form113.Helper
+@using Form113.Models
+@model SearchViewModel
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Recherche de produits</h2>
 
-@Html.BeginForm("Result","Search")
-<input type="text" name="idCategorie" id="idCategorie" />
-<input type="number" name="PrixMini" id="PrixMini">Prix Minimum
-<input type="number" name="PrixMaxi" id="PrixMaxi"/>PrixMaximum
-<input type="submit" value="Rechercher"/>
+@Html.BeginForm("Result", "Search")
+{
+@using (Html.MyFieldsetHelper("Prix"))
+{
+    @*Debut Slider*@
+    <div class="col-sm-12">
+        <p class="col-sm-2">
+            <label for="amount">Prix (en €):</label>
+            <input type="text" id="amount" name="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+            <input type="hidden" id="Prixmin" name="Prixmin" value="@Model.Prixmin">
+            <input type="hidden" id="Prixmax" name="Prixmax" value="@Model.Prixmax">
+            <input type="hidden" id="PrixMaxSlider" value="@ViewBag.PrixMaxSlider">
+        </p>
+        <div id="SliderRange" class="col-sm-4">
+        </div>
+    </div>
+    @*Fin Slider*@
+}
+@using (Html.MyFieldsetHelper("Catégories"))
+{
+    @Html.MyDropDownListMultipleFor(model => model.idCategories, Model.ListeCategorie)
+    @Html.MyDropDownListMultipleFor(model => model.idSousCategories, null)
+}
+@using (Html.MyFieldsetHelper("Zones"))
+{
+    @*@Html.MyDropDownListMultipleFor(model => model.idCategories, Model.ListeCategorie)*@
+}
+
+
+<input type="submit" value="Rechercher" />
+}
+
+@section styles {
+}
+
+@section scripts {
+    <script src="~/Scripts/Search/js/Search.js"></script>
+}

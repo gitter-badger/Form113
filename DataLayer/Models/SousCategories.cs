@@ -12,9 +12,9 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class SousCategorie
+    public partial class SousCategories
     {
-        public SousCategorie()
+        public SousCategories()
         {
             this.Produits = new HashSet<Produits>();
         }
