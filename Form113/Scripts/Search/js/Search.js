@@ -1,9 +1,8 @@
 ﻿$(function () {
     Slider();
-
+    $("#idCategories").change(ListeDesSousCategorie);
 });
 function Slider() {
-
     $("#SliderRange").slider({
         range: true,
         min: 0,
@@ -26,4 +25,17 @@ function Slider() {
         $("#Prixmin").val($("#SliderRange").slider("values", 0));
         $("#Prixmax").val($("#SliderRange").slider("values", 1));
     }
+}
+function ListeDesSousCategorie() {
+    $(".chosen-select").trigger("chosen:updated");
+    $("#idSousCategories").val();
+    $("#idSousCategories").html(" ");
+    var idcat = $("#idCategories").val();
+    var option = "";
+    $.getJSON('/Search/GetJSONSCAT/' + idcat, function (data) {
+        $.each(data, function (index, scat) {
+            option += '<option value="' + scat.nc + '">' + scat.scat + '</option>';
+        });
+        $("#idSousCategories").html(option);
+    });
 }

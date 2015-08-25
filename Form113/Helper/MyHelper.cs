@@ -249,7 +249,7 @@ namespace Form113.Helper
             //exemple :
             //<select class="" id="colors" name="couleurs" size="10">
             //<option value="">Toutes couleurs</option>
-            
+
             MemberExpression member = expression.Body as MemberExpression;
 
             var DivTag = new TagBuilder("div");
@@ -325,9 +325,12 @@ namespace Form113.Helper
                 foreach (var item in list)
                 {
                     var option = new TagBuilder("option");
-                    if (listPreSelect.Contains(int.Parse(item.Value)) && listPreSelect != null)
+                    if (listPreSelect != null)
                     {
-                        option.Attributes.Add("selected", "true");
+                        if (listPreSelect.Contains(int.Parse(item.Value)))
+                        {
+                            option.Attributes.Add("selected", "true");
+                        }
                     }
                     option.Attributes.Add("value", item.Value);
                     option.InnerHtml = item.Text.ToString();
@@ -382,9 +385,13 @@ namespace Form113.Helper
                     var LI = new TagBuilder("li");
                     LI.AddCssClass(classe);
                     var input = new TagBuilder("input");
-                    if (ListPreSelect.Contains(long.Parse(item.ItemId.ToString())) && ListPreSelect[i] != 0)
+
+                    if (ListPreSelect != null)
                     {
-                        input.Attributes.Add("checked", "true");
+                        if (ListPreSelect.Contains(long.Parse(item.ItemId.ToString())))
+                        {
+                            input.Attributes.Add("checked", "true");
+                        }
                     }
                     input.Attributes.Add("type", "checkbox");
                     input.Attributes.Add("id", item.ItemId.ToString());

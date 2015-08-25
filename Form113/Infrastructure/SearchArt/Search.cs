@@ -12,7 +12,7 @@ namespace Form113.Infrastructure.SearchArt
     using Form113.Infrastructure.SearchArt.Base;
     #endregion
 
-    public class Search : SearchBase 
+    internal class Search : SearchBase 
     {
         public Search()
         {

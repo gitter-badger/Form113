@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -47,10 +48,12 @@ namespace Form113.Models
         [XmlArrayItem("Pays", typeof(int))]
         [DisplayName("Choisissez votre Pays : ")] 
         #endregion
-        public int[] idPays { get; set; }
+        public string[] idPays { get; set; }
 
         public List<SelectListItem> ListeCategorie { get; set; }
         public List<SelectListItem> ListeContinents { get; set; }
+
+        public List<Produits> ListeProduit { get; set; }
 
         #region XMLSerializerUnserialize
         public string SerializeSearchViewModel()

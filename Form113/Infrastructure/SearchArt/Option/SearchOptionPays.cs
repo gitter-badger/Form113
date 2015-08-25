@@ -12,7 +12,7 @@ namespace Form113.Infrastructure.SearchArt.Option
     using Form113.Infrastructure.SearchArt.Base;
     #endregion
 
-    public class SearchOptionPays : SearchOption
+    internal class SearchOptionPays : SearchOption
     {
         private readonly string[] _SelectedPays;
 
@@ -24,7 +24,7 @@ namespace Form113.Infrastructure.SearchArt.Option
 
         public override IEnumerable<Produits> GetResult()
         {
-            if (_SelectedPays == null)
+            if (_SelectedPays == null || _SelectedPays.Count() <= 0)
             {
                 return SearchBase.GetResult();
             }

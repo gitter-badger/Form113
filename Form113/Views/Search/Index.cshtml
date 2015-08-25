@@ -27,7 +27,7 @@
     }
     using (Html.MyFieldsetHelper("Catégories"))
     {
-        @Html.MyDropDownListMultipleFor(model => model.idCategories, Model.ListeCategorie)
+        @Html.MyDropDownListFor(model => model.idCategories, Model.ListeCategorie)
         @Html.MyDropDownListMultipleFor(model => model.idSousCategories, null)
     }
     using (Html.MyFieldsetHelper("Zones"))
@@ -41,7 +41,7 @@
 
 @section styles {
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link href="~/Plugins/Chosen/css/chosen.min.css" rel="stylesheet" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css" rel="stylesheet" />
 }
 
 @section scripts {
