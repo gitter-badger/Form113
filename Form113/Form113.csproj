@@ -161,7 +161,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProduitsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SousCategoriesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BestArtController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -204,6 +206,16 @@
     <Content Include="Areas\Admin\Views\Produits\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Produits\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Produits\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Categories\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SousCategories\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\SousCategories\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\SousCategories\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\SousCategories\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\SousCategories\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
