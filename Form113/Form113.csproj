@@ -230,6 +230,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Search\js\Search.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -270,7 +271,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+<<<<<<< HEAD
     <Folder Include="Areas\Admin\Models\" />
+=======
+    <Folder Include="Scripts\Search\css\" />
+    <Folder Include="Views\BestArt\" />
+>>>>>>> cf862a231044b7b451d793b7c49ed06ad6d69417
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
