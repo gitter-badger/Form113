@@ -25,7 +25,7 @@ namespace Form113.Helper
         public static FormFieldset MyFieldsetHelper(this HtmlHelper self, string legend)
         {
             return new FormFieldset(self, legend);
-        } 
+        }
         #endregion
 
         //VALIDER
@@ -249,14 +249,16 @@ namespace Form113.Helper
             //exemple :
             //<select class="" id="colors" name="couleurs" size="10">
             //<option value="">Toutes couleurs</option>
+            
+            MemberExpression member = expression.Body as MemberExpression;
 
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
+            DivTag.Attributes.Add("id", "div" + member.Member.Name);
 
             var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
             DivTag.InnerHtml = Label.ToString();
 
-            MemberExpression member = expression.Body as MemberExpression;
 
             var Select = new TagBuilder("select");
             Select.AddCssClass(string.Format(classe + "col-sm-{0}", size));
@@ -264,18 +266,20 @@ namespace Form113.Helper
             Select.Attributes.Add("name", member.Member.Name);
 
             var sb = new StringBuilder();
-
-            foreach (var item in list)
+            if (list != null)
             {
-                var option = new TagBuilder("option");
-                if (PreSelect == int.Parse(item.Value) && PreSelect != 0)
+                foreach (var item in list)
                 {
-                    option.Attributes.Add("selected", "true");
-                }
-                option.Attributes.Add("value", item.Value);
-                option.InnerHtml = item.Text.ToString();
+                    var option = new TagBuilder("option");
+                    if (PreSelect == int.Parse(item.Value) && PreSelect != 0)
+                    {
+                        option.Attributes.Add("selected", "true");
+                    }
+                    option.Attributes.Add("value", item.Value);
+                    option.InnerHtml = item.Text.ToString();
 
-                sb.Append(option.ToString());
+                    sb.Append(option.ToString());
+                }
             }
             Select.InnerHtml = sb.ToString();
             DivTag.InnerHtml += Select.ToString();
@@ -298,14 +302,15 @@ namespace Form113.Helper
             //exemple :
             //<select class="" id="colors" name="couleurs" multiple="multiple" size="10">
             //<option value="">Toutes couleurs</option>
+            MemberExpression member = expression.Body as MemberExpression;
 
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
+            DivTag.Attributes.Add("id", "div" + member.Member.Name);
 
             var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
             DivTag.InnerHtml = Label.ToString();
 
-            MemberExpression member = expression.Body as MemberExpression;
 
             var Select = new TagBuilder("select");
             Select.AddCssClass(string.Format(classe + "col-sm-{0}", size));
@@ -315,17 +320,20 @@ namespace Form113.Helper
 
             var sb = new StringBuilder();
 
-            foreach (var item in list)
+            if (list != null)
             {
-                var option = new TagBuilder("option");
-                if (listPreSelect.Contains(int.Parse(item.Value)) && listPreSelect != null)
+                foreach (var item in list)
                 {
-                    option.Attributes.Add("selected", "true");
-                }
-                option.Attributes.Add("value", item.Value);
-                option.InnerHtml = item.Text.ToString();
+                    var option = new TagBuilder("option");
+                    if (listPreSelect.Contains(int.Parse(item.Value)) && listPreSelect != null)
+                    {
+                        option.Attributes.Add("selected", "true");
+                    }
+                    option.Attributes.Add("value", item.Value);
+                    option.InnerHtml = item.Text.ToString();
 
-                sb.Append(option.ToString());
+                    sb.Append(option.ToString());
+                }
             }
             Select.InnerHtml = sb.ToString();
             DivTag.InnerHtml += Select.ToString();
@@ -347,42 +355,47 @@ namespace Form113.Helper
         /// <returns></returns>
         public static MvcHtmlString MyCheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<CheckBoxItem> list, long[] ListPreSelect = null, string classe = "col-sm-3", int size = 4)
         {
+            MemberExpression member = expression.Body as MemberExpression;
+
             var DivTag = new TagBuilder("div");
             DivTag.AddCssClass("form-group");
+            DivTag.Attributes.Add("id", "div" + member.Member.Name);
 
 
             var sb = new StringBuilder();
 
             int i = 0;
 
-            foreach (CheckBoxItem item in list)
+            if (list != null)
             {
-                MemberExpression member = expression.Body as MemberExpression;
-
-                //<label for="@g.ItemId" class="list-group">@g.ItemLabel</label>
-
-                var Label = new TagBuilder("label");
-                Label.AddCssClass("list - group");
-                Label.Attributes.Add("for", item.ItemLabel);
-                Label.InnerHtml = item.ItemLabel;
-                DivTag.InnerHtml = Label.ToString();
-
-                var LI = new TagBuilder("li");
-                LI.AddCssClass(classe);
-                var input = new TagBuilder("input");
-                if (ListPreSelect.Contains(long.Parse(item.ItemId.ToString())) && ListPreSelect[i] != 0)
+                foreach (CheckBoxItem item in list)
                 {
-                    input.Attributes.Add("checked", "true");
+
+                    //<label for="@g.ItemId" class="list-group">@g.ItemLabel</label>
+
+                    var Label = new TagBuilder("label");
+                    Label.AddCssClass("list - group");
+                    Label.Attributes.Add("for", item.ItemLabel);
+                    Label.InnerHtml = item.ItemLabel;
+                    DivTag.InnerHtml = Label.ToString();
+
+                    var LI = new TagBuilder("li");
+                    LI.AddCssClass(classe);
+                    var input = new TagBuilder("input");
+                    if (ListPreSelect.Contains(long.Parse(item.ItemId.ToString())) && ListPreSelect[i] != 0)
+                    {
+                        input.Attributes.Add("checked", "true");
+                    }
+                    input.Attributes.Add("type", "checkbox");
+                    input.Attributes.Add("id", item.ItemId.ToString());
+                    input.Attributes.Add("name", member.Member.Name);
+                    input.Attributes.Add("value", item.ItemId.ToString());
+
+                    LI.InnerHtml = Label.ToString() + input.ToString();
+
+                    sb.Append(LI.ToString());
+                    i++;
                 }
-                input.Attributes.Add("type", "checkbox");
-                input.Attributes.Add("id", item.ItemId.ToString());
-                input.Attributes.Add("name", member.Member.Name);
-                input.Attributes.Add("value", item.ItemId.ToString());
-
-                LI.InnerHtml = Label.ToString() + input.ToString();
-
-                sb.Append(LI.ToString());
-                i++;
             }
             DivTag.InnerHtml = sb.ToString();
 
@@ -494,7 +507,7 @@ namespace Form113.Helper
 
             return new MvcHtmlString(divTag.ToString());
         }
-        #endregion 
+        #endregion
 
     }
 }

@@ -14,17 +14,43 @@ namespace Form113.Models
         public int Prixmin { get; set; }
         public int Prixmax { get; set; }
 
+        #region Spec
         [XmlArray("Categories")]
         [XmlArrayItem("Categorie", typeof(int))]
-        [DisplayName("Choisissez vos Catégories : ")]
+        [DisplayName("Choisissez vos Catégories : ")] 
+        #endregion
         public int[] idCategories { get; set; }
 
+        #region Spec
         [XmlArray("SousCategories")]
         [XmlArrayItem("SousCategorie", typeof(int))]
-        [DisplayName("Choisissez vos Sous Catégories : ")]
+        [DisplayName("Choisissez vos Sous Catégories : ")] 
+        #endregion
         public int[] idSousCategories { get; set; }
 
-        public List<SelectListItem> ListeCategorie;
+        #region Spec
+        [XmlArray("Continents")]
+        [XmlArrayItem("Continent", typeof(int))]
+        [DisplayName("Choisissez votre Continent : ")] 
+        #endregion
+        public int[] idContinent { get; set; }
+
+        #region Spec
+        [XmlArray("Regions")]
+        [XmlArrayItem("Region", typeof(int))]
+        [DisplayName("Choisissez votre Region : ")] 
+        #endregion
+        public int[] idRegions { get; set; }
+
+        #region Spec
+        [XmlArray("ListePays")]
+        [XmlArrayItem("Pays", typeof(int))]
+        [DisplayName("Choisissez votre Pays : ")] 
+        #endregion
+        public int[] idPays { get; set; }
+
+        public List<SelectListItem> ListeCategorie { get; set; }
+        public List<SelectListItem> ListeContinents { get; set; }
 
         #region XMLSerializerUnserialize
         public string SerializeSearchViewModel()

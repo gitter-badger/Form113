@@ -9,28 +9,38 @@ namespace Form113.Controllers
 {
     public class SearchController : BestArtController
     {
+        private static BestArtEntities db = new BestArtEntities();
+
         public SearchController()
         {
             var bci = new BreadCrumItem("Search", "Index", "Search");
             ListeBreadCrumItem.Add(bci);
         }
 
-        // GET: Search
+        private SearchViewModel InitializeSVM()
+        {
+            SearchViewModel svm = new SearchViewModel();
+
+            svm.ListeCategorie = new List<SelectListItem>();
+            var liste = db.Categories.OrderBy(x => x.Libelle).ToList();
+            foreach (var item in liste)
+            {
+                svm.ListeCategorie.Add(new SelectListItem() { Text = item.Libelle, Value = item.IdCategorie.ToString() });
+            }
+
+            svm.ListeContinents = new List<SelectListItem>();
+            var listeCont = db.Continents.OrderBy(x => x.name).ToList();
+            foreach (var cont in listeCont)
+            {
+                svm.ListeContinents.Add(new SelectListItem() { Text = cont.name, Value = cont.idContinent.ToString() });
+            }
+            return svm;
+        }
+
         public ActionResult Index()
         {
-            var db = new BestArtEntities();
-            SearchViewModel svm = new SearchViewModel();
-            //svm.CatSousCat = db.SousCategorie.OrderBy(c => c.Nom)
-            //    .ToDictionary(c => c.Nom,
-            //    r => r.Categories.OrderBy(d => d.Nom)
-            //        .ToDictionary(d => d.NumDep, d => d.Nom)
-            //        );
-            var liste = db.Categories.OrderBy(x => x.Libelle).ToList();            
-            foreach(var item in liste)
-            {
-                svm.ListeCategorie.Add(new SelectListItem() { Text = item.Libelle, Value = item.IdCategorie.ToString() }); 
-            } 
-            ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
+            var svm = InitializeSVM();
+            //ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
 
             return View(svm);
         }

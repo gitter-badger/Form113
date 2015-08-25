@@ -1,5 +1,5 @@
 ﻿$(function () {
-
+    Slider();
 
 });
 function Slider() {

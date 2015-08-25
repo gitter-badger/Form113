@@ -30,10 +30,10 @@ namespace Form113.Controllers
         {
             var db = new BestArtEntities();
 
-            var nbproduits = db.Produits.Where(p=>(p.Promotion!=0).O;
+            var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Take(3).ToList();
 
-            return PartialView("_NbProduits", nbproduits);
+            return PartialView("_HighlightedProduct", res);
         }
-        HighlightedProduct
+        
     }
 }
