@@ -49,7 +49,7 @@ namespace Form113.Areas.Admin.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduit,Nom,Couleur,Description,IdAcheteur,IdAdresse,Prix,IdSousCategorie,DateMiseEnVente,Promotion,CodePays")] Produits produits)
+        public ActionResult Create([Bind(Include = "IdProduit,Nom,Couleur,Description,Prix,IdSousCategorie,DateMiseEnVente,Promotion,CodePays,Stock")] Produits produits)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Form113.Areas.Admin.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduit,Nom,Couleur,Description,IdAcheteur,IdAdresse,Prix,IdSousCategorie,DateMiseEnVente,Promotion,CodePays")] Produits produits)
+        public ActionResult Edit([Bind(Include = "IdProduit,Nom,Couleur,Description,Prix,IdSousCategorie,DateMiseEnVente,Promotion,CodePays,Stock")] Produits produits)
         {
             if (ModelState.IsValid)
             {
