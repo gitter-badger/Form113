@@ -112,13 +112,12 @@
           <Property Name="Nom" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Couleur" Type="varchar" MaxLength="10" />
           <Property Name="Description" Type="text" />
-          <Property Name="IdAcheteur" Type="int" />
-          <Property Name="IdAdresse" Type="int" />
           <Property Name="Prix" Type="int" Nullable="false" />
           <Property Name="IdSousCategorie" Type="int" Nullable="false" />
           <Property Name="DateMiseEnVente" Type="datetime" Nullable="false" />
           <Property Name="Promotion" Type="float" />
           <Property Name="CodePays" Type="char" MaxLength="3" />
+          <Property Name="Stock" Type="int" />
         </EntityType>
         <EntityType Name="Regions">
           <Key>
@@ -587,13 +586,12 @@
           <Property Name="Nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Couleur" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IdAcheteur" Type="Int32" />
-          <Property Name="IdAdresse" Type="Int32" />
           <Property Name="Prix" Type="Int32" Nullable="false" />
           <Property Name="IdSousCategorie" Type="Int32" Nullable="false" />
           <Property Name="DateMiseEnVente" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Promotion" Type="Double" />
           <Property Name="CodePays" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="Stock" Type="Int32" />
           <NavigationProperty Name="Commandes_details" Relationship="Self.fk_commande_details_produit" FromRole="Produits" ToRole="Commandes_details" />
           <NavigationProperty Name="Pays" Relationship="Self.fk_produits_pays" FromRole="Produits" ToRole="Pays" />
           <NavigationProperty Name="Photos" Relationship="Self.fk_photos_produits" FromRole="Produits" ToRole="Photos" />
@@ -1071,13 +1069,12 @@
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
                 <ScalarProperty Name="Couleur" ColumnName="Couleur" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IdAcheteur" ColumnName="IdAcheteur" />
-                <ScalarProperty Name="IdAdresse" ColumnName="IdAdresse" />
                 <ScalarProperty Name="Prix" ColumnName="Prix" />
                 <ScalarProperty Name="IdSousCategorie" ColumnName="IdSousCategorie" />
                 <ScalarProperty Name="DateMiseEnVente" ColumnName="DateMiseEnVente" />
                 <ScalarProperty Name="Promotion" ColumnName="Promotion" />
                 <ScalarProperty Name="CodePays" ColumnName="CodePays" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

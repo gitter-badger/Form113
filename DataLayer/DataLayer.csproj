@@ -50,91 +50,91 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Models\Administrateurs.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Adresses.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BestArt.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BestArt.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BestArt.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BestArt.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BestArt.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BestArt.edmx</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Categories.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Commandes.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Commandes_details.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Continents.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Departements.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Form113.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Form113.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Form113.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Form113.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Form113.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Form113.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Identites.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pays.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Photos.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Produits.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Regions.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RegionsFR.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SousCategories.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Utilisateurs.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Villes.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ZipCodes.cs">
-      <DependentUpon>BestArt.tt</DependentUpon>
+      <DependentUpon>Form113.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Models\BestArt.edmx">
+    <EntityDeploy Include="Models\Form113.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BestArt.Designer.cs</LastGenOutput>
+      <LastGenOutput>Form113.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\BestArt.Context.tt">
+    <None Include="Models\Form113.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BestArt.edmx</DependentUpon>
-      <LastGenOutput>BestArt.Context.cs</LastGenOutput>
+      <DependentUpon>Form113.edmx</DependentUpon>
+      <LastGenOutput>Form113.Context.cs</LastGenOutput>
     </None>
-    <None Include="Models\BestArt.edmx.diagram">
-      <DependentUpon>BestArt.edmx</DependentUpon>
+    <None Include="Models\Form113.edmx.diagram">
+      <DependentUpon>Form113.edmx</DependentUpon>
     </None>
-    <None Include="Models\BestArt.tt">
+    <None Include="Models\Form113.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BestArt.edmx</DependentUpon>
-      <LastGenOutput>BestArt.cs</LastGenOutput>
+      <DependentUpon>Form113.edmx</DependentUpon>
+      <LastGenOutput>Form113.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

@@ -1,5 +1,5 @@
-﻿#using DataLayer.Models
-@model List<Produits>
+﻿
+@model List<DataLayer.Models.Produits>
            
     <div class="panel panel-danger">
     <div class="panel-heading">
@@ -9,7 +9,7 @@
         <ul>
             @foreach (var element in @Model)
             {
-                <li></li>
+                <li>@Html.Action("MiniatProduit", "Produit")</li>
             }
 
         </ul>

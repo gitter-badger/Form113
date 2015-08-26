@@ -286,6 +286,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\_NbProduits.cshtml" />
     <Content Include="Views\Produit\_HighlightedProduct.cshtml" />
+    <Content Include="Views\Produit\_MiniatProduit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
