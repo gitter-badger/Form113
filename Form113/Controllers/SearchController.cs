@@ -77,8 +77,24 @@ namespace Form113.Controllers
             svmres.ListeCategorie = svm.ListeCategorie;
             svmres.ListeContinents = svm.ListeContinents;
 
+
+            string srcSC = "";
+            foreach(var item in svmres.idSousCategories)
+            {
+                srcSC += item.ToString() + "/";
+            }
+            string srcP = "";
+            foreach (var item in svmres.idPays)
+            {
+                srcP += item.ToString() + "/";
+            }
+
+
             ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
 
+            ViewBag.listeSC = srcSC;
+            ViewBag.listeR = svmres.idRegions[0].ToString();
+            ViewBag.listeP = srcP;
 
             return View("Index", svmres);
         }
@@ -86,6 +102,8 @@ namespace Form113.Controllers
         public ActionResult Detail(int id)
         {
             var V = db.Produits.Where(p => p.IdProduit == id).FirstOrDefault();
+            V.NbVues++;
+            db.SaveChanges();
             return View(V);
         }
 

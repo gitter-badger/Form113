@@ -27,14 +27,32 @@
     }
     using (Html.MyFieldsetHelper("Catégories"))
     {
-        @Html.MyDropDownListFor(model => model.idCategories, Model.ListeCategorie, Model.idCategories[0])
+        if (Model.idCategories != null)
+        {
+            @Html.MyDropDownListFor(model => model.idCategories, Model.ListeCategorie, Model.idCategories[0])
+        }
+        else
+        {
+            @Html.MyDropDownListFor(model => model.idCategories, Model.ListeCategorie)
+        }
         @Html.MyDropDownListMultipleFor(model => model.idSousCategories, null)
+        <input type="hidden" id="idSC" value="@ViewBag.listeSC">
     }
     using (Html.MyFieldsetHelper("Zones"))
     {
-        @Html.MyDropDownListFor(model => model.idContinent, Model.ListeContinents, Model.idContinent[0])
+        if (Model.idContinent != null)
+        {
+            @Html.MyDropDownListFor(model => model.idContinent, Model.ListeContinents, Model.idContinent[0])
+        }
+        else
+        {
+            @Html.MyDropDownListFor(model => model.idContinent, Model.ListeContinents)
+        }
+        
         @Html.MyDropDownListFor(model => model.idRegions, null)
         @Html.MyDropDownListMultipleFor(model => model.idPays, null)
+        <input type="hidden" id="idR" value="@ViewBag.listeR">
+        <input type="hidden" id="idP" value="@ViewBag.listeP">
     }
     <input type="submit" value="Rechercher" />
 }
