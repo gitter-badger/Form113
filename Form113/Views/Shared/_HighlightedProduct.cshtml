@@ -1,20 +1,13 @@
-﻿
-@model List<DataLayer.Models.Produits>
-           
-    <div class="panel panel-danger">
+﻿@model List<DataLayer.Models.Produits>
+
+<div class="panel panel-danger">
     <div class="panel-heading">
         <strong>Nouveautées !</strong>
     </div>
     <div class="panel-body">
-        <ul>
             @foreach (var element in @Model)
             {
-                <li>@Html.Action("MiniatProduit", "Produit")</li>
+                @Html.Action("MiniatProduit", "Produit", new { id = element.IdProduit })
             }
-
-        </ul>
-
-
     </div>
-
 </div>

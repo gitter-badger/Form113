@@ -288,9 +288,9 @@
     <Content Include="Views\Home\_HighlightedProduct.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\_NbProduits.cshtml" />
-    <Content Include="Views\Produit\_HighlightedProduct.cshtml" />
+    <Content Include="Views\Shared\_HighlightedProduct.cshtml" />
     <Content Include="Views\Search\Result.cshtml" />
-    <Content Include="Views\Produit\_MiniatProduit.cshtml" />
+    <Content Include="Views\Shared\_MiniatProduit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -307,6 +307,7 @@
     <Folder Include="Uploads\" />
     <Folder Include="Views\Localisation\" />
     <Folder Include="Views\Produits\" />
+    <Folder Include="Views\Produit\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
