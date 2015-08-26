@@ -11,3 +11,4 @@
 /// <reference path="../plugins/chosen/js/chosen.proto.js" />
 /// <reference path="search/js/verifcheckbox.js" />
 /// <reference path="pagination/js/pagination.js" />
+
