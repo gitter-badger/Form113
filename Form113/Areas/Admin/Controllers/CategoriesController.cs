@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DataLayer.Models;
+using System.IO;
 
 namespace Form113.Areas.Admin.Controllers
 {
@@ -46,12 +47,29 @@ namespace Form113.Areas.Admin.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdCategorie,Libelle")] Categories categories)
+        public ActionResult Create([Bind(Include = "IdCategorie,Libelle")] Categories categories, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(categories);
-                db.SaveChanges();
+                bool pictureValide = true;
+                if (file == null || file.ContentLength <= 0)
+                {
+                    pictureValide = false;
+                }
+                var fileName = Path.GetFileName(file.FileName);
+                if (fileName == null)
+                {
+                    pictureValide = false;
+                }
+                if (pictureValide==true)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                    file.SaveAs(path);
+                    categories.Photo = file.FileName.ToString();
+                    db.Categories.Add(categories);
+                    db.SaveChanges();
+                }
+                
                 return RedirectToAction("Index");
             }
 

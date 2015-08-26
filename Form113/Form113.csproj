@@ -299,6 +299,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\Search\css\" />
+    <Folder Include="Uploads\" />
     <Folder Include="Views\Localisation\" />
     <Folder Include="Views\Produits\" />
   </ItemGroup>
