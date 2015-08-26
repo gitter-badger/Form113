@@ -1,7 +1,9 @@
 ﻿@model List<DataLayer.Models.Photos>
+@using Form113.Helper
 <div class="row">
     @foreach (var item in @Model)
     {
-        <img src="/Uploads/@item.PhotoName" alt="Pas diponnibe" class="img-responsive" />
+        @*<img src="/Uploads/@item.PhotoName" alt="Pas diponnibe" class="img-responsive" />*@
+        @Html.ActionImage("Controller", "Action", null, "/Uploads/" + item.PhotoName)
     }
 </div>

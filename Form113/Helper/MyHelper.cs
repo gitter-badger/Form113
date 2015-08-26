@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Form113.Models;
+using System.Web.Helpers;
 
 namespace Form113.Helper
 {
@@ -516,5 +517,31 @@ namespace Form113.Helper
         }
         #endregion
 
+        // En cours de travail
+        #region PhotoClickable
+        public static MvcHtmlString ActionImage(this HtmlHelper helper, string controller,string action,Object parameters, string src, string alt="",string title="")
+        {
+            TagBuilder tagBuilder = new TagBuilder("img");
+            UrlHelper urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
+            String url = urlHelper.Action(action, controller, parameters);
+            string imgUrl = urlHelper.Content(src);
+            string image = "";
+            StringBuilder html = new StringBuilder();
+
+            // Construction du tag de l'image
+            tagBuilder.MergeAttribute("src", imgUrl);
+            tagBuilder.MergeAttribute("alt", alt);
+            tagBuilder.MergeAttribute("title", title);
+            tagBuilder.AddCssClass("img-responsive");
+            image = tagBuilder.ToString(TagRenderMode.SelfClosing);
+            html.Append("<a href=\"");
+            html.Append(url);
+            html.Append("\">");
+            html.Append(image);
+            html.Append("</a>");
+            return MvcHtmlString.Create(html.ToString());
+
+        }
+        #endregion
     }
 }
