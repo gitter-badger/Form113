@@ -1,12 +1,14 @@
 ﻿$(function () {
     Slider();
+    ListeDesSousCategorie();
     $("#idCategories").change(ListeDesSousCategorie);
 });
+
 function Slider() {
     $("#SliderRange").slider({
         range: true,
         min: 0,
-        step: 1000,
+        step: 10,
         values: [$("#Prixmin").val(), $("#Prixmax").val()],
         slide: function (event, ui) {
             $("#amount").val(ui.values[0] + " € - " + ui.values[1] + " €");
@@ -26,10 +28,8 @@ function Slider() {
         $("#Prixmax").val($("#SliderRange").slider("values", 1));
     }
 }
+
 function ListeDesSousCategorie() {
-    $(".chosen-select").trigger("chosen:updated");
-    $("#idSousCategories").val();
-    $("#idSousCategories").html(" ");
     var idcat = $("#idCategories").val();
     var option = "";
     $.getJSON('/Search/GetJSONSCAT/' + idcat, function (data) {
@@ -37,5 +37,10 @@ function ListeDesSousCategorie() {
             option += '<option value="' + scat.nc + '">' + scat.scat + '</option>';
         });
         $("#idSousCategories").html(option);
+        UpdateChosen();
     });
+}
+
+function UpdateChosen() {
+    $(".chosen-select").trigger("chosen:updated");
 }

@@ -1,10 +1,10 @@
 ﻿$(function () {
     ChosenFinish();
+    ListeDesRegions();
     $("#idContinent").change(ListeDesRegions);
     $("#idRegions").change(ListeDesPays);
 });
 function ListeDesRegions() {
-    $(".chosen-select").trigger("chosen:updated");
     var idcont = $("#idContinent").val();
     var option = "";
     $.getJSON('/Localisation/GetJSONREG/' + idcont, function (data) {
@@ -17,7 +17,6 @@ function ListeDesRegions() {
     });
 }
 function ListeDesPays() {
-    $(".chosen-select").trigger("chosen:updated");
     var idreg = $("#idRegions").val();
     var option = "";
     $.getJSON('/Localisation/GetJSONPAYS/' + idreg, function (data) {
@@ -25,7 +24,12 @@ function ListeDesPays() {
             option += '<option value="' + pay.np + '">' + pay.pay + '</option>';
         });
         $("#idPays").html(option);
+        UpdateChosen();
     });
+}
+
+function UpdateChosen() {
+    $(".chosen-select").trigger("chosen:updated");
 }
 function ChosenFinish() {
     $(".chosen-select").chosen();
