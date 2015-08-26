@@ -12,16 +12,19 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRole
+    public partial class SousCategories
     {
-        public AspNetRole()
+        public SousCategories()
         {
-            this.AspNetUsers = new HashSet<AspNetUser>();
+            this.Produits = new HashSet<Produits>();
         }
     
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public int IdSousCategorie { get; set; }
+        public string Nom { get; set; }
+        public Nullable<int> IdCategorie { get; set; }
+        public string Photo { get; set; }
     
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public virtual Categories Categories { get; set; }
+        public virtual ICollection<Produits> Produits { get; set; }
     }
 }

@@ -12,12 +12,12 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Photo
+    public partial class AspNetUserLogins
     {
-        public string PhotoName { get; set; }
-        public int IdProduit { get; set; }
-        public int IdPhoto { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
     
-        public virtual Produit Produit { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

@@ -12,11 +12,11 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Pay
+    public partial class Pays
     {
-        public Pay()
+        public Pays()
         {
-            this.Produits = new HashSet<Produit>();
+            this.Produits = new HashSet<Produits>();
         }
     
         public string CodeIso3 { get; set; }
@@ -33,7 +33,7 @@ namespace DataLayer.Models
         public int idgovform { get; set; }
         public Nullable<int> idheadofstate { get; set; }
     
-        public virtual ICollection<Produit> Produits { get; set; }
-        public virtual Region Region { get; set; }
+        public virtual ICollection<Produits> Produits { get; set; }
+        public virtual Regions Regions { get; set; }
     }
 }

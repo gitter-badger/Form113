@@ -12,12 +12,21 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogin
+    public partial class Identites
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string UserId { get; set; }
+        public Identites()
+        {
+            this.Utilisateurs = new HashSet<Utilisateurs>();
+        }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public int IdIdentite { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
+        public string Identifiant { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+    
+        public virtual Administrateurs Administrateurs { get; set; }
+        public virtual ICollection<Utilisateurs> Utilisateurs { get; set; }
     }
 }

@@ -12,21 +12,13 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Utilisateur
+    public partial class AspNetUserClaims
     {
-        public Utilisateur()
-        {
-            this.Commandes = new HashSet<Commande>();
-        }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public int IdUtilisateur { get; set; }
-        public int IdAdresse { get; set; }
-        public System.DateTime DateInscription { get; set; }
-        public Nullable<System.DateTime> LastConnection { get; set; }
-        public Nullable<int> IdIdentite { get; set; }
-    
-        public virtual Adress Adress { get; set; }
-        public virtual ICollection<Commande> Commandes { get; set; }
-        public virtual Identite Identite { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

@@ -12,18 +12,17 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Region
+    public partial class ZipCodes
     {
-        public Region()
+        public ZipCodes()
         {
-            this.Pays = new HashSet<Pay>();
+            this.Adresses = new HashSet<Adresses>();
         }
     
-        public int idRegion { get; set; }
-        public string name { get; set; }
-        public int idContinent { get; set; }
+        public string CodePostal { get; set; }
+        public string CodeINSEE { get; set; }
     
-        public virtual Continent Continent { get; set; }
-        public virtual ICollection<Pay> Pays { get; set; }
+        public virtual ICollection<Adresses> Adresses { get; set; }
+        public virtual Villes Villes { get; set; }
     }
 }

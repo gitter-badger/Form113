@@ -12,17 +12,12 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ZipCode
+    public partial class Photos
     {
-        public ZipCode()
-        {
-            this.Adresses = new HashSet<Adress>();
-        }
+        public string PhotoName { get; set; }
+        public int IdProduit { get; set; }
+        public int IdPhoto { get; set; }
     
-        public string CodePostal { get; set; }
-        public string CodeINSEE { get; set; }
-    
-        public virtual ICollection<Adress> Adresses { get; set; }
-        public virtual Ville Ville { get; set; }
+        public virtual Produits Produits { get; set; }
     }
 }

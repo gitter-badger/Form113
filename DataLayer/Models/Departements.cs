@@ -12,17 +12,18 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class Departements
     {
-        public Category()
+        public Departements()
         {
-            this.SousCategories = new HashSet<SousCategory>();
+            this.Villes = new HashSet<Villes>();
         }
     
-        public int IdCategorie { get; set; }
-        public string Libelle { get; set; }
-        public string Photo { get; set; }
+        public string NumDep { get; set; }
+        public string NumReg { get; set; }
+        public string Nom { get; set; }
     
-        public virtual ICollection<SousCategory> SousCategories { get; set; }
+        public virtual RegionsFR RegionsFR { get; set; }
+        public virtual ICollection<Villes> Villes { get; set; }
     }
 }

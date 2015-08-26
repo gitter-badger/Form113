@@ -16,12 +16,12 @@ namespace DataLayer.Models
     {
         public RegionsFR()
         {
-            this.Departements = new HashSet<Departement>();
+            this.Departements = new HashSet<Departements>();
         }
     
         public string NumReg { get; set; }
         public string Nom { get; set; }
     
-        public virtual ICollection<Departement> Departements { get; set; }
+        public virtual ICollection<Departements> Departements { get; set; }
     }
 }

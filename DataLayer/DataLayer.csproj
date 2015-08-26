@@ -94,6 +94,9 @@
     <Compile Include="Models\Continents.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Departements.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>

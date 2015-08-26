@@ -12,11 +12,11 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Ville
+    public partial class Villes
     {
-        public Ville()
+        public Villes()
         {
-            this.ZipCodes = new HashSet<ZipCode>();
+            this.ZipCodes = new HashSet<ZipCodes>();
         }
     
         public string CodeINSEE { get; set; }
@@ -35,7 +35,7 @@ namespace DataLayer.Models
         public string NomTri { get; set; }
         public string Prefixe { get; set; }
     
-        public virtual Departement Departement { get; set; }
-        public virtual ICollection<ZipCode> ZipCodes { get; set; }
+        public virtual Departements Departements { get; set; }
+        public virtual ICollection<ZipCodes> ZipCodes { get; set; }
     }
 }

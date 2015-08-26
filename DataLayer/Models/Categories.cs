@@ -12,21 +12,17 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Commande
+    public partial class Categories
     {
-        public Commande()
+        public Categories()
         {
-            this.Commandes_details = new HashSet<Commandes_details>();
+            this.SousCategories = new HashSet<SousCategories>();
         }
     
-        public int IdCommande { get; set; }
-        public Nullable<int> IdAcheteur { get; set; }
-        public string EtatCommande { get; set; }
-        public Nullable<System.DateTime> DateCommande { get; set; }
-        public Nullable<System.DateTime> DateLivraison { get; set; }
-        public Nullable<int> IdAdresse { get; set; }
+        public int IdCategorie { get; set; }
+        public string Libelle { get; set; }
+        public string Photo { get; set; }
     
-        public virtual ICollection<Commandes_details> Commandes_details { get; set; }
-        public virtual Utilisateur Utilisateur { get; set; }
+        public virtual ICollection<SousCategories> SousCategories { get; set; }
     }
 }
