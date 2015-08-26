@@ -25,26 +25,27 @@ namespace DataLayer.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Administrateurs> Administrateurs { get; set; }
-        public virtual DbSet<Adresses> Adresses { get; set; }
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Commandes> Commandes { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<Administrateur> Administrateurs { get; set; }
+        public virtual DbSet<Adress> Adresses { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Commande> Commandes { get; set; }
         public virtual DbSet<Commandes_details> Commandes_details { get; set; }
-        public virtual DbSet<Continents> Continents { get; set; }
-        public virtual DbSet<Departements> Departements { get; set; }
-        public virtual DbSet<Identites> Identites { get; set; }
-        public virtual DbSet<Pays> Pays { get; set; }
-        public virtual DbSet<Photos> Photos { get; set; }
-        public virtual DbSet<Produits> Produits { get; set; }
-        public virtual DbSet<Regions> Regions { get; set; }
-        public virtual DbSet<RegionsFR> RegionsFR { get; set; }
-        public virtual DbSet<SousCategories> SousCategories { get; set; }
-        public virtual DbSet<Utilisateurs> Utilisateurs { get; set; }
-        public virtual DbSet<Villes> Villes { get; set; }
-        public virtual DbSet<ZipCodes> ZipCodes { get; set; }
-        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Continent> Continents { get; set; }
+        public virtual DbSet<Departement> Departements { get; set; }
+        public virtual DbSet<Identite> Identites { get; set; }
+        public virtual DbSet<Pay> Pays { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
+        public virtual DbSet<Produit> Produits { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<RegionsFR> RegionsFRs { get; set; }
+        public virtual DbSet<SousCategory> SousCategories { get; set; }
+        public virtual DbSet<Utilisateur> Utilisateurs { get; set; }
+        public virtual DbSet<Ville> Villes { get; set; }
+        public virtual DbSet<ZipCode> ZipCodes { get; set; }
     }
 }

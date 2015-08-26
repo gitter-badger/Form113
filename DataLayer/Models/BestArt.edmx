@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Administrateurs">
           <Key>
             <PropertyRef Name="IdAdministrateur" />
@@ -169,6 +179,7 @@
           <Property Name="Promotion" Type="float" />
           <Property Name="CodePays" Type="char" MaxLength="3" />
           <Property Name="Stock" Type="int" />
+          <Property Name="NbVues" Type="int" />
         </EntityType>
         <EntityType Name="Regions">
           <Key>
@@ -483,6 +494,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BestArtModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Administrateurs" EntityType="Self.Administrateurs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Adresses" EntityType="Self.Adresses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -586,18 +598,29 @@
             <End Role="Regions" EntitySet="Regions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BestArtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Administrateurs">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Administrateur">
           <Key>
             <PropertyRef Name="IdAdministrateur" />
           </Key>
           <Property Name="IdAdministrateur" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Identites" Relationship="Self.fk_administrateurs_identites" FromRole="Administrateurs" ToRole="Identites" />
+          <NavigationProperty Name="Identite" Relationship="Self.fk_administrateurs_identites" FromRole="Administrateurs" ToRole="Identites" />
         </EntityType>
-        <EntityType Name="Adresses">
+        <EntityType Name="Adress">
           <Key>
             <PropertyRef Name="IdAdresse" />
           </Key>
@@ -607,10 +630,59 @@
           <Property Name="Ligne3" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
           <Property Name="CodePostal" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="CodeINSEE" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="ZipCodes" Relationship="Self.fk_adresses_zipcodes" FromRole="Adresses" ToRole="ZipCodes" />
+          <NavigationProperty Name="ZipCode" Relationship="Self.fk_adresses_zipcodes" FromRole="Adresses" ToRole="ZipCodes" />
           <NavigationProperty Name="Utilisateurs" Relationship="Self.fk_utilisateurs_adresse" FromRole="Adresses" ToRole="Utilisateurs" />
         </EntityType>
-        <EntityType Name="Categories">
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Category">
           <Key>
             <PropertyRef Name="IdCategorie" />
           </Key>
@@ -619,7 +691,7 @@
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SousCategories" Relationship="Self.FK_SousCategory_Categories" FromRole="Categories" ToRole="SousCategories" />
         </EntityType>
-        <EntityType Name="Commandes">
+        <EntityType Name="Commande">
           <Key>
             <PropertyRef Name="IdCommande" />
           </Key>
@@ -630,7 +702,7 @@
           <Property Name="DateLivraison" Type="DateTime" Precision="3" />
           <Property Name="IdAdresse" Type="Int32" />
           <NavigationProperty Name="Commandes_details" Relationship="Self.fk_commande_details_commande" FromRole="Commandes" ToRole="Commandes_details" />
-          <NavigationProperty Name="Utilisateurs" Relationship="Self.fk_commande_utilisateur" FromRole="Commandes" ToRole="Utilisateurs" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.fk_commande_utilisateur" FromRole="Commandes" ToRole="Utilisateurs" />
         </EntityType>
         <EntityType Name="Commandes_details">
           <Key>
@@ -642,10 +714,10 @@
           <Property Name="prix_unitaire" Type="Double" />
           <Property Name="Promotion" Type="Double" />
           <Property Name="quantite" Type="Int32" />
-          <NavigationProperty Name="Commandes" Relationship="Self.fk_commande_details_commande" FromRole="Commandes_details" ToRole="Commandes" />
-          <NavigationProperty Name="Produits" Relationship="Self.fk_commande_details_produit" FromRole="Commandes_details" ToRole="Produits" />
+          <NavigationProperty Name="Commande" Relationship="Self.fk_commande_details_commande" FromRole="Commandes_details" ToRole="Commandes" />
+          <NavigationProperty Name="Produit" Relationship="Self.fk_commande_details_produit" FromRole="Commandes_details" ToRole="Produits" />
         </EntityType>
-        <EntityType Name="Continents">
+        <EntityType Name="Continent">
           <Key>
             <PropertyRef Name="idContinent" />
           </Key>
@@ -653,7 +725,7 @@
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Regions" Relationship="Self.Regions_Continents_fk" FromRole="Continents" ToRole="Regions" />
         </EntityType>
-        <EntityType Name="Departements">
+        <EntityType Name="Departement">
           <Key>
             <PropertyRef Name="NumDep" />
           </Key>
@@ -663,7 +735,7 @@
           <NavigationProperty Name="RegionsFR" Relationship="Self.fk_departements_regions" FromRole="Departements" ToRole="RegionsFR" />
           <NavigationProperty Name="Villes" Relationship="Self.fk_villesbis_departements" FromRole="Departements" ToRole="Villes" />
         </EntityType>
-        <EntityType Name="Identites">
+        <EntityType Name="Identite">
           <Key>
             <PropertyRef Name="IdIdentite" />
           </Key>
@@ -673,10 +745,10 @@
           <Property Name="Identifiant" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Administrateurs" Relationship="Self.fk_administrateurs_identites" FromRole="Identites" ToRole="Administrateurs" />
+          <NavigationProperty Name="Administrateur" Relationship="Self.fk_administrateurs_identites" FromRole="Identites" ToRole="Administrateurs" />
           <NavigationProperty Name="Utilisateurs" Relationship="Self.fk_utilisateurs_identites" FromRole="Identites" ToRole="Utilisateurs" />
         </EntityType>
-        <EntityType Name="Pays">
+        <EntityType Name="Pay">
           <Key>
             <PropertyRef Name="CodeIso3" />
           </Key>
@@ -694,18 +766,18 @@
           <Property Name="idgovform" Type="Int32" Nullable="false" />
           <Property Name="idheadofstate" Type="Int32" />
           <NavigationProperty Name="Produits" Relationship="Self.fk_produits_pays" FromRole="Pays" ToRole="Produits" />
-          <NavigationProperty Name="Regions" Relationship="Self.Pays_Regions_fk" FromRole="Pays" ToRole="Regions" />
+          <NavigationProperty Name="Region" Relationship="Self.Pays_Regions_fk" FromRole="Pays" ToRole="Regions" />
         </EntityType>
-        <EntityType Name="Photos">
+        <EntityType Name="Photo">
           <Key>
             <PropertyRef Name="IdPhoto" />
           </Key>
           <Property Name="PhotoName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IdProduit" Type="Int32" Nullable="false" />
           <Property Name="IdPhoto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Produits" Relationship="Self.fk_photos_produits" FromRole="Photos" ToRole="Produits" />
+          <NavigationProperty Name="Produit" Relationship="Self.fk_photos_produits" FromRole="Photos" ToRole="Produits" />
         </EntityType>
-        <EntityType Name="Produits">
+        <EntityType Name="Produit">
           <Key>
             <PropertyRef Name="IdProduit" />
           </Key>
@@ -719,19 +791,20 @@
           <Property Name="Promotion" Type="Double" />
           <Property Name="CodePays" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="Stock" Type="Int32" />
+          <Property Name="NbVues" Type="Int32" />
           <NavigationProperty Name="Commandes_details" Relationship="Self.fk_commande_details_produit" FromRole="Produits" ToRole="Commandes_details" />
-          <NavigationProperty Name="Pays" Relationship="Self.fk_produits_pays" FromRole="Produits" ToRole="Pays" />
+          <NavigationProperty Name="Pay" Relationship="Self.fk_produits_pays" FromRole="Produits" ToRole="Pays" />
           <NavigationProperty Name="Photos" Relationship="Self.fk_photos_produits" FromRole="Produits" ToRole="Photos" />
-          <NavigationProperty Name="SousCategories" Relationship="Self.FK_Produits_SousCategorie" FromRole="Produits" ToRole="SousCategories" />
+          <NavigationProperty Name="SousCategory" Relationship="Self.FK_Produits_SousCategorie" FromRole="Produits" ToRole="SousCategories" />
         </EntityType>
-        <EntityType Name="Regions">
+        <EntityType Name="Region">
           <Key>
             <PropertyRef Name="idRegion" />
           </Key>
           <Property Name="idRegion" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="26" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idContinent" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Continents" Relationship="Self.Regions_Continents_fk" FromRole="Regions" ToRole="Continents" />
+          <NavigationProperty Name="Continent" Relationship="Self.Regions_Continents_fk" FromRole="Regions" ToRole="Continents" />
           <NavigationProperty Name="Pays" Relationship="Self.Pays_Regions_fk" FromRole="Regions" ToRole="Pays" />
         </EntityType>
         <EntityType Name="RegionsFR">
@@ -742,7 +815,7 @@
           <Property Name="Nom" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Departements" Relationship="Self.fk_departements_regions" FromRole="RegionsFR" ToRole="Departements" />
         </EntityType>
-        <EntityType Name="SousCategories">
+        <EntityType Name="SousCategory">
           <Key>
             <PropertyRef Name="IdSousCategorie" />
           </Key>
@@ -750,10 +823,10 @@
           <Property Name="Nom" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
           <Property Name="IdCategorie" Type="Int32" />
           <Property Name="Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK_SousCategory_Categories" FromRole="SousCategories" ToRole="Categories" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_SousCategory_Categories" FromRole="SousCategories" ToRole="Categories" />
           <NavigationProperty Name="Produits" Relationship="Self.FK_Produits_SousCategorie" FromRole="SousCategories" ToRole="Produits" />
         </EntityType>
-        <EntityType Name="Utilisateurs">
+        <EntityType Name="Utilisateur">
           <Key>
             <PropertyRef Name="IdUtilisateur" />
           </Key>
@@ -762,11 +835,11 @@
           <Property Name="DateInscription" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastConnection" Type="DateTime" Precision="7" />
           <Property Name="IdIdentite" Type="Int32" />
-          <NavigationProperty Name="Adresses" Relationship="Self.fk_utilisateurs_adresse" FromRole="Utilisateurs" ToRole="Adresses" />
+          <NavigationProperty Name="Adress" Relationship="Self.fk_utilisateurs_adresse" FromRole="Utilisateurs" ToRole="Adresses" />
           <NavigationProperty Name="Commandes" Relationship="Self.fk_commande_utilisateur" FromRole="Utilisateurs" ToRole="Commandes" />
-          <NavigationProperty Name="Identites" Relationship="Self.fk_utilisateurs_identites" FromRole="Utilisateurs" ToRole="Identites" />
+          <NavigationProperty Name="Identite" Relationship="Self.fk_utilisateurs_identites" FromRole="Utilisateurs" ToRole="Identites" />
         </EntityType>
-        <EntityType Name="Villes">
+        <EntityType Name="Ville">
           <Key>
             <PropertyRef Name="CodeINSEE" />
           </Key>
@@ -785,10 +858,10 @@
           <Property Name="Nom" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="NomTri" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Prefixe" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Departements" Relationship="Self.fk_villesbis_departements" FromRole="Villes" ToRole="Departements" />
+          <NavigationProperty Name="Departement" Relationship="Self.fk_villesbis_departements" FromRole="Villes" ToRole="Departements" />
           <NavigationProperty Name="ZipCodes" Relationship="Self.fk_zipcodes_villes" FromRole="Villes" ToRole="ZipCodes" />
         </EntityType>
-        <EntityType Name="ZipCodes">
+        <EntityType Name="ZipCode">
           <Key>
             <PropertyRef Name="CodePostal" />
             <PropertyRef Name="CodeINSEE" />
@@ -796,11 +869,11 @@
           <Property Name="CodePostal" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="CodeINSEE" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Adresses" Relationship="Self.fk_adresses_zipcodes" FromRole="ZipCodes" ToRole="Adresses" />
-          <NavigationProperty Name="Villes" Relationship="Self.fk_zipcodes_villes" FromRole="ZipCodes" ToRole="Villes" />
+          <NavigationProperty Name="Ville" Relationship="Self.fk_zipcodes_villes" FromRole="ZipCodes" ToRole="Villes" />
         </EntityType>
         <Association Name="fk_administrateurs_identites">
-          <End Role="Identites" Type="Self.Identites" Multiplicity="1" />
-          <End Role="Administrateurs" Type="Self.Administrateurs" Multiplicity="0..1" />
+          <End Role="Identites" Type="Self.Identite" Multiplicity="1" />
+          <End Role="Administrateurs" Type="Self.Administrateur" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Identites">
               <PropertyRef Name="IdIdentite" />
@@ -811,8 +884,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_adresses_zipcodes">
-          <End Role="ZipCodes" Type="Self.ZipCodes" Multiplicity="0..1" />
-          <End Role="Adresses" Type="Self.Adresses" Multiplicity="*" />
+          <End Role="ZipCodes" Type="Self.ZipCode" Multiplicity="0..1" />
+          <End Role="Adresses" Type="Self.Adress" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ZipCodes">
               <PropertyRef Name="CodePostal" />
@@ -825,8 +898,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_utilisateurs_adresse">
-          <End Role="Adresses" Type="Self.Adresses" Multiplicity="1" />
-          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="*" />
+          <End Role="Adresses" Type="Self.Adress" Multiplicity="1" />
+          <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Adresses">
               <PropertyRef Name="IdAdresse" />
@@ -836,9 +909,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SousCategory_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
-          <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="*" />
+          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="SousCategories" Type="Self.SousCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="IdCategorie" />
@@ -849,7 +950,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_commande_details_commande">
-          <End Role="Commandes" Type="Self.Commandes" Multiplicity="1" />
+          <End Role="Commandes" Type="Self.Commande" Multiplicity="1" />
           <End Role="Commandes_details" Type="Self.Commandes_details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Commandes">
@@ -861,8 +962,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_commande_utilisateur">
-          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1" />
-          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="0..1" />
+          <End Role="Commandes" Type="Self.Commande" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Utilisateurs">
               <PropertyRef Name="IdUtilisateur" />
@@ -873,7 +974,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_commande_details_produit">
-          <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
+          <End Role="Produits" Type="Self.Produit" Multiplicity="1" />
           <End Role="Commandes_details" Type="Self.Commandes_details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Produits">
@@ -885,8 +986,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Regions_Continents_fk">
-          <End Role="Continents" Type="Self.Continents" Multiplicity="1" />
-          <End Role="Regions" Type="Self.Regions" Multiplicity="*" />
+          <End Role="Continents" Type="Self.Continent" Multiplicity="1" />
+          <End Role="Regions" Type="Self.Region" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Continents">
               <PropertyRef Name="idContinent" />
@@ -898,7 +999,7 @@
         </Association>
         <Association Name="fk_departements_regions">
           <End Role="RegionsFR" Type="Self.RegionsFR" Multiplicity="1" />
-          <End Role="Departements" Type="Self.Departements" Multiplicity="*" />
+          <End Role="Departements" Type="Self.Departement" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RegionsFR">
               <PropertyRef Name="NumReg" />
@@ -909,8 +1010,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_villesbis_departements">
-          <End Role="Departements" Type="Self.Departements" Multiplicity="1" />
-          <End Role="Villes" Type="Self.Villes" Multiplicity="*" />
+          <End Role="Departements" Type="Self.Departement" Multiplicity="1" />
+          <End Role="Villes" Type="Self.Ville" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Departements">
               <PropertyRef Name="NumDep" />
@@ -921,8 +1022,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_utilisateurs_identites">
-          <End Role="Identites" Type="Self.Identites" Multiplicity="0..1" />
-          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="*" />
+          <End Role="Identites" Type="Self.Identite" Multiplicity="0..1" />
+          <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Identites">
               <PropertyRef Name="IdIdentite" />
@@ -933,8 +1034,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_produits_pays">
-          <End Role="Pays" Type="Self.Pays" Multiplicity="0..1" />
-          <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
+          <End Role="Pays" Type="Self.Pay" Multiplicity="0..1" />
+          <End Role="Produits" Type="Self.Produit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pays">
               <PropertyRef Name="CodeIso3" />
@@ -945,8 +1046,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Pays_Regions_fk">
-          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
-          <End Role="Pays" Type="Self.Pays" Multiplicity="*" />
+          <End Role="Regions" Type="Self.Region" Multiplicity="1" />
+          <End Role="Pays" Type="Self.Pay" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Regions">
               <PropertyRef Name="idRegion" />
@@ -957,8 +1058,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_photos_produits">
-          <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
-          <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
+          <End Role="Produits" Type="Self.Produit" Multiplicity="1" />
+          <End Role="Photos" Type="Self.Photo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Produits">
               <PropertyRef Name="IdProduit" />
@@ -969,8 +1070,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Produits_SousCategorie">
-          <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="1" />
-          <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
+          <End Role="SousCategories" Type="Self.SousCategory" Multiplicity="1" />
+          <End Role="Produits" Type="Self.Produit" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SousCategories">
               <PropertyRef Name="IdSousCategorie" />
@@ -981,8 +1082,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_zipcodes_villes">
-          <End Role="Villes" Type="Self.Villes" Multiplicity="1" />
-          <End Role="ZipCodes" Type="Self.ZipCodes" Multiplicity="*" />
+          <End Role="Villes" Type="Self.Ville" Multiplicity="1" />
+          <End Role="ZipCodes" Type="Self.ZipCode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Villes">
               <PropertyRef Name="CodeINSEE" />
@@ -992,24 +1093,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="BestArtEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Administrateurs" EntityType="Self.Administrateurs" />
-          <EntitySet Name="Adresses" EntityType="Self.Adresses" />
-          <EntitySet Name="Categories" EntityType="Self.Categories" />
-          <EntitySet Name="Commandes" EntityType="Self.Commandes" />
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Administrateurs" EntityType="Self.Administrateur" />
+          <EntitySet Name="Adresses" EntityType="Self.Adress" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Commandes" EntityType="Self.Commande" />
           <EntitySet Name="Commandes_details" EntityType="Self.Commandes_details" />
-          <EntitySet Name="Continents" EntityType="Self.Continents" />
-          <EntitySet Name="Departements" EntityType="Self.Departements" />
-          <EntitySet Name="Identites" EntityType="Self.Identites" />
-          <EntitySet Name="Pays" EntityType="Self.Pays" />
-          <EntitySet Name="Photos" EntityType="Self.Photos" />
-          <EntitySet Name="Produits" EntityType="Self.Produits" />
-          <EntitySet Name="Regions" EntityType="Self.Regions" />
-          <EntitySet Name="RegionsFR" EntityType="Self.RegionsFR" />
-          <EntitySet Name="SousCategories" EntityType="Self.SousCategories" />
-          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" />
-          <EntitySet Name="Villes" EntityType="Self.Villes" />
-          <EntitySet Name="ZipCodes" EntityType="Self.ZipCodes" />
+          <EntitySet Name="Continents" EntityType="Self.Continent" />
+          <EntitySet Name="Departements" EntityType="Self.Departement" />
+          <EntitySet Name="Identites" EntityType="Self.Identite" />
+          <EntitySet Name="Pays" EntityType="Self.Pay" />
+          <EntitySet Name="Photos" EntityType="Self.Photo" />
+          <EntitySet Name="Produits" EntityType="Self.Produit" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="RegionsFRs" EntityType="Self.RegionsFR" />
+          <EntitySet Name="SousCategories" EntityType="Self.SousCategory" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+          <EntitySet Name="Villes" EntityType="Self.Ville" />
+          <EntitySet Name="ZipCodes" EntityType="Self.ZipCode" />
           <AssociationSet Name="fk_administrateurs_identites" Association="Self.fk_administrateurs_identites">
             <End Role="Identites" EntitySet="Identites" />
             <End Role="Administrateurs" EntitySet="Administrateurs" />
@@ -1021,6 +1131,14 @@
           <AssociationSet Name="fk_utilisateurs_adresse" Association="Self.fk_utilisateurs_adresse">
             <End Role="Adresses" EntitySet="Adresses" />
             <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
           <AssociationSet Name="FK_SousCategory_Categories" Association="Self.FK_SousCategory_Categories">
             <End Role="Categories" EntitySet="Categories" />
@@ -1043,7 +1161,7 @@
             <End Role="Regions" EntitySet="Regions" />
           </AssociationSet>
           <AssociationSet Name="fk_departements_regions" Association="Self.fk_departements_regions">
-            <End Role="RegionsFR" EntitySet="RegionsFR" />
+            <End Role="RegionsFR" EntitySet="RegionsFRs" />
             <End Role="Departements" EntitySet="Departements" />
           </AssociationSet>
           <AssociationSet Name="fk_villesbis_departements" Association="Self.fk_villesbis_departements">
@@ -1074,119 +1192,36 @@
             <End Role="Villes" EntitySet="Villes" />
             <End Role="ZipCodes" EntitySet="ZipCodes" />
           </AssociationSet>
-          <EntitySet Name="AspNetRoles" EntityType="BestArtModel.AspNetRoles" />
-          <EntitySet Name="AspNetUserClaims" EntityType="BestArtModel.AspNetUserClaims" />
-          <EntitySet Name="AspNetUserLogins" EntityType="BestArtModel.AspNetUserLogins" />
-          <EntitySet Name="AspNetUsers" EntityType="BestArtModel.AspNetUsers" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="BestArtModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="BestArtModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="BestArtModel.AspNetUserRoles">
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="AspNetRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="BestArtModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="AspNetUserClaims">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="BestArtModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="AspNetUserLogins">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="BestArtModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="AspNetUsers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
-          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="BestArtModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="BestArtModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="AspNetRoles" Relationship="BestArtModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Type="BestArtModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BestArtModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserClaims">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Type="BestArtModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BestArtModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserLogins">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="BestArtModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
-          <End Type="BestArtModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BestArtModelStoreContainer" CdmEntityContainer="BestArtEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="BestArtModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Administrateurs">
-            <EntityTypeMapping TypeName="BestArtModel.Administrateurs">
+            <EntityTypeMapping TypeName="BestArtModel.Administrateur">
               <MappingFragment StoreEntitySet="Administrateurs">
                 <ScalarProperty Name="IdAdministrateur" ColumnName="IdAdministrateur" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Adresses">
-            <EntityTypeMapping TypeName="BestArtModel.Adresses">
+            <EntityTypeMapping TypeName="BestArtModel.Adress">
               <MappingFragment StoreEntitySet="Adresses">
                 <ScalarProperty Name="IdAdresse" ColumnName="IdAdresse" />
                 <ScalarProperty Name="Ligne1" ColumnName="Ligne1" />
@@ -1197,8 +1232,53 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="BestArtModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="BestArtModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="BestArtModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="BestArtModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="BestArtModel.Categories">
+            <EntityTypeMapping TypeName="BestArtModel.Category">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="IdCategorie" ColumnName="IdCategorie" />
                 <ScalarProperty Name="Libelle" ColumnName="Libelle" />
@@ -1207,7 +1287,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Commandes">
-            <EntityTypeMapping TypeName="BestArtModel.Commandes">
+            <EntityTypeMapping TypeName="BestArtModel.Commande">
               <MappingFragment StoreEntitySet="Commandes">
                 <ScalarProperty Name="IdCommande" ColumnName="IdCommande" />
                 <ScalarProperty Name="IdAcheteur" ColumnName="IdAcheteur" />
@@ -1230,7 +1310,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Continents">
-            <EntityTypeMapping TypeName="BestArtModel.Continents">
+            <EntityTypeMapping TypeName="BestArtModel.Continent">
               <MappingFragment StoreEntitySet="Continents">
                 <ScalarProperty Name="idContinent" ColumnName="idContinent" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -1238,7 +1318,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departements">
-            <EntityTypeMapping TypeName="BestArtModel.Departements">
+            <EntityTypeMapping TypeName="BestArtModel.Departement">
               <MappingFragment StoreEntitySet="Departements">
                 <ScalarProperty Name="NumDep" ColumnName="NumDep" />
                 <ScalarProperty Name="NumReg" ColumnName="NumReg" />
@@ -1247,7 +1327,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Identites">
-            <EntityTypeMapping TypeName="BestArtModel.Identites">
+            <EntityTypeMapping TypeName="BestArtModel.Identite">
               <MappingFragment StoreEntitySet="Identites">
                 <ScalarProperty Name="IdIdentite" ColumnName="IdIdentite" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
@@ -1259,7 +1339,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pays">
-            <EntityTypeMapping TypeName="BestArtModel.Pays">
+            <EntityTypeMapping TypeName="BestArtModel.Pay">
               <MappingFragment StoreEntitySet="Pays">
                 <ScalarProperty Name="CodeIso3" ColumnName="CodeIso3" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1278,7 +1358,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Photos">
-            <EntityTypeMapping TypeName="BestArtModel.Photos">
+            <EntityTypeMapping TypeName="BestArtModel.Photo">
               <MappingFragment StoreEntitySet="Photos">
                 <ScalarProperty Name="PhotoName" ColumnName="PhotoName" />
                 <ScalarProperty Name="IdProduit" ColumnName="IdProduit" />
@@ -1287,7 +1367,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Produits">
-            <EntityTypeMapping TypeName="BestArtModel.Produits">
+            <EntityTypeMapping TypeName="BestArtModel.Produit">
               <MappingFragment StoreEntitySet="Produits">
                 <ScalarProperty Name="IdProduit" ColumnName="IdProduit" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
@@ -1299,11 +1379,12 @@
                 <ScalarProperty Name="Promotion" ColumnName="Promotion" />
                 <ScalarProperty Name="CodePays" ColumnName="CodePays" />
                 <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="NbVues" ColumnName="NbVues" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Regions">
-            <EntityTypeMapping TypeName="BestArtModel.Regions">
+            <EntityTypeMapping TypeName="BestArtModel.Region">
               <MappingFragment StoreEntitySet="Regions">
                 <ScalarProperty Name="idRegion" ColumnName="idRegion" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -1311,7 +1392,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RegionsFR">
+          <EntitySetMapping Name="RegionsFRs">
             <EntityTypeMapping TypeName="BestArtModel.RegionsFR">
               <MappingFragment StoreEntitySet="RegionsFR">
                 <ScalarProperty Name="NumReg" ColumnName="NumReg" />
@@ -1320,7 +1401,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SousCategories">
-            <EntityTypeMapping TypeName="BestArtModel.SousCategories">
+            <EntityTypeMapping TypeName="BestArtModel.SousCategory">
               <MappingFragment StoreEntitySet="SousCategories">
                 <ScalarProperty Name="IdSousCategorie" ColumnName="IdSousCategorie" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
@@ -1330,7 +1411,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Utilisateurs">
-            <EntityTypeMapping TypeName="BestArtModel.Utilisateurs">
+            <EntityTypeMapping TypeName="BestArtModel.Utilisateur">
               <MappingFragment StoreEntitySet="Utilisateurs">
                 <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
                 <ScalarProperty Name="IdAdresse" ColumnName="IdAdresse" />
@@ -1341,7 +1422,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Villes">
-            <EntityTypeMapping TypeName="BestArtModel.Villes">
+            <EntityTypeMapping TypeName="BestArtModel.Ville">
               <MappingFragment StoreEntitySet="Villes">
                 <ScalarProperty Name="CodeINSEE" ColumnName="CodeINSEE" />
                 <ScalarProperty Name="Commune" ColumnName="Commune" />
@@ -1362,64 +1443,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ZipCodes">
-            <EntityTypeMapping TypeName="BestArtModel.ZipCodes">
+            <EntityTypeMapping TypeName="BestArtModel.ZipCode">
               <MappingFragment StoreEntitySet="ZipCodes">
                 <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
                 <ScalarProperty Name="CodeINSEE" ColumnName="CodeINSEE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="BestArtModel.AspNetRoles">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="BestArtModel.AspNetUserClaims">
-              <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="BestArtModel.AspNetUserLogins">
-              <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="BestArtModel.AspNetUsers">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="BestArtModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
@@ -1436,7 +1472,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />

@@ -20,7 +20,7 @@ namespace DataLayer.Models
         public Nullable<double> Promotion { get; set; }
         public Nullable<int> quantite { get; set; }
     
-        public virtual Commandes Commandes { get; set; }
-        public virtual Produits Produits { get; set; }
+        public virtual Commande Commande { get; set; }
+        public virtual Produit Produit { get; set; }
     }
 }
