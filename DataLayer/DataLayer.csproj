@@ -55,6 +55,18 @@
     <Compile Include="Models\Adresses.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BestArt.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

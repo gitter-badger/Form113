@@ -212,11 +212,6 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Produits\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Produits\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Produits\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Produits\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Produits\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Categories\Details.cshtml" />
@@ -228,6 +223,11 @@
     <Content Include="Areas\Admin\Views\SousCategories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\SousCategories\Index.cshtml" />
     <Content Include="Plugins\Chosen\js\bower.json" />
+    <Content Include="Areas\Admin\Views\Produits\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Plugins\Chosen\css\chosen.css" />
     <Content Include="Plugins\Chosen\css\chosen.min.css" />
@@ -290,6 +290,7 @@
     <Content Include="Views\Shared\_NbProduits.cshtml" />
     <Content Include="Views\Produit\_HighlightedProduct.cshtml" />
     <Content Include="Views\Search\Result.cshtml" />
+    <Content Include="Views\Produit\_MiniatProduit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

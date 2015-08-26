@@ -96,10 +96,26 @@ namespace Form113.Areas.Admin.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdCategorie,Libelle")] Categories categories)
+        public ActionResult Edit([Bind(Include = "IdCategorie,Libelle,Photo")] Categories categories, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                 bool pictureValide = true;
+                if (file == null || file.ContentLength <= 0)
+                {
+                    pictureValide = false;
+                }
+                var fileName = Path.GetFileName(file.FileName);
+                if (fileName == null)
+                {
+                    pictureValide = false;
+                }
+                if (pictureValide == true)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                    file.SaveAs(path);
+                    categories.Photo = file.FileName.ToString();
+                }
                 db.Entry(categories).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -24,13 +24,12 @@ namespace DataLayer.Models
         public string Nom { get; set; }
         public string Couleur { get; set; }
         public string Description { get; set; }
-        public Nullable<int> IdAcheteur { get; set; }
-        public Nullable<int> IdAdresse { get; set; }
         public int Prix { get; set; }
         public int IdSousCategorie { get; set; }
         public System.DateTime DateMiseEnVente { get; set; }
         public Nullable<double> Promotion { get; set; }
         public string CodePays { get; set; }
+        public Nullable<int> Stock { get; set; }
     
         public virtual ICollection<Commandes_details> Commandes_details { get; set; }
         public virtual Pays Pays { get; set; }

@@ -19,9 +19,7 @@ namespace Form113.Controllers
         public PartialViewResult NbProduits()
         {
             var db = new BestArtEntities();
-
             var nbproduits = db.Produits.Count();
-
             return PartialView("_NbProduits", nbproduits);
         }
         
@@ -29,11 +27,14 @@ namespace Form113.Controllers
         public PartialViewResult HighlightedProduct()
         {
             var db = new BestArtEntities();
-
             var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Take(3).ToList();
-
             return PartialView("_HighlightedProduct", res);
         }
-        
+
+        [ChildActionOnly]
+        public PartialViewResult MiniatProduit(Produits p)
+        {
+            return PartialView(p);
+        }
     }
 }

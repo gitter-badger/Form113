@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DataLayer.Models.Categories>
+﻿@model List<DataLayer.Models.Categories>
 
 @{
     ViewBag.Title = "Index";
@@ -12,15 +12,21 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Libelle)
+           <p>Libellé</p>
+        </th>
+        <th>
+            <p>Photos</p>    
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in (List<DataLayer.Models.Categories>)Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Libelle)
+           <p>@item.Libelle</p>
+        </td>
+        <td>
+            <img src="/Uploads/@item.Photo" alt="Pas diponnibe" class="img-responsive" height="70" width="70" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IdCategorie }) |

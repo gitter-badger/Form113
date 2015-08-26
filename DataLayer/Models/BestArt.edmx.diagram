@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5c127240fcc8430fb3c7c37e97e9ba7d" Name="Diagram1">
+      <Diagram DiagramId="c9825940d7014cb78031b624536c6716" Name="Diagram1">
         <EntityTypeShape EntityType="BestArtModel.Administrateurs" Width="1.5" PointX="5.25" PointY="27.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BestArtModel.Adresses" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BestArtModel.Categories" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
@@ -38,6 +38,13 @@
         <AssociationConnector Association="BestArtModel.fk_photos_produits" ManuallyRouted="false" />
         <AssociationConnector Association="BestArtModel.FK_Produits_SousCategorie" ManuallyRouted="false" />
         <AssociationConnector Association="BestArtModel.fk_zipcodes_villes" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BestArtModel.AspNetRoles" Width="1.5" PointX="10.375" PointY="10.5" />
+        <EntityTypeShape EntityType="BestArtModel.AspNetUserClaims" Width="1.5" PointX="14.875" PointY="11.625" />
+        <EntityTypeShape EntityType="BestArtModel.AspNetUserLogins" Width="1.5" PointX="14.875" PointY="9" />
+        <EntityTypeShape EntityType="BestArtModel.AspNetUsers" Width="1.5" PointX="12.625" PointY="9.375" />
+        <AssociationConnector Association="BestArtModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="BestArtModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="BestArtModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
