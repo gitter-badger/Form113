@@ -292,14 +292,14 @@
     <Content Include="Views\Shared\_NbProduits.cshtml" />
     <Content Include="Views\Shared\_HighlightedProduct.cshtml" />
     <Content Include="Views\Search\Result.cshtml" />
-<<<<<<< HEAD
+
     <Content Include="Views\Produit\_MiniatProduit.cshtml" />
     <Content Include="Views\Search\Detail.cshtml" />
     <Content Include="Views\Search\Compare.cshtml" />
     <Content Include="Views\Search\_CompareProduits.cshtml" />
-=======
+
     <Content Include="Views\Shared\_MiniatProduit.cshtml" />
->>>>>>> origin/master
+
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
