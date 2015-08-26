@@ -1,0 +1,7 @@
+﻿@model List<DataLayer.Models.Photos>
+<div class="row">
+    @foreach (var item in @Model)
+    {
+        <img src="/Uploads/@item.PhotoName" alt="Pas diponnibe" class="img-responsive" />
+    }
+</div>

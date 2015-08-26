@@ -38,6 +38,7 @@
         <th>
             @Html.DisplayNameFor(model => model.SousCategories.Nom)
         </th>
+        <th>Photo(s)</th>
         <th></th>
     </tr>
 
@@ -70,6 +71,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.SousCategories.Nom)
         </td>
+        <td>@Html.Action("PhotoProduit", "Produits", new { id = @item.IdProduit.ToString() }) </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IdProduit }) |
             @Html.ActionLink("Details", "Details", new { id=item.IdProduit }) |
