@@ -1,4 +1,4 @@
-﻿@model List<DataLayer.Models.Produits>
+﻿@model List<int>
 
 <div class="panel panel-danger">
     <div class="panel-heading">
@@ -7,7 +7,7 @@
     <div class="panel-body">
             @foreach (var element in @Model)
             {
-                @Html.Action("MiniatProduit", "Produit", new { id = element.IdProduit })
+                @Html.Action("MiniatProduit", "Produit", new { id = element })
             }
     </div>
 </div>
