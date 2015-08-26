@@ -516,5 +516,14 @@ namespace Form113.Helper
         }
         #endregion
 
+        public static MvcHtmlString ImageHelp(this HtmlHelper self, string imgname)
+        {
+            string dir = "/Uploads/";
+            TagBuilder image = new TagBuilder("img");
+            image.MergeAttribute("src", dir + imgname);
+            image.MergeAttribute("alt", "Image non disponible");
+            return new MvcHtmlString(image.ToString());
+        }
+
     }
 }

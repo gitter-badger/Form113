@@ -1,0 +1,15 @@
+﻿@using DataLayer.Models
+@using Form113.Helper
+@model Categories
+
+<div class="panel">
+    <div class="panel-heading">@Model.Libelle</div>
+    <div class="panel-body">
+        <div id="CategorieImg">@Html.ImageHelp(Model.Photo)</div>
+        @Html.ActionLink("Details", "IndexSousCategories", "Catalogue", new { id = Model.IdCategorie })
+    </div>
+    
+
+
+
+</div>

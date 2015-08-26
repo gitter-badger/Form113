@@ -1,0 +1,24 @@
+﻿@model List<int>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IndexSousCategories</title>
+</head>
+<body>
+    <div> 
+        @foreach (var scat in @Model)
+        {
+            <div class="col-lg-4">
+                @Html.Action("SousCategorie", "SousCategorie", new { id = scat })
+            </div>
+        }
+    </div>
+</body>
+</html>

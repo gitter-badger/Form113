@@ -1,0 +1,21 @@
+﻿@model List<int>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IndexCategories</title>
+</head>
+<body>
+    <div>@foreach (var cat in @Model)
+         {
+        <div class="col-lg-4">
+            @Html.Action("Categorie", "Categorie", new { id=cat.ToString()})
+            </div>
+            }
+
+        </div>
+</body>
+</html>

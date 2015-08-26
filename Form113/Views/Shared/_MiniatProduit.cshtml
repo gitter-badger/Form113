@@ -4,10 +4,8 @@
 <div class="panel-success">
     <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
-        
-            @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
-            Provenance : @Model.Pays.Name
-            @Model.Prix
-        
+        @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
+        Provenance : @Model.Pays.Name
+        @Model.Prix
     </div>
 </div>
