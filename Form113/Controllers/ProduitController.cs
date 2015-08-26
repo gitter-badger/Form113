@@ -32,9 +32,12 @@ namespace Form113.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult MiniatProduit(Produits p)
+        public PartialViewResult MiniatProduit(string id)
         {
-            return PartialView(p);
+            var idprod = Int32.Parse(id);
+            var db = new BestArtEntities();
+            var res = db.Produits.Where(p => p.IdProduit == idprod).First();
+            return PartialView("_MiniatProduit",res);
         }
     }
 }
