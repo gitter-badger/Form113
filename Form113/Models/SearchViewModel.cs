@@ -18,41 +18,46 @@ namespace Form113.Models
         #region Spec
         [XmlArray("Categories")]
         [XmlArrayItem("Categorie", typeof(int))]
-        [DisplayName("Choisissez vos Catégories : ")] 
+        [DisplayName("Choisissez vos Catégories : ")]
         #endregion
         public int[] idCategories { get; set; }
 
         #region Spec
         [XmlArray("SousCategories")]
         [XmlArrayItem("SousCategorie", typeof(int))]
-        [DisplayName("Choisissez vos Sous Catégories : ")] 
+        [DisplayName("Choisissez vos Sous Catégories : ")]
         #endregion
         public int[] idSousCategories { get; set; }
 
         #region Spec
         [XmlArray("Continents")]
         [XmlArrayItem("Continent", typeof(int))]
-        [DisplayName("Choisissez votre Continent : ")] 
+        [DisplayName("Choisissez votre Continent : ")]
         #endregion
         public int[] idContinent { get; set; }
 
         #region Spec
         [XmlArray("Regions")]
         [XmlArrayItem("Region", typeof(int))]
-        [DisplayName("Choisissez votre Region : ")] 
+        [DisplayName("Choisissez votre Region : ")]
         #endregion
         public int[] idRegions { get; set; }
 
         #region Spec
         [XmlArray("ListePays")]
-        [XmlArrayItem("Pays", typeof(int))]
-        [DisplayName("Choisissez votre Pays : ")] 
+        [XmlArrayItem("Pays", typeof(string))]
+        [DisplayName("Choisissez votre Pays : ")]
         #endregion
         public string[] idPays { get; set; }
 
+
+        [XmlIgnore]
         public List<SelectListItem> ListeCategorie { get; set; }
+
+        [XmlIgnore]
         public List<SelectListItem> ListeContinents { get; set; }
 
+        [XmlIgnore]
         public List<Produits> ListeProduit { get; set; }
 
         #region XMLSerializerUnserialize
@@ -69,7 +74,7 @@ namespace Form113.Models
             var xmlSerializer = new XmlSerializer(typeof(SearchViewModel));
             var reader = new StringReader(svms);
             return (SearchViewModel)xmlSerializer.Deserialize(reader);
-        } 
+        }
         #endregion
     }
 }

@@ -247,9 +247,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Localisation\js\Localisation.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Pagination\js\Pagination.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Search\js\Search.js" />
+    <Content Include="Scripts\Search\js\VerifCheckBox.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -291,6 +293,9 @@
     <Content Include="Views\Produit\_HighlightedProduct.cshtml" />
     <Content Include="Views\Search\Result.cshtml" />
     <Content Include="Views\Produit\_MiniatProduit.cshtml" />
+    <Content Include="Views\Search\Detail.cshtml" />
+    <Content Include="Views\Search\Compare.cshtml" />
+    <Content Include="Views\Search\_CompareProduits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -27,12 +27,12 @@
     }
     using (Html.MyFieldsetHelper("Catégories"))
     {
-        @Html.MyDropDownListFor(model => model.idCategories, Model.ListeCategorie)
+        @Html.MyDropDownListFor(model => model.idCategories, Model.ListeCategorie, Model.idCategories[0])
         @Html.MyDropDownListMultipleFor(model => model.idSousCategories, null)
     }
     using (Html.MyFieldsetHelper("Zones"))
     {
-        @Html.MyDropDownListFor(model => model.idContinent, Model.ListeContinents)
+        @Html.MyDropDownListFor(model => model.idContinent, Model.ListeContinents, Model.idContinent[0])
         @Html.MyDropDownListFor(model => model.idRegions, null)
         @Html.MyDropDownListMultipleFor(model => model.idPays, null)
     }

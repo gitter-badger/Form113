@@ -344,6 +344,53 @@ namespace Form113.Helper
             return new MvcHtmlString(DivTag.ToString());
         }
 
+        public static MvcHtmlString MyDropDownListMultipleFor<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expression, List<SelectListItem> list, string[] listPreSelect = null, string classe = "width100 form-control chosen-select ", int size = 4)
+        {
+            //exemple :
+            //<select class="" id="colors" name="couleurs" multiple="multiple" size="10">
+            //<option value="">Toutes couleurs</option>
+            MemberExpression member = expression.Body as MemberExpression;
+
+            var DivTag = new TagBuilder("div");
+            DivTag.AddCssClass("form-group");
+            DivTag.Attributes.Add("id", "div" + member.Member.Name);
+
+            var Label = self.LabelFor(expression, new { @class = string.Format("col-sm-{0} control-label", size) });
+            DivTag.InnerHtml = Label.ToString();
+
+
+            var Select = new TagBuilder("select");
+            Select.AddCssClass(string.Format(classe + "col-sm-{0}", size));
+            Select.Attributes.Add("id", member.Member.Name);
+            Select.Attributes.Add("name", member.Member.Name);
+            Select.Attributes.Add("multiple", "true");
+
+            var sb = new StringBuilder();
+
+            if (list != null)
+            {
+                foreach (var item in list)
+                {
+                    var option = new TagBuilder("option");
+                    if (listPreSelect != null)
+                    {
+                        if (listPreSelect.Contains(item.Value.ToString()))
+                        {
+                            option.Attributes.Add("selected", "true");
+                        }
+                    }
+                    option.Attributes.Add("value", item.Value);
+                    option.InnerHtml = item.Text.ToString();
+
+                    sb.Append(option.ToString());
+                }
+            }
+            Select.InnerHtml = sb.ToString();
+            DivTag.InnerHtml += Select.ToString();
+
+            return new MvcHtmlString(DivTag.ToString());
+        }
+
         /// <summary>
         /// Html.MyCheckBoxListFor( model => Model."NameId" , "Liste a Lire (List<CheckBoxItem>)" , "liste d'id a preselectionner en long[]" , "Classe (null)" , "Taille de cellule (4)") 
         /// </summary>

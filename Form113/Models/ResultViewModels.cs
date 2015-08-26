@@ -12,6 +12,7 @@ namespace Form113.Models
 
         public string XmlSearchviewModel { get; set; }
 
+
         #region Paginnation
         public int CurrentPage { get; set; }
         public int PageQty { get; set; }

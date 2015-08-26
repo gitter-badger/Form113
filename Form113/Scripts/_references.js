@@ -7,3 +7,7 @@
 /// <reference path="respond.js" />
 /// <reference path="search/js/search.js" />
 /// <reference path="localisation/js/localisation.js" />
+/// <reference path="../plugins/chosen/js/chosen.jquery.js" />
+/// <reference path="../plugins/chosen/js/chosen.proto.js" />
+/// <reference path="search/js/verifcheckbox.js" />
+/// <reference path="pagination/js/pagination.js" />

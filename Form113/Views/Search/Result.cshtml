@@ -28,10 +28,11 @@
                 {
                     <tr>
                         <td>@item.Nom</td>
-                        <td>@item.Pays</td>
+                        <td>@item.Pays.Name</td>
                         <td>@item.Prix €</td>
                         <td><img src="~/Uploads/@item.Photos.Select(p => p.PhotoName).FirstOrDefault()" class="MonAffichageImage25" alt="L'image de la voiture n'est pas disponible" /></td>
                         <td>@Html.ActionLink("Detail", "Detail/" + item.IdProduit, "Search")</td>
+                        <td><input class="single-checkbox" type="checkbox" name="ListeAComparer" value="@item.IdProduit" id="@item.IdProduit" /></td>
                     </tr>
                 }
             </tbody>
@@ -60,6 +61,6 @@
 @Html.MyPaginationFleche(Model.CurrentPage, Model.PageQty)<br />
 
 @section scripts {
-    <script src="~/Scripts/searchResultPage.js"></script>
-    <script src="~/Scripts/VerifCheckBox.js"></script>
+    <script src="~/Scripts/Pagination/js/Pagination.js"></script>
+    <script src="~/Scripts/Search/js/VerifCheckBox.js"></script>
 }

@@ -30,26 +30,6 @@ namespace Form113.Controllers
             ListeBreadCrumItem.Add(bci);
         }
 
-        private SearchViewModel InitializeSVM()
-        {
-            SearchViewModel svm = new SearchViewModel();
-
-            svm.ListeCategorie = new List<SelectListItem>();
-            var liste = db.Categories.OrderBy(x => x.Libelle).ToList();
-            foreach (var item in liste)
-            {
-                svm.ListeCategorie.Add(new SelectListItem() { Text = item.Libelle, Value = item.IdCategorie.ToString() });
-            }
-
-            svm.ListeContinents = new List<SelectListItem>();
-            var listeCont = db.Continents.OrderBy(x => x.name).ToList();
-            foreach (var cont in listeCont)
-            {
-                svm.ListeContinents.Add(new SelectListItem() { Text = cont.name, Value = cont.idContinent.ToString() });
-            }
-            return svm;
-        }
-
         public ActionResult Index()
         {
             var svm = InitializeSVM();
@@ -83,13 +63,42 @@ namespace Form113.Controllers
                 XmlSearchviewModel = svm.SerializeSearchViewModel(),
 
             };
-
-
-
-
             return View(rvm);
         }
 
+        [HttpPost, ValidateInput(false)]
+        public ViewResult RetourRecherche(ResultViewModels rvm)
+        {
+            var bci = new BreadCrumItem("Index", "Index", "");
+            ListeBreadCrumItem.Add(bci);
+
+            var svm = InitializeSVM();
+            var svmres = SearchViewModel.UnserializeSearchViewModel(rvm.XmlSearchviewModel);
+            svmres.ListeCategorie = svm.ListeCategorie;
+            svmres.ListeContinents = svm.ListeContinents;
+
+            ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
+
+
+            return View("Index", svmres);
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var V = db.Produits.Where(p => p.IdProduit == id).FirstOrDefault();
+            return View(V);
+        }
+
+        public ActionResult Compare(ResultViewModels CVM)
+        {
+            return View(CVM);
+        }
+
+        public PartialViewResult CompareProduits(int id)
+        {
+            var P = db.Produits.Where(p => p.IdProduit == id).FirstOrDefault();
+            return PartialView("_CompareProduits", P);
+        }
 
         [HttpPost, ValidateInput(false)]
         public ViewResult Pagination(ResultViewModels rvm)
@@ -122,18 +131,34 @@ namespace Form113.Controllers
 
             SearchBase search = new Search();
             search = new SearchOptionPrixMin(search, svm.Prixmin);
-            var res = search.GetResult().ToList();
             search = new SearchOptionPrixMax(search, svm.Prixmax);
-             res = search.GetResult().ToList();
             search = new SearchOptionPays(search, svm.idPays);
-             res = search.GetResult().ToList();
             search = new SearchOptionRegion(search, svm.idRegions);
-             res = search.GetResult().ToList();
             search = new SearchOptionContinent(search, svm.idContinent);
-             res = search.GetResult().ToList();
+            var res = search.GetResult().ToList();
             svm.ListeProduit = res.ToList();
 
             return svm.ListeProduit;
+        }
+
+        private SearchViewModel InitializeSVM()
+        {
+            SearchViewModel svm = new SearchViewModel();
+
+            svm.ListeCategorie = new List<SelectListItem>();
+            var liste = db.Categories.OrderBy(x => x.Libelle).ToList();
+            foreach (var item in liste)
+            {
+                svm.ListeCategorie.Add(new SelectListItem() { Text = item.Libelle, Value = item.IdCategorie.ToString() });
+            }
+
+            svm.ListeContinents = new List<SelectListItem>();
+            var listeCont = db.Continents.OrderBy(x => x.name).ToList();
+            foreach (var cont in listeCont)
+            {
+                svm.ListeContinents.Add(new SelectListItem() { Text = cont.name, Value = cont.idContinent.ToString() });
+            }
+            return svm;
         }
     }
 }
