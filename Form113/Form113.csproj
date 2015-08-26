@@ -180,6 +180,8 @@
     <Compile Include="Infrastructure\SearchArt\Base\SearchOption.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionContinent.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPays.cs" />
+    <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPrixMax.cs" />
+    <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPrixMin.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionRegion.cs" />
     <Compile Include="Infrastructure\SearchArt\Search.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -187,6 +189,7 @@
     <Compile Include="Models\CheckBoxItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ResultViewModels.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -286,6 +289,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\_NbProduits.cshtml" />
     <Content Include="Views\Produit\_HighlightedProduct.cshtml" />
+    <Content Include="Views\Search\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

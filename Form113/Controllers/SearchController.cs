@@ -53,29 +53,87 @@ namespace Form113.Controllers
         public ActionResult Index()
         {
             var svm = InitializeSVM();
-            //ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
+            ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
 
             return View(svm);
         }
         [HttpPost]
-        public ActionResult Result()
+        public ActionResult Result(SearchViewModel svm)
         {
-            var svm = InitializeSVM();
+            var bci = new BreadCrumItem("Result", "Result", "");
+            ListeBreadCrumItem.Add(bci);
             //ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
 
+
+
+            var result = GetSearchResult(svm);
+            var pageSize = 20;
+            var itemQty = result.Count();
+            var temp = itemQty % pageSize;
+            var pageQty = temp == 0 ? itemQty / pageSize : itemQty / pageSize + 1;
+
+            var rvm = new ResultViewModels()
+            {
+                CurrentPage = 1,
+                Result = result.Take(pageSize).ToList(),
+                PageSize = pageSize,
+                ItemsQty = itemQty,
+                PageQty = pageQty,
+
+                XmlSearchviewModel = svm.SerializeSearchViewModel(),
+
+            };
+
+
+
+
+            return View(rvm);
+        }
+
+
+        [HttpPost, ValidateInput(false)]
+        public ViewResult Pagination(ResultViewModels rvm)
+        {
+            var bci = new BreadCrumItem("Result", "Result", "");
+            ListeBreadCrumItem.Add(bci);
+
+            var svm = SearchViewModel.UnserializeSearchViewModel(rvm.XmlSearchviewModel);
+
+            var result = GetSearchResult(svm);
+            var pageSize = 20;
+            var itemQty = result.Count();
+            var temp = itemQty % pageSize;
+            var pageQty = temp == 0 ? itemQty / pageSize : itemQty / pageSize + 1;
+
+            rvm.Result = result.Skip(pageSize * (rvm.CurrentPage - 1)).Take(pageSize).ToList();
+            rvm.CurrentPage = rvm.CurrentPage;
+            rvm.PageSize = pageSize;
+            rvm.ItemsQty = itemQty;
+            rvm.PageQty = pageQty;
+
+            rvm.XmlSearchviewModel = svm.SerializeSearchViewModel();
+
+
+            return View("Result", rvm);
+        }
+
+        private List<Produits> GetSearchResult(SearchViewModel svm)
+        {
+
             SearchBase search = new Search();
-
+            search = new SearchOptionPrixMin(search, svm.Prixmin);
+            var res = search.GetResult().ToList();
+            search = new SearchOptionPrixMax(search, svm.Prixmax);
+             res = search.GetResult().ToList();
             search = new SearchOptionPays(search, svm.idPays);
+             res = search.GetResult().ToList();
             search = new SearchOptionRegion(search, svm.idRegions);
+             res = search.GetResult().ToList();
             search = new SearchOptionContinent(search, svm.idContinent);
+             res = search.GetResult().ToList();
+            svm.ListeProduit = res.ToList();
 
-
-
-            svm.ListeProduit = search.GetResult().ToList();
-
-
-
-            return View(svm);
+            return svm.ListeProduit;
         }
     }
 }

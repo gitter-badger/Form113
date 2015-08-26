@@ -1,0 +1,65 @@
+﻿@using Form113.Helper
+@using Form113.Models
+@model ResultViewModels
+
+
+@{
+    ViewBag.Title = "Result";
+}
+
+<h2>Liste des produits de votre recherche</h2>
+
+@using (Html.BeginForm("Compare", "Search"))
+{
+    using (Html.MyFieldsetHelper("Liste des Produits celon la recherche"))
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Pays</th>
+                    <th>Prix</th>
+                    <th>Photo</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in (List<DataLayer.Models.Produits>)Model.Result)
+                {
+                    <tr>
+                        <td>@item.Nom</td>
+                        <td>@item.Pays</td>
+                        <td>@item.Prix €</td>
+                        <td><img src="~/Uploads/@item.Photos.Select(p => p.PhotoName).FirstOrDefault()" class="MonAffichageImage25" alt="L'image de la voiture n'est pas disponible" /></td>
+                        <td>@Html.ActionLink("Detail", "Detail/" + item.IdProduit, "Search")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <input type="submit" value="Comparer" />
+    }
+}
+@using (Html.BeginForm("RetourRecherche", "Search", FormMethod.Post))
+{
+    <input type="hidden" id="idLastPage" value="@Model.PageQty" />
+    <input type="hidden" id="idCurrentPage" name="CurrentPage" value="@Model.CurrentPage" />
+    <input type="hidden" name="XmlSearchviewModel" value="@Model.XmlSearchviewModel" />
+    <input type="submit" value="Retour Recherche" />
+}
+
+@using (Html.BeginForm("Pagination", "Search", FormMethod.Post, new { id = "idFormPagination" }))
+{
+    <input type="hidden" id="idLastPage" value="@Model.PageQty" />
+    <input type="hidden" id="idCurrentPage" name="CurrentPage" value="@Model.CurrentPage" />
+    <input type="hidden" name="XmlSearchviewModel" value="@Model.XmlSearchviewModel" />
+}
+
+
+
+@Html.MyPaginationChiffre(Model.CurrentPage, Model.PageQty, 2)<br />
+@Html.MyPaginationFleche(Model.CurrentPage, Model.PageQty)<br />
+
+@section scripts {
+    <script src="~/Scripts/searchResultPage.js"></script>
+    <script src="~/Scripts/VerifCheckBox.js"></script>
+}
