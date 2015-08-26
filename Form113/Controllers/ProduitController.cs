@@ -27,7 +27,7 @@ namespace Form113.Controllers
         public PartialViewResult HighlightedProduct()
         {
             var db = new BestArtEntities();
-            var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Take(3).ToList();
+            var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Take(3).Select(p=>p.IdProduit).ToList();
             return PartialView("_HighlightedProduct", res);
         }
 
