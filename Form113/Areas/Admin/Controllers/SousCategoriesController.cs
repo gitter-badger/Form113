@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DataLayer.Models;
+using System.IO;
 
 namespace Form113.Areas.Admin.Controllers
 {
@@ -48,12 +49,28 @@ namespace Form113.Areas.Admin.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdSousCategorie,Nom,IdCategorie")] SousCategories sousCategories)
+        public ActionResult Create([Bind(Include = "IdSousCategorie,Nom,IdCategorie")] SousCategories sousCategories, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                db.SousCategories.Add(sousCategories);
-                db.SaveChanges();
+                bool pictureValide = true;
+                if (file == null || file.ContentLength <= 0)
+                {
+                    pictureValide = false;
+                }
+                var fileName = Path.GetFileName(file.FileName);
+                if (fileName == null)
+                {
+                    pictureValide = false;
+                }
+                if (pictureValide == true)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                    file.SaveAs(path);
+                    sousCategories.Photo = file.FileName.ToString();
+                    db.SousCategories.Add(sousCategories);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
@@ -82,10 +99,27 @@ namespace Form113.Areas.Admin.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdSousCategorie,Nom,IdCategorie")] SousCategories sousCategories)
+        public ActionResult Edit([Bind(Include = "IdSousCategorie,Nom,IdCategorie")] SousCategories sousCategories, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+
+                bool pictureValide = true;
+                if (file == null || file.ContentLength <= 0)
+                {
+                    pictureValide = false;
+                }
+                var fileName = Path.GetFileName(file.FileName);
+                if (fileName == null)
+                {
+                    pictureValide = false;
+                }
+                if (pictureValide == true)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                    file.SaveAs(path);
+                    sousCategories.Photo = file.FileName.ToString();
+                }
                 db.Entry(sousCategories).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

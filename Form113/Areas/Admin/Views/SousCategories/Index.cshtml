@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Categories.Libelle)
         </th>
+        <th>
+            <p>Photos</p>
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Categories.Libelle)
+        </td>
+        <td>
+            <img src="/Uploads/@item.Photo" alt="Pas diponnibe" class="img-responsive" height="70" width="70" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IdSousCategorie }) |
