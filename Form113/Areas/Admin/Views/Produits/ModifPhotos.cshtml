@@ -1,0 +1,25 @@
+﻿@model DataLayer.Models.Photos
+@{
+    ViewBag.Title = "ModifPhotos";
+}
+
+<h2>Modification de la photo du produit</h2>
+<h3>@Model.Produits.Nom</h3>
+
+<p>Photo à modifier : </p>
+<img src="/Uploads/@Model.PhotoName" alt="Pas diponnibe" class="img-responsive" height="150" width="150" />
+
+@using (Html.BeginForm("SaveModifiedPic", "Produits", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(model => model.IdPhoto)
+    @Html.HiddenFor(model => model.IdProduit)
+    <div class="form-group">
+        <label for="file" class="col-lg-2">Image pour la catégorie:</label>
+        <input type="file" name="file" id="file" style="width: 100%;" />
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}

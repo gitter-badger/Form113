@@ -81,6 +81,8 @@
         <dd>
             @Html.DisplayFor(model => model.SousCategories.Nom)
         </dd>
+        <dt>Photos</dt>
+        <td>@Html.Action("PhotoProduit", "Produits", new { id = @Model.IdProduit }) </td>
 
     </dl>
 </div>

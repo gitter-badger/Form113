@@ -112,6 +112,31 @@ namespace Form113.Areas.Admin.Controllers
             return View(produits);
         }
 
+        /// <summary>
+        /// Permet de modifier la photo d'un seul produit
+        /// </summary>
+        /// <param name="id">IdPhoto</param>
+        /// <param name="id2">IdProduit</param>
+        /// <returns></returns>
+        public ActionResult ModifPhotos(string id, string id2)
+        {
+            int IdProduit = int.Parse(id2);
+            int IdPhoto = int.Parse(id);
+            var Photo = new DataLayer.Models.Photos(); 
+            if (IdPhoto == 0)
+            {
+                // Il n'y a pas de photo donc il faut creer la photo dans la base de donnée
+                var photo = new DataLayer.Models.Photos();
+                photo.IdProduit = IdProduit;
+                photo.PhotoName = "pagenotfound_icon.png";
+                db.Photos.Add(photo);
+                db.SaveChanges();
+                IdPhoto = photo.IdPhoto;
+            }
+            Photo = db.Photos.Where(c => c.IdProduit == IdProduit && c.IdPhoto == IdPhoto)
+                    .First();
+            return View(Photo);
+        }
         // GET: Admin/Produits/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -137,6 +162,9 @@ namespace Form113.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        // Modification des Photos
+
+
         // Partie Des vues partielles =======
         [ChildActionOnly]
         public PartialViewResult PhotoProduit(string id)
@@ -147,13 +175,39 @@ namespace Form113.Areas.Admin.Controllers
             {
                 var photoNotFound = new DataLayer.Models.Photos();
                 photoNotFound.PhotoName = "pagenotfound_icon.png";
+                photoNotFound.IdProduit = idProduit;
                 var listPhoto2 = new List<DataLayer.Models.Photos>();
                 listPhoto2.Add(photoNotFound);
                 listPhoto = listPhoto2;               
             }
             return PartialView("_PhotoProduit",listPhoto);
         }
-
+        [HttpPost]
+        public ActionResult SaveModifiedPic([Bind(Include="IdPhoto,IdProduit")] Photos photo,HttpPostedFileBase file)
+        {
+            bool pictureValide = true;
+            if (file == null || file.ContentLength <= 0)
+            {
+                pictureValide = false;
+            }
+            var fileName = Path.GetFileName(file.FileName);
+            if (fileName == null)
+            {
+                pictureValide = false;
+            }
+            if (pictureValide==true)
+            {
+                var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                file.SaveAs(path);
+                photo.PhotoName = file.FileName;
+                db.Entry(photo).State = EntityState.Modified;
+                db.SaveChanges();
+                var produit = db.Produits.Where(c => c.IdProduit == photo.IdProduit).FirstOrDefault();
+                return View("Details",produit);
+            }
+           
+            return View("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -14,11 +14,19 @@ namespace Form113.Areas.Admin
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+
+            context.MapRoute(
+                "Admin_PhotoModif",
+                "Admin/{controller}/{action}/{id}/{id2}",
+                 new { action = "Index", id = UrlParameter.Optional }
+                );
+
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+            
         }
     }
 }

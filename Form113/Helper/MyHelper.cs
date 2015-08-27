@@ -541,6 +541,7 @@ namespace Form113.Helper
             tagBuilder.MergeAttribute("src", imgUrl);
             tagBuilder.MergeAttribute("alt", alt);
             tagBuilder.MergeAttribute("title", title);
+            tagBuilder.MergeAttribute("alt", "Image non disponible");
             tagBuilder.AddCssClass("img-responsive");
             image = tagBuilder.ToString(TagRenderMode.SelfClosing);
             html.Append("<a href=\"");

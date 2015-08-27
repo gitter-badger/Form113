@@ -4,6 +4,6 @@
     @foreach (var item in @Model)
     {
         @*<img src="/Uploads/@item.PhotoName" alt="Pas diponnibe" class="img-responsive" />*@
-        @Html.ActionImage("Controller", "Action", null, "/Uploads/" + item.PhotoName)
+        @Html.ActionImage("Produits", "ModifPhotos", new { id = item.IdPhoto, id2=item.IdProduit }, "/Uploads/" + item.PhotoName)
     }
 </div>
