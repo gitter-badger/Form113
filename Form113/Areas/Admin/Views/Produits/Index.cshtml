@@ -71,7 +71,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.SousCategories.Nom)
         </td>
-        <td>@Html.Action("PhotoProduit", "Produits", new { id = @item.IdProduit.ToString() }) </td>
+        <td>
+            <div class="btn-group-vertical">@Html.Action("PhotoProduit", "Produits", new { id = @item.IdProduit.ToString() })</div> </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.IdProduit }) |
             @Html.ActionLink("Details", "Details", new { id=item.IdProduit }) |
