@@ -172,15 +172,18 @@ namespace Form113.Helper
             }
 
             //desactivation dernier si element actuel
-            if (PageQty != CurrentPage)
+            if (PageQty > 1)
             {
-                //UL.InnerHtml += LI.ToString();
-                sb.Append(LiATagBuilder(classeClick, PageQty.ToString()));
-            }
-            else
-            {
-                //UL.InnerHtml += LI.ToString();
-                sb.Append(LiATagBuilder(classeNoClick, PageQty.ToString()));
+                if (PageQty != CurrentPage)
+                {
+                    //UL.InnerHtml += LI.ToString();
+                    sb.Append(LiATagBuilder(classeClick, PageQty.ToString()));
+                }
+                else
+                {
+                    //UL.InnerHtml += LI.ToString();
+                    sb.Append(LiATagBuilder(classeNoClick, PageQty.ToString()));
+                }
             }
 
             var strfin = "</ul>";
@@ -305,17 +308,19 @@ namespace Form113.Helper
                     sb.Append(LiATagBuilder(classeNoClick, i.ToString()));
                 }
             }
-
-            //desactivation dernier si element actuel
-            if (PageQty != CurrentPage)
+            if (PageQty > 1)
             {
-                //UL.InnerHtml += LI.ToString();
-                sb.Append(LiATagBuilder(classeClick, PageQty.ToString()));
-            }
-            else
-            {
-                //UL.InnerHtml += LI.ToString();
-                sb.Append(LiATagBuilder(classeNoClick, PageQty.ToString()));
+                //desactivation dernier si element actuel
+                if (PageQty != CurrentPage)
+                {
+                    //UL.InnerHtml += LI.ToString();
+                    sb.Append(LiATagBuilder(classeClick, PageQty.ToString()));
+                }
+                else
+                {
+                    //UL.InnerHtml += LI.ToString();
+                    sb.Append(LiATagBuilder(classeNoClick, PageQty.ToString()));
+                }
             }
 
             LI = new TagBuilder("li");
@@ -634,7 +639,7 @@ namespace Form113.Helper
 
         // En cours de travail
         #region PhotoClickable
-        public static MvcHtmlString ActionImage(this HtmlHelper helper, string controller,string action,Object parameters, string src, string alt="",string title="")
+        public static MvcHtmlString ActionImage(this HtmlHelper helper, string controller, string action, Object parameters, string src, string alt = "", string title = "")
         {
             TagBuilder tagBuilder = new TagBuilder("img");
             UrlHelper urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
