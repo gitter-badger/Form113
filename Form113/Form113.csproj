@@ -298,7 +298,6 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\_NbProduits.cshtml" />
     <Content Include="Views\Shared\_HighlightedProduct.cshtml" />
-    <Content Include="Views\Search\Result.cshtml" />
     <Content Include="Views\Shared\_MiniatProduit.cshtml" />
     <Content Include="Views\Categorie\_Categorie.cshtml" />
     <Content Include="Views\Catalogue\IndexCategories.cshtml" />

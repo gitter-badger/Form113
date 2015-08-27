@@ -10,8 +10,13 @@
             @Html.ActionLink("Detail", "Detail/" + Model.IdProduit, "Produit")
             <input class="single-checkbox" type="checkbox" name="ListeAComparer" value="@Model.IdProduit" id="@Model.IdProduit" />
         </p>
-        <p></p>
-        <p><input type="button" id="@Model.IdProduit" class="ButtonAjoutPanier" value="Ajouter au Panier" /></p>
-            @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
+        <p>
+            <label for="@Model.IdProduit">Quantité :</label>
+            <input class="form-control Quantiter" data-val="true" data-val-number="Le champ Quantité doit être un nombre." data-val-required="Le champ Quantité est requis." id="@Model.IdProduit" name="IdProduit" value="3" type="text">
+        </p>
+        <p>
+            <input type="button" class="ButtonAjoutPanier" value="Ajouter au Panier" />
+        </p>
+        @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
     </div>
 </div>

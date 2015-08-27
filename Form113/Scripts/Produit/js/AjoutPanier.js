@@ -1,10 +1,12 @@
 ﻿$(function () {
-    $("button.ButtonAjoutPanier").click(AjoutPanier);
+    $("input.ButtonAjoutPanier").click(AjoutPanier);
 });
 
 function AjoutPanier()
 {
-    var valeur = $("#" + $(this).id.val() + "Qty").val();
-    console.log(valeur);
-    //localStorage.setItem($(this).id.val(),valeur);
+    var valeur = $(this).parent().parent().find("input.Quantiter");
+    //console.log(valeur.val());
+    //console.log(valeur.attr("id"));
+    sessionStorage.setItem(valeur.attr("id"), valeur.val());
+    //console.log(sessionStorage);
 }

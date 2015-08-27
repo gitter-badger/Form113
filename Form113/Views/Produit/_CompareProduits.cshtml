@@ -13,6 +13,13 @@
         <p>Prix : @Model.Prix €</p>
         <p>Nombre de vue : @Model.NbVues</p>
         <p>Stock disponible : @Model.Stock</p>
+        <p>
+            <label for="@Model.IdProduit">Quantité :</label>
+            <input class="form-control Quantiter" data-val="true" data-val-number="Le champ Quantité doit être un nombre." data-val-required="Le champ Quantité est requis." id="@Model.IdProduit" name="IdProduit" value="3" type="text">
+        </p>
+        <p>
+            <input type="button" class="ButtonAjoutPanier" value="Ajouter au Panier" />
+        </p>
         @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
     </div>
 </div>
