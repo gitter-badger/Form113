@@ -10,13 +10,7 @@ function ListeDesRegions() {
     var option = "";
     $.getJSON('/Localisation/GetJSONREG/' + idcont, function (data) {
         $.each(data, function (index, reg) {
-            if (idPreSelectR == reg.nr)
-            {
-                option += '<option value="' + reg.nr + ' selected">' + reg.reg + '</option>';
-            }
-            else{
-                option += '<option value="' + reg.nr + '">' + reg.reg + '</option>';
-            }
+            option += '<option value="' + reg.nr + '">' + reg.reg + '</option>';
         });
         $("#idRegions").html(option);
         $("#idPays").val();
@@ -25,17 +19,13 @@ function ListeDesRegions() {
 }
 function ListeDesPays() {
     var idreg = $("#idRegions").val();
-    var idPreSelectP = $("#idP").val().split("/");
-
+    var idPreSelectP = $("#idP").val().split("/"); 
+    array = array.concat(idPreSelectP);
+    var selected = "";
     var option = "";
     $.getJSON('/Localisation/GetJSONPAYS/' + idreg, function (data) {
         $.each(data, function (index, pay) {
-            if (idPreSelectP == pay.np) {
-                option += '<option value="' + pay.np + ' selected">' + pay.pay + '</option>';
-            }
-            else {
-                option += '<option value="' + pay.np + '">' + pay.pay + '</option>';
-            }
+            option += '<option value="' + pay.np + '">' + pay.pay + '</option>';
         });
         $("#idPays").html(option);
         UpdateChosen();

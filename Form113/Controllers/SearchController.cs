@@ -79,21 +79,36 @@ namespace Form113.Controllers
 
 
             string srcSC = "";
-            foreach(var item in svmres.idSousCategories)
-            {
-                srcSC += item.ToString() + "/";
-            }
+            int i = 0;
+            if (svmres.idSousCategories != null)
+                foreach (var item in svmres.idSousCategories)
+                {
+                    if(i!=0)
+                    {
+                        srcSC += "/";
+                    }
+                    srcSC += item.ToString();
+                    i++;
+                }
             string srcP = "";
-            foreach (var item in svmres.idPays)
-            {
-                srcP += item.ToString() + "/";
-            }
+            i = 0;
+            if (svmres.idPays != null)
+                foreach (var item in svmres.idPays)
+                {
+                    if (i != 0)
+                    {
+                        srcSC += "/";
+                    }
+                    srcP += item.ToString();
+                    i++;
+                }
 
 
             ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
 
             ViewBag.listeSC = srcSC;
-            ViewBag.listeR = svmres.idRegions[0].ToString();
+            if (svmres.idRegions != null)
+                ViewBag.listeR = svmres.idRegions[0].ToString();
             ViewBag.listeP = srcP;
 
             return View("Index", svmres);

@@ -137,6 +137,23 @@ namespace Form113.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        // Partie Des vues partielles =======
+        [ChildActionOnly]
+        public PartialViewResult PhotoProduit(string id)
+        {
+            int idProduit = int.Parse(id);
+            List<DataLayer.Models.Photos> listPhoto = db.Photos.Where(c => c.IdProduit == idProduit).ToList();
+            if (listPhoto.Count()==0)
+            {
+                var photoNotFound = new DataLayer.Models.Photos();
+                photoNotFound.PhotoName = "pagenotfound_icon.png";
+                var listPhoto2 = new List<DataLayer.Models.Photos>();
+                listPhoto2.Add(photoNotFound);
+                listPhoto = listPhoto2;               
+            }
+            return PartialView("_PhotoProduit",listPhoto);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

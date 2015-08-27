@@ -232,6 +232,7 @@
     <Content Include="Areas\Admin\Views\Produits\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Produits\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Produits\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Produits\_PhotoProduit.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Plugins\Chosen\css\chosen.css" />
     <Content Include="Plugins\Chosen\css\chosen.min.css" />
@@ -319,7 +320,7 @@
     <Folder Include="Scripts\Search\css\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Localisation\" />
-    <Folder Include="Views\Produit\" />
+    <Folder Include="Views\Produits\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
