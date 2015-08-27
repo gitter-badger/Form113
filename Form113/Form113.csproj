@@ -298,15 +298,16 @@
     <Content Include="Views\Shared\_NbProduits.cshtml" />
     <Content Include="Views\Shared\_HighlightedProduct.cshtml" />
     <Content Include="Views\Search\Result.cshtml" />
-    <Content Include="Views\Search\Detail.cshtml" />
-    <Content Include="Views\Search\Compare.cshtml" />
-    <Content Include="Views\Search\_CompareProduits.cshtml" />
     <Content Include="Views\Shared\_MiniatProduit.cshtml" />
     <Content Include="Views\Categorie\_Categorie.cshtml" />
     <Content Include="Views\Catalogue\IndexCategories.cshtml" />
     <Content Include="Views\Catalogue\IndexSousCategories.cshtml" />
     <Content Include="Views\SousCategorie\_SousCategorie.cshtml" />
     <Content Include="Views\Produit\_Produit.cshtml" />
+    <Content Include="Views\Produit\_CompareProduits.cshtml" />
+    <Content Include="Views\Produit\Compare.cshtml" />
+    <Content Include="Views\Produit\Detail.cshtml" />
+    <Content Include="Views\Produit\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

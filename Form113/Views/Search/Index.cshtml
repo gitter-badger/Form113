@@ -7,7 +7,7 @@
 
 <h2>Recherche de produits</h2>
 
-@using (Html.BeginForm("Result", "Search"))
+@using (Html.BeginForm("Result","Produit",FormMethod.Post, new { @class = "form-horizontal" }))
 {
     using (Html.MyFieldsetHelper("Prix"))
     {

@@ -1,0 +1,30 @@
+﻿@using Form113.Helper
+@using DataLayer.Models
+@model Produits
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Détail du produit sélectionner</h2>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <strong>Infos Produit @Model.Nom</strong>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div>
+                Pays : @Model.Pays.Name
+            </div>
+            Nombre de Vue : @Model.NbVues
+            <div>
+                Prix : @Model.Prix €
+            </div>
+            <div class="row"><br/></div>
+            <div>
+                @Html.MyCarousel(Model.Photos.ToList(), Model.IdProduit)
+            </div>
+        </div>
+    </div>
+</div>
