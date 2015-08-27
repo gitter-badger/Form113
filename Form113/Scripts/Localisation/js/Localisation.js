@@ -39,7 +39,6 @@ function ListeDesPays() {
         UpdateChosen();
     });
 }
-
 function UpdateChosen() {
     $(".chosen-select").trigger("chosen:updated");
 }

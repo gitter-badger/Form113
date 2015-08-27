@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalisationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PanierController.cs" />
     <Compile Include="Controllers\ProduitController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SousCategorieController.cs" />
@@ -310,6 +311,7 @@
     <Content Include="Views\Produit\Compare.cshtml" />
     <Content Include="Views\Produit\Detail.cshtml" />
     <Content Include="Views\Produit\Result.cshtml" />
+    <Content Include="Views\Panier\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
