@@ -9,9 +9,9 @@
 
 <h2>Liste des produits de votre recherche</h2>
 
-@using (Html.BeginForm("Compare", "Search"))
+@using (Html.BeginForm("Compare", "Produit"))
 {
-    using (Html.MyFieldsetHelper("Liste des Produits celon la recherche"))
+    using (Html.MyFieldsetHelper("Liste des Produits selon la recherche"))
     {
         foreach (var item in (List<DataLayer.Models.Produits>)Model.Result)
         {
@@ -42,4 +42,5 @@
 @section scripts {
     <script src="~/Scripts/Pagination/js/Pagination.js"></script>
     <script src="~/Scripts/Search/js/VerifCheckBox.js"></script>
+    <script src="~/Scripts/Produit/js/AjoutPanier.js"></script>
 }

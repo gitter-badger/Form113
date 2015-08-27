@@ -7,9 +7,11 @@
         <p>Provenance : @Model.Pays.Name</p>
         <p>Prix : @Model.Prix €</p>
         <p>
-            @Html.ActionLink("Detail", "Detail/" + Model.IdProduit, "Search")
+            @Html.ActionLink("Detail", "Detail/" + Model.IdProduit, "Produit")
             <input class="single-checkbox" type="checkbox" name="ListeAComparer" value="@Model.IdProduit" id="@Model.IdProduit" />
         </p>
+        <p></p>
+        <p><input type="button" id="@Model.IdProduit" class="ButtonAjoutPanier" value="Ajouter au Panier" /></p>
             @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
     </div>
 </div>

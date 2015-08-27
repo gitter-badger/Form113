@@ -7,22 +7,12 @@
 
 <h2></h2>
 <div class="panel panel-info">
-    <div class="panel-heading">
-        <strong>Infos Produit @Model.Nom</strong>
-    </div>
+    <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
-        <div class="row">
-            <div>
-                Pays : @Model.Pays.Name
-            </div>
-            Nombre de Vue : @Model.NbVues
-            <div>
-                Prix : @Model.Prix €
-            </div>
-            <div class="row"><br /></div>
-            <div>
-                @Html.MyCarousel(Model.Photos.ToList(), Model.IdProduit)
-            </div>
-        </div>
+        <p>Provenance : @Model.Pays.Name</p>
+        <p>Prix : @Model.Prix €</p>
+        <p>Nombre de vue : @Model.NbVues</p>
+        <p>Stock disponible : @Model.Stock</p>
+        @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
     </div>
 </div>

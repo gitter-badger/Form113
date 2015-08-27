@@ -11,4 +11,5 @@
 /// <reference path="pagination/js/pagination.js" />
 /// <reference path="search/js/search.js" />
 /// <reference path="search/js/verifcheckbox.js" />
+/// <reference path="produit/js/ajoutpanier.js" />
 
