@@ -22,20 +22,36 @@
             { <text> <div class="panel panel-danger col-lg-4">
                     <div class="panel-heading">@item.Nom</div> <div class="panel-body">
                         <p>Provenance : @item.Pays.Name</p><p>Prix : @item.Prix €</p>
-                        using(Html.BeginForm()){
-                        <p>Montant de la reduction</p>
-                        <input type="number" value="@item.Promotion" name="Promotion" />
+                        @using (@Html.BeginForm("ChangePromotion", "Marketing", FormMethod.Post, new { id = item.IdProduit }))
+                        {
+                            <label>Montant de la reduction</label> <br />
+                            <input type="number" size="3" value="@(100 - item.Promotion * 100)" name="Promotion" maxlength="3" style="width: 50px;" />
+                            <input type="number" hidden value="@item.IdProduit" name="idProduit" />
+                            <button type="submit" value="Valider" class="btn">Modifier</button>
+                            <br />
                         }
 
                         <div class="btn-group-vertical">@Html.Action("PhotoProduit", "Produits", new { id = @item.IdProduit.ToString() })</div>
                     </div>
-                     @Html.ActionLink("Enlever", "Remove", new { id = item.IdProduit })
+                    @Html.ActionLink("Enlever", "Remove", new { id = item.IdProduit })
                 </div>
             </text>
             }
             else
             {  <text> <div class="panel panel-info col-lg-4">
-                    <div class="panel-heading">@item.Nom</div> <div class="panel-body"><p>Provenance : @item.Pays.Name</p><p>Prix : @item.Prix €</p><div class="btn-group-vertical">@Html.Action("PhotoProduit", "Produits", new { id = @item.IdProduit.ToString() })</div></div>
+                    <div class="panel-heading">@item.Nom</div> <div class="panel-body">
+                        <p>Provenance : @item.Pays.Name</p><p>Prix : @item.Prix €</p><div class="btn-group-vertical">
+                            @using (@Html.BeginForm("ChangePromotion", "Marketing", FormMethod.Post, new { id = item.IdProduit }))
+                            {
+                                <label>Montant de la reduction</label> <br />
+                                <input type="number" size="3" value="@(100 - item.Promotion * 100)" name="Promotion" maxlength="3" style="width: 50px;" />
+                                <input type="number" hidden value="@item.IdProduit" name="idProduit" />
+                                <button type="submit" value="Valider" class="btn">Modifier</button>
+                                <br />
+                            }
+                            @Html.Action("PhotoProduit", "Produits", new { id = @item.IdProduit.ToString() })
+                        </div>
+                    </div>
                     @Html.ActionLink("Enlever", "Remove", new { id = item.IdProduit })
                 </div>
             </text> }

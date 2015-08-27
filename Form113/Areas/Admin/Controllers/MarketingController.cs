@@ -30,7 +30,15 @@ namespace Form113.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [HttpPost]
+        public ActionResult ChangePromotion(int idProduit, int Promotion)
+        {
+            var produit = db.Produits.Find(idProduit);
+            produit.Promotion = (100 - Promotion) / 100;
+            db.Entry(produit).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public string WarningToGive(List<Produits> listProduit)
         {
             int countWarning = 0;
