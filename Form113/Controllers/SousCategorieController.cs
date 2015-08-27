@@ -20,7 +20,7 @@ namespace Form113.Controllers
         {
             var db = new BestArtEntities();
             var idcat = Int32.Parse(id);
-            var cat = db.SousCategories.Where(c => c.IdCategorie == idcat).First();
+            var cat = db.SousCategories.Where(c => c.IdSousCategorie == idcat).FirstOrDefault();
             return PartialView("_SousCategorie", cat);
         }
     }

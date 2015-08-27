@@ -12,7 +12,7 @@
     <div>@foreach (var cat in @Model)
          {
         <div class="col-lg-4">
-            @Html.Action("Categorie", "Categorie", new { id=cat.ToString()})
+            @Html.Action("Categorie", "Categorie", new { id=cat})
             </div>
             }
 

@@ -3,7 +3,7 @@
 @model SousCategories
 
 <div class="panel">
-    <div class="panel-heading">@Model.Libelle</div>
+    <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
         <div id="CategorieImg">@Html.ImageHelp(Model.Photo)</div>
         @Html.ActionLink("Voir Produits", "IndexSousCategories", "Catalogue", new { id = Model.IdCategorie })
