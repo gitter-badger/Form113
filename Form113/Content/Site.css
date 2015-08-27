@@ -26,3 +26,19 @@ textarea {
 table {
     width: 100%;
 }
+
+.MonAffichageImage
+{    
+    width:100%;
+    height:100%;
+}
+
+.MonAffichageImage25
+{    
+    width: 90px;
+    height:25%;
+}
+
+.notclick{
+    pointer-events: none;
+}

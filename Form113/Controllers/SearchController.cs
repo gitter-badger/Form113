@@ -32,7 +32,7 @@ namespace Form113.Controllers
 
         public ActionResult Index()
         {
-            var svm = InitializeSVM();
+            var svm = SearchViewModel.InitializeSVM();
             ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
 
             return View(svm);
@@ -47,7 +47,7 @@ namespace Form113.Controllers
 
 
             var result = GetSearchResult(svm);
-            var pageSize = 20;
+            var pageSize  = 2;
             var itemQty = result.Count();
             var temp = itemQty % pageSize;
             var pageQty = temp == 0 ? itemQty / pageSize : itemQty / pageSize + 1;
@@ -72,7 +72,7 @@ namespace Form113.Controllers
             var bci = new BreadCrumItem("Index", "Index", "");
             ListeBreadCrumItem.Add(bci);
 
-            var svm = InitializeSVM();
+            var svm = SearchViewModel.InitializeSVM();
             var svmres = SearchViewModel.UnserializeSearchViewModel(rvm.XmlSearchviewModel);
             svmres.ListeCategorie = svm.ListeCategorie;
             svmres.ListeContinents = svm.ListeContinents;
@@ -142,7 +142,7 @@ namespace Form113.Controllers
             var svm = SearchViewModel.UnserializeSearchViewModel(rvm.XmlSearchviewModel);
 
             var result = GetSearchResult(svm);
-            var pageSize = 20;
+            var pageSize  = 2;
             var itemQty = result.Count();
             var temp = itemQty % pageSize;
             var pageQty = temp == 0 ? itemQty / pageSize : itemQty / pageSize + 1;
@@ -172,26 +172,6 @@ namespace Form113.Controllers
             svm.ListeProduit = res.ToList();
 
             return svm.ListeProduit;
-        }
-
-        private SearchViewModel InitializeSVM()
-        {
-            SearchViewModel svm = new SearchViewModel();
-
-            svm.ListeCategorie = new List<SelectListItem>();
-            var liste = db.Categories.OrderBy(x => x.Libelle).ToList();
-            foreach (var item in liste)
-            {
-                svm.ListeCategorie.Add(new SelectListItem() { Text = item.Libelle, Value = item.IdCategorie.ToString() });
-            }
-
-            svm.ListeContinents = new List<SelectListItem>();
-            var listeCont = db.Continents.OrderBy(x => x.name).ToList();
-            foreach (var cont in listeCont)
-            {
-                svm.ListeContinents.Add(new SelectListItem() { Text = cont.name, Value = cont.idContinent.ToString() });
-            }
-            return svm;
         }
     }
 }

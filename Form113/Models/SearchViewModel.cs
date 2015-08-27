@@ -60,6 +60,27 @@ namespace Form113.Models
         [XmlIgnore]
         public List<Produits> ListeProduit { get; set; }
 
+        public static SearchViewModel InitializeSVM()
+        {
+            var db = new BestArtEntities();
+            SearchViewModel svm = new SearchViewModel();
+
+            svm.ListeCategorie = new List<SelectListItem>();
+            var liste = db.Categories.OrderBy(x => x.Libelle).ToList();
+            foreach (var item in liste)
+            {
+                svm.ListeCategorie.Add(new SelectListItem() { Text = item.Libelle, Value = item.IdCategorie.ToString() });
+            }
+
+            svm.ListeContinents = new List<SelectListItem>();
+            var listeCont = db.Continents.OrderBy(x => x.name).ToList();
+            foreach (var cont in listeCont)
+            {
+                svm.ListeContinents.Add(new SelectListItem() { Text = cont.name, Value = cont.idContinent.ToString() });
+            }
+            return svm;
+        }
+
         #region XMLSerializerUnserialize
         public string SerializeSearchViewModel()
         {

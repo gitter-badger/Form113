@@ -1,11 +1,15 @@
 ﻿@using Form113.Helper
 @model DataLayer.Models.Produits
 
-<div class="panel-success">
+<div class="panel panel-info">
     <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
-        @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
-        Provenance : @Model.Pays.Name
-        @Model.Prix
+        <p>Provenance : @Model.Pays.Name</p>
+        <p>Prix : @Model.Prix €</p>
+        <p>
+            @Html.ActionLink("Detail", "Detail/" + Model.IdProduit, "Search")
+            <input class="single-checkbox" type="checkbox" name="ListeAComparer" value="@Model.IdProduit" id="@Model.IdProduit" />
+        </p>
+            @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
     </div>
 </div>

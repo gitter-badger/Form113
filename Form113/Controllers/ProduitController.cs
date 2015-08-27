@@ -9,6 +9,8 @@ namespace Form113.Controllers
 {
     public class ProduitController : BestArtController
     {
+        BestArtEntities db = new BestArtEntities();
+
         // GET: Produits
         public ActionResult Index()
         {
@@ -18,7 +20,6 @@ namespace Form113.Controllers
         [ChildActionOnly]
         public PartialViewResult NbProduits()
         {
-            var db = new BestArtEntities();
             var nbproduits = db.Produits.Count();
             return PartialView("_NbProduits", nbproduits);
         }
@@ -26,7 +27,6 @@ namespace Form113.Controllers
         [ChildActionOnly]
         public PartialViewResult HighlightedProduct()
         {
-            var db = new BestArtEntities();
             var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Take(3).Select(p=>p.IdProduit).ToList();
             return PartialView("_HighlightedProduct", res);
         }
@@ -35,9 +35,15 @@ namespace Form113.Controllers
         public PartialViewResult MiniatProduit(string id)
         {
             var idprod = Int32.Parse(id);
-            var db = new BestArtEntities();
             var res = db.Produits.Where(p => p.IdProduit == idprod).First();
             return PartialView("_MiniatProduit",res);
+        }
+
+        public PartialViewResult AfficheProduit(string id)
+        {
+            var idprod = Int32.Parse(id);
+            var res = db.Produits.Where(p => p.IdProduit == idprod).First();
+            return PartialView("_Produit", res);
         }
     }
 }

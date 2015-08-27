@@ -13,30 +13,13 @@
 {
     using (Html.MyFieldsetHelper("Liste des Produits celon la recherche"))
     {
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Pays</th>
-                    <th>Prix</th>
-                    <th>Photo</th>
-                    <th>Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in (List<DataLayer.Models.Produits>)Model.Result)
-                {
-                    <tr>
-                        <td>@item.Nom</td>
-                        <td>@item.Pays.Name</td>
-                        <td>@item.Prix €</td>
-                        <td><img src="~/Uploads/@item.Photos.Select(p => p.PhotoName).FirstOrDefault()" class="MonAffichageImage25" alt="L'image de la voiture n'est pas disponible" /></td>
-                        <td>@Html.ActionLink("Detail", "Detail/" + item.IdProduit, "Search")</td>
-                        <td><input class="single-checkbox" type="checkbox" name="ListeAComparer" value="@item.IdProduit" id="@item.IdProduit" /></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        foreach (var item in (List<DataLayer.Models.Produits>)Model.Result)
+        {
+            <div class="col-sm-4">
+                @Html.Action("AfficheProduit", "Produit", new { id = item.IdProduit })
+            </div>
+        }
+        <div class="row"></div>
         <input type="submit" value="Comparer" />
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using Form113.Helper
 @model DataLayer.Models.Produits
 
-<div class="panel-success">
+<div class="panel panel-success">
     <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
         @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
