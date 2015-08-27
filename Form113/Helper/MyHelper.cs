@@ -172,7 +172,7 @@ namespace Form113.Helper
             }
 
             //desactivation dernier si element actuel
-            if (1 != CurrentPage)
+            if (PageQty != CurrentPage)
             {
                 //UL.InnerHtml += LI.ToString();
                 sb.Append(LiATagBuilder(classeClick, PageQty.ToString()));
@@ -230,6 +230,112 @@ namespace Form113.Helper
             UL.InnerHtml += LI.ToString();
 
             return new MvcHtmlString(UL.ToString());
+        }
+
+        /// <summary>
+        /// Html.MyPaginationChiffreFleche( "Page Actuel" , "Nombre de Page en tout" , "Intervalle" (2))
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="CurrentPage"></param>
+        /// <param name="PageQty"></param>
+        /// <param name="Intervalle"></param>
+        /// <returns></returns>
+        public static MvcHtmlString MyPaginationChiffreFleche(this HtmlHelper self, int CurrentPage, int PageQty, int Intervalle = 2)
+        {
+            var sb = new StringBuilder();
+            //var UL = new TagBuilder("ul");
+            //UL.AddCssClass("pagination");
+            var str = "<ul class=\"pagination\">";
+
+            var classeClick = "pageLink";
+            var classeNoClick = "pageLink notclick";
+
+            sb.Append(str);
+
+            int min = Intervalle;
+            int max = CurrentPage + Intervalle;
+
+            if (CurrentPage >= Intervalle + 2)
+            {
+                min = CurrentPage - Intervalle;
+            }
+            if (CurrentPage >= (PageQty - Intervalle - 1))
+            {
+                max = PageQty - 1;
+            }
+
+
+            var LI = new TagBuilder("li");
+            var A = new TagBuilder("a");
+            A.AddCssClass("glyphicon glyphicon-step-backward");
+            A.Attributes.Add("id", "FirstPage");
+            LI.InnerHtml = A.ToString();
+            sb.Append(LI.ToString());
+
+            LI = new TagBuilder("li");
+            A = new TagBuilder("a");
+            A.AddCssClass("glyphicon glyphicon-chevron-left");
+            A.Attributes.Add("id", "CurrentPage1");
+            LI.InnerHtml = A.ToString();
+            sb.Append(LI.ToString());
+
+            //desactivation premier si element actuel
+            if (1 != CurrentPage)
+            {
+                sb.Append(LiATagBuilder(classeClick, "1"));
+                //UL.InnerHtml += LI.ToString();
+            }
+            else
+            {
+                //UL.InnerHtml += LI.ToString();
+                sb.Append(LiATagBuilder(classeNoClick, "1"));
+            }
+
+            //Affichage element actuel et intervalle autour de lui
+            for (int i = min; i <= max; i++)
+            {
+                if (i != CurrentPage)
+                {
+                    //UL.InnerHtml += LI.ToString();
+                    sb.Append(LiATagBuilder(classeClick, i.ToString()));
+                }
+                else
+                {
+                    //UL.InnerHtml += LI.ToString();
+                    sb.Append(LiATagBuilder(classeNoClick, i.ToString()));
+                }
+            }
+
+            //desactivation dernier si element actuel
+            if (PageQty != CurrentPage)
+            {
+                //UL.InnerHtml += LI.ToString();
+                sb.Append(LiATagBuilder(classeClick, PageQty.ToString()));
+            }
+            else
+            {
+                //UL.InnerHtml += LI.ToString();
+                sb.Append(LiATagBuilder(classeNoClick, PageQty.ToString()));
+            }
+
+            LI = new TagBuilder("li");
+            A = new TagBuilder("a");
+            A.AddCssClass("glyphicon glyphicon-chevron-right");
+            A.Attributes.Add("id", "CurrentPage2");
+            LI.InnerHtml = A.ToString();
+            sb.Append(LI.ToString());
+
+            LI = new TagBuilder("li");
+            A = new TagBuilder("a");
+            A.AddCssClass("glyphicon glyphicon-step-forward");
+            A.Attributes.Add("id", "LastPage");
+            LI.InnerHtml = A.ToString();
+            sb.Append(LI.ToString());
+
+            var strfin = "</ul>";
+            sb.Append(strfin);
+
+            return new MvcHtmlString(sb.ToString());
         }
         #endregion
 

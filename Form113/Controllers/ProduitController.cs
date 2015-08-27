@@ -15,6 +15,12 @@ namespace Form113.Controllers
     {
         BestArtEntities db = new BestArtEntities();
 
+        public ProduitController()
+        {
+            var bci = new BreadCrumItem("Search", "Index", "Search");
+            ListeBreadCrumItem.Add(bci);
+        }
+
         // GET: Produits
         public ActionResult Index()
         {
@@ -50,20 +56,15 @@ namespace Form113.Controllers
             return PartialView("_Produit", res);
         }
 
-
         [HttpPost]
         public ActionResult Result(SearchViewModel svm)
         {
-            var bci = new BreadCrumItem("Search", "Index", "Search");
-            ListeBreadCrumItem.Add(bci);
-            bci = new BreadCrumItem("Result", "Result", "");
+            var bci = new BreadCrumItem("Result", "Result", "");
             ListeBreadCrumItem.Add(bci);
             //ViewBag.PrixMaxSlider = Math.Ceiling((float)db.Produits.Max(x => x.Prix) / 1000) * 1000;
 
-
-
             var result = GetSearchResult(svm);
-            var pageSize = 2;
+            var pageSize = 30;
             var itemQty = result.Count();
             var temp = itemQty % pageSize;
             var pageQty = temp == 0 ? itemQty / pageSize : itemQty / pageSize + 1;
@@ -127,7 +128,7 @@ namespace Form113.Controllers
                 ViewBag.listeR = svmres.idRegions[0].ToString();
             ViewBag.listeP = srcP;
 
-            return View("Index", svmres);
+            return View("../Search/Index",svmres);
         }
 
         public ActionResult Detail(int id)
@@ -158,7 +159,7 @@ namespace Form113.Controllers
             var svm = SearchViewModel.UnserializeSearchViewModel(rvm.XmlSearchviewModel);
 
             var result = GetSearchResult(svm);
-            var pageSize = 2;
+            var pageSize = 30;
             var itemQty = result.Count();
             var temp = itemQty % pageSize;
             var pageQty = temp == 0 ? itemQty / pageSize : itemQty / pageSize + 1;
@@ -170,7 +171,6 @@ namespace Form113.Controllers
             rvm.PageQty = pageQty;
 
             rvm.XmlSearchviewModel = svm.SerializeSearchViewModel();
-
 
             return View("Result", rvm);
         }

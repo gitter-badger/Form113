@@ -23,11 +23,8 @@
         <input type="submit" value="Comparer" />
     }
 }
-@using (Html.BeginForm("RetourRecherche", "Search", FormMethod.Post))
+@using (Html.BeginForm("RetourRecherche", "Produit", FormMethod.Post))
 {
-    <input type="hidden" id="idLastPage" value="@Model.PageQty" />
-    <input type="hidden" id="idCurrentPage" name="CurrentPage" value="@Model.CurrentPage" />
-    <input type="hidden" name="XmlSearchviewModel" value="@Model.XmlSearchviewModel" />
     <input type="submit" value="Retour Recherche" />
 }
 
@@ -40,8 +37,7 @@
 
 
 
-@Html.MyPaginationChiffre(Model.CurrentPage, Model.PageQty, 2)<br />
-@Html.MyPaginationFleche(Model.CurrentPage, Model.PageQty)<br />
+@Html.MyPaginationChiffreFleche(Model.CurrentPage, Model.PageQty, 2)<br />
 
 @section scripts {
     <script src="~/Scripts/Pagination/js/Pagination.js"></script>
