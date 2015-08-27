@@ -86,6 +86,8 @@ namespace Form113.Controllers
             var cat=db.Categories.Where(c=>c.IdCategorie==db.SousCategories.Where(sc=>sc.IdSousCategorie==idsouscat).FirstOrDefault().IdCategorie).FirstOrDefault();
             bci = new BreadCrumItem(cat.Libelle,"IndexSousCategories/"+cat.IdCategorie,"Catalogue");
             ListeBreadCrumItem.Add(bci);
+            bci = new BreadCrumItem(db.SousCategories.Where(sc=>sc.IdSousCategorie==idsouscat).FirstOrDefault().Nom, "", "");
+            ListeBreadCrumItem.Add(bci);
 
             return View("../Produit/Result",rvm);
         }
