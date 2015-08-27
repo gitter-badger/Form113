@@ -1,0 +1,47 @@
+﻿@using Form113.Helper
+@model List<DataLayer.Models.Produits>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="col-lg-12">
+    <div class="form-group-lg">
+        <h2>Ventes</h2>
+    </div>
+</div>
+
+
+<div class="col-lg-12">
+    <div class="form-group-lg">
+        <h2>Gestion des produit mis en avant</h2>
+        <h3><font color="red">@ViewBag.Alert</font> </h3>
+        @foreach (var item in Model)
+        {
+
+            if (item.Stock <= 0)
+            { <text> <div class="panel panel-danger col-lg-4">
+                    <div class="panel-heading">@item.Nom</div> <div class="panel-body">
+                        <p>Provenance : @item.Pays.Name</p><p>Prix : @item.Prix €</p>
+                        using(Html.BeginForm()){
+                        <p>Montant de la reduction</p>
+                        <input type="number" value="@item.Promotion" name="Promotion" />
+                        }
+
+                        <div class="btn-group-vertical">@Html.Action("PhotoProduit", "Produits", new { id = @item.IdProduit.ToString() })</div>
+                    </div>
+                     @Html.ActionLink("Enlever", "Remove", new { id = item.IdProduit })
+                </div>
+            </text>
+            }
+            else
+            {  <text> <div class="panel panel-info col-lg-4">
+                    <div class="panel-heading">@item.Nom</div> <div class="panel-body"><p>Provenance : @item.Pays.Name</p><p>Prix : @item.Prix €</p><div class="btn-group-vertical">@Html.Action("PhotoProduit", "Produits", new { id = @item.IdProduit.ToString() })</div></div>
+                    @Html.ActionLink("Enlever", "Remove", new { id = item.IdProduit })
+                </div>
+            </text> }
+
+
+
+        }
+    </div>
+</div>
