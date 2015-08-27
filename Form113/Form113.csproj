@@ -305,6 +305,7 @@
     <Content Include="Views\Catalogue\IndexCategories.cshtml" />
     <Content Include="Views\Catalogue\IndexSousCategories.cshtml" />
     <Content Include="Views\SousCategorie\_SousCategorie.cshtml" />
+    <Content Include="Views\Produit\_Produit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -320,7 +321,6 @@
     <Folder Include="Scripts\Search\css\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Localisation\" />
-    <Folder Include="Views\Produits\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
