@@ -23,13 +23,22 @@
         <input type="submit" value="Comparer" />
     }
 }
-@using (Html.BeginForm("RetourRecherche", "Produit", FormMethod.Post))
+@if (Model.BackToSearch)
 {
-    <input type="submit" value="Retour Recherche" />
+    using (Html.BeginForm("RetourRecherche", "Produit", FormMethod.Post))
+    {
+        <input type="hidden" name="BackToSearch" value="@Model.BackToSearch" />
+        <input type="hidden" id="idLastPage" value="@Model.PageQty" />
+        <input type="hidden" id="idCurrentPage" name="CurrentPage" value="@Model.CurrentPage" />
+        <input type="hidden" name="XmlSearchviewModel" value="@Model.XmlSearchviewModel" />
+        <input type="submit" value="Retour Recherche" />
+    }
 }
+
 
 @using (Html.BeginForm("Pagination", "Produit", FormMethod.Post, new { id = "idFormPagination" }))
 {
+    <input type="hidden" name="BackToSearch" value="@Model.BackToSearch" />
     <input type="hidden" id="idLastPage" value="@Model.PageQty" />
     <input type="hidden" id="idCurrentPage" name="CurrentPage" value="@Model.CurrentPage" />
     <input type="hidden" name="XmlSearchviewModel" value="@Model.XmlSearchviewModel" />

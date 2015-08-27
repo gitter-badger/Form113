@@ -48,8 +48,8 @@ namespace Form113.Controllers
                 var idcat = Int32.Parse(id);
 
                 svm.idCategories = new int[] { idcat };
-                
-                result = db.Produits.Where(p => p.IdSousCategorie == idcat).ToList();
+                var sousCategories = db.SousCategories.Where(sc => sc.IdCategorie == idcat).Select(sc => sc.IdSousCategorie).ToList();
+                result = db.Produits.Where(p =>sousCategories.Contains(p.IdSousCategorie)).ToList();
             }
             else
             {
@@ -58,8 +58,10 @@ namespace Form113.Controllers
 
             }
             svm.Prixmax = db.Produits.Max(p => p.Prix);
+
             var rvm = ResultViewModels.RvmCreate(svm, result);
-            
+            rvm.BackToSearch = false;
+
             var bci = new BreadCrumItem("Index Categories", "IndexCategories", "Catalogue");
             ListeBreadCrumItem.Add(bci);
             return View("../Produit/Result", rvm);
@@ -71,11 +73,13 @@ namespace Form113.Controllers
         {
             var idsouscat = Int32.Parse(id);
             var svm = SearchViewModel.InitializeSVM();
-            svm.idCategories=new int[] {(int)db.SousCategories.Where(sc=>sc.IdCategorie==idsouscat).FirstOrDefault().IdCategorie};
+            svm.idCategories=new int[] {(int)db.SousCategories.Where(sc=>sc.IdSousCategorie==idsouscat).FirstOrDefault().IdCategorie};
             svm.idSousCategories = new int[] { idsouscat };
             svm.Prixmax = db.Produits.Max(p => p.Prix);
             var result = db.Produits.Where(p => p.IdSousCategorie == idsouscat).ToList();
+
             var rvm=ResultViewModels.RvmCreate(svm,result);
+            rvm.BackToSearch = false;
 
             var bci = new BreadCrumItem("Index Categories", "IndexCategories", "Catalogue");
             ListeBreadCrumItem.Add(bci);

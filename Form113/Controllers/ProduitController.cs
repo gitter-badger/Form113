@@ -76,6 +76,7 @@ namespace Form113.Controllers
                 PageSize = pageSize,
                 ItemsQty = itemQty,
                 PageQty = pageQty,
+                BackToSearch=true,
 
                 XmlSearchviewModel = svm.SerializeSearchViewModel(),
 
@@ -160,7 +161,7 @@ namespace Form113.Controllers
             var svm = SearchViewModel.UnserializeSearchViewModel(rvm.XmlSearchviewModel);
 
             var result = GetSearchResult(svm);
-            var pageSize = 1;
+            var pageSize = 30;
             var itemQty = result.Count();
             var temp = itemQty % pageSize;
             var pageQty = temp == 0 ? itemQty / pageSize : itemQty / pageSize + 1;
