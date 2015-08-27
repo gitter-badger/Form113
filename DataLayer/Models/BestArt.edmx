@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -177,6 +177,7 @@
           <Property Name="IdSousCategorie" Type="int" Nullable="false" />
           <Property Name="DateMiseEnVente" Type="datetime" Nullable="false" />
           <Property Name="Promotion" Type="float" />
+          <Property Name="MisEnAvant" Type="tinyint" Nullable="false" />
           <Property Name="CodePays" Type="char" MaxLength="3" />
           <Property Name="Stock" Type="int" />
           <Property Name="NbVues" Type="int" />
@@ -281,18 +282,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_commande_details_produit">
-          <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
-          <End Role="Commandes_details" Type="Self.Commandes_details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Produits">
-              <PropertyRef Name="IdProduit" />
-            </Principal>
-            <Dependent Role="Commandes_details">
-              <PropertyRef Name="IdProduit" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_commande_utilisateur">
           <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1" />
           <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
@@ -370,42 +359,6 @@
             </Principal>
             <Dependent Role="Departements">
               <PropertyRef Name="NumReg" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_photos_produits">
-          <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
-          <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Produits">
-              <PropertyRef Name="IdProduit" />
-            </Principal>
-            <Dependent Role="Photos">
-              <PropertyRef Name="IdProduit" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_produits_pays">
-          <End Role="Pays" Type="Self.Pays" Multiplicity="0..1" />
-          <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pays">
-              <PropertyRef Name="CodeIso3" />
-            </Principal>
-            <Dependent Role="Produits">
-              <PropertyRef Name="CodePays" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Produits_SousCategorie">
-          <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="1" />
-          <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SousCategories">
-              <PropertyRef Name="IdSousCategorie" />
-            </Principal>
-            <Dependent Role="Produits">
-              <PropertyRef Name="IdSousCategorie" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -529,10 +482,6 @@
             <End Role="Commandes" EntitySet="Commandes" />
             <End Role="Commandes_details" EntitySet="Commandes_details" />
           </AssociationSet>
-          <AssociationSet Name="fk_commande_details_produit" Association="Self.fk_commande_details_produit">
-            <End Role="Produits" EntitySet="Produits" />
-            <End Role="Commandes_details" EntitySet="Commandes_details" />
-          </AssociationSet>
           <AssociationSet Name="fk_commande_utilisateur" Association="Self.fk_commande_utilisateur">
             <End Role="Utilisateurs" EntitySet="Utilisateurs" />
             <End Role="Commandes" EntitySet="Commandes" />
@@ -556,18 +505,6 @@
           <AssociationSet Name="fk_departements_regions" Association="Self.fk_departements_regions">
             <End Role="RegionsFR" EntitySet="RegionsFR" />
             <End Role="Departements" EntitySet="Departements" />
-          </AssociationSet>
-          <AssociationSet Name="fk_photos_produits" Association="Self.fk_photos_produits">
-            <End Role="Produits" EntitySet="Produits" />
-            <End Role="Photos" EntitySet="Photos" />
-          </AssociationSet>
-          <AssociationSet Name="fk_produits_pays" Association="Self.fk_produits_pays">
-            <End Role="Pays" EntitySet="Pays" />
-            <End Role="Produits" EntitySet="Produits" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Produits_SousCategorie" Association="Self.FK_Produits_SousCategorie">
-            <End Role="SousCategories" EntitySet="SousCategories" />
-            <End Role="Produits" EntitySet="Produits" />
           </AssociationSet>
           <AssociationSet Name="FK_SousCategory_Categories" Association="Self.FK_SousCategory_Categories">
             <End Role="Categories" EntitySet="Categories" />
@@ -598,8 +535,7 @@
             <End Role="Regions" EntitySet="Regions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BestArtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -796,6 +732,7 @@
           <NavigationProperty Name="Pays" Relationship="Self.fk_produits_pays" FromRole="Produits" ToRole="Pays" />
           <NavigationProperty Name="Photos" Relationship="Self.fk_photos_produits" FromRole="Produits" ToRole="Photos" />
           <NavigationProperty Name="SousCategories" Relationship="Self.FK_Produits_SousCategorie" FromRole="Produits" ToRole="SousCategories" />
+          <Property Name="MisEnAvant" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="Regions">
           <Key>
@@ -1369,6 +1306,7 @@
           <EntitySetMapping Name="Produits">
             <EntityTypeMapping TypeName="BestArtModel.Produits">
               <MappingFragment StoreEntitySet="Produits">
+                <ScalarProperty Name="MisEnAvant" ColumnName="MisEnAvant" />
                 <ScalarProperty Name="IdProduit" ColumnName="IdProduit" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
                 <ScalarProperty Name="Couleur" ColumnName="Couleur" />

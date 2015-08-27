@@ -31,6 +31,7 @@ namespace DataLayer.Models
         public string CodePays { get; set; }
         public Nullable<int> Stock { get; set; }
         public Nullable<int> NbVues { get; set; }
+        public byte MisEnAvant { get; set; }
     
         public virtual ICollection<Commandes_details> Commandes_details { get; set; }
         public virtual Pays Pays { get; set; }
