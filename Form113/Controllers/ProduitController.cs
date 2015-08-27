@@ -153,13 +153,14 @@ namespace Form113.Controllers
         [HttpPost, ValidateInput(false)]
         public ViewResult Pagination(ResultViewModels rvm)
         {
+            
             var bci = new BreadCrumItem("Result", "Result", "");
             ListeBreadCrumItem.Add(bci);
 
             var svm = SearchViewModel.UnserializeSearchViewModel(rvm.XmlSearchviewModel);
 
             var result = GetSearchResult(svm);
-            var pageSize = 30;
+            var pageSize = 1;
             var itemQty = result.Count();
             var temp = itemQty % pageSize;
             var pageQty = temp == 0 ? itemQty / pageSize : itemQty / pageSize + 1;

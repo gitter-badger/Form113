@@ -16,6 +16,14 @@
                 @Html.Action("SousCategorie", "SousCategorie", new { id = scat })
             </div>
         }
+        <div class="col-lg-4">
+            <div class="panel">
+                <div class="panel-heading">Toutes les sous catégories de produits</div>
+                <div class="panel-body">
+                    @Html.ActionLink("Voir produits", (string)("ProduitsCategorie/"+@ViewBag.idcat), "Catalogue")
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -15,7 +15,14 @@
             @Html.Action("Categorie", "Categorie", new { id=cat})
             </div>
             }
-
+        <div class="col-lg-4">
+            <div class="panel">
+                <div class="panel-heading">Toutes les catégories de produits</div>
+                <div class="panel-body">
+                    @Html.ActionLink("Details", "ProduitsCategorie/", "Catalogue")
+                </div>
+            </div>
+        </div>
         </div>
 </body>
 </html>

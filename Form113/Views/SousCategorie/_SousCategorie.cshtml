@@ -6,7 +6,7 @@
     <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
         <div id="CategorieImg">@Html.ImageHelp(Model.Photo)</div>
-        @Html.ActionLink("Voir Produits", "IndexSousCategories", "Catalogue", new { id = Model.IdCategorie })
+        @Html.ActionLink("Voir Produits", "ProduitsSousCategorie/"+Model.IdSousCategorie, "Catalogue")
     </div>
 
 
