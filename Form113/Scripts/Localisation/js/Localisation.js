@@ -6,11 +6,16 @@
 });
 function ListeDesRegions() {
     var idcont = $("#idContinent").val();
-    var idPreSelectR = $("#idR").val().split("/");
+    var idPreSelectR = $("#idR").val().split('/');
     var option = "";
     $.getJSON('/Localisation/GetJSONREG/' + idcont, function (data) {
         $.each(data, function (index, reg) {
-            option += '<option value="' + reg.nr + '">' + reg.reg + '</option>';
+            if ($.inArray(""+reg.nr, idPreSelectR) >= 0) {
+                option += '<option selected value="' + reg.nr + '">' + reg.reg + '</option>';
+            }
+            else {
+                option += '<option value="' + reg.nr + '">' + reg.reg + '</option>';
+            }
         });
         $("#idRegions").html(option);
         $("#idPays").val();
@@ -19,13 +24,16 @@ function ListeDesRegions() {
 }
 function ListeDesPays() {
     var idreg = $("#idRegions").val();
-    var idPreSelectP = $("#idP").val().split("/"); 
-    array = array.concat(idPreSelectP);
-    var selected = "";
+    var idPreSelectP = $("#idP").val().split('/');
     var option = "";
     $.getJSON('/Localisation/GetJSONPAYS/' + idreg, function (data) {
         $.each(data, function (index, pay) {
-            option += '<option value="' + pay.np + '">' + pay.pay + '</option>';
+            if ($.inArray(pay.np, idPreSelectP) >= 0) {
+                option += '<option selected value="' + pay.np + '">' + pay.pay + '</option>';
+            }
+            else {
+                option += '<option value="' + pay.np + '">' + pay.pay + '</option>';
+            }
         });
         $("#idPays").html(option);
         UpdateChosen();

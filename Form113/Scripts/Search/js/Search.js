@@ -31,10 +31,16 @@ function Slider() {
 
 function ListeDesSousCategorie() {
     var idcat = $("#idCategories").val();
+    var idPreSelectSC = $("#idSC").val().split('/');
     var option = "";
     $.getJSON('/Search/GetJSONSCAT/' + idcat, function (data) {
         $.each(data, function (index, scat) {
-            option += '<option value="' + scat.nc + '">' + scat.scat + '</option>';
+            if ($.inArray("" + scat.nc, idPreSelectSC) >= 0) {
+                option += '<option selected value="' + scat.nc + '">' + scat.scat + '</option>';
+            }
+            else {
+                option += '<option value="' + scat.nc + '">' + scat.scat + '</option>';
+            }
         });
         $("#idSousCategories").html(option);
         UpdateChosen();

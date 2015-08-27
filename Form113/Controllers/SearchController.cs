@@ -97,7 +97,7 @@ namespace Form113.Controllers
                 {
                     if (i != 0)
                     {
-                        srcSC += "/";
+                        srcP += "/";
                     }
                     srcP += item.ToString();
                     i++;
