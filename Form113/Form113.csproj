@@ -312,6 +312,7 @@
     <Content Include="Views\Produit\Detail.cshtml" />
     <Content Include="Views\Produit\Result.cshtml" />
     <Content Include="Views\Panier\Index.cshtml" />
+    <Content Include="Views\Produit\_AdminProduit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

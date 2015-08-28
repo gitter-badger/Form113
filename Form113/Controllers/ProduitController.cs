@@ -177,6 +177,13 @@ namespace Form113.Controllers
             return View("Result", rvm);
         }
 
+         //Boutton admin
+        [ChildActionOnly]
+        public PartialViewResult AdminPart()
+        {
+            return PartialView("_AdminProduit");
+        }
+
         private List<Produits> GetSearchResult(SearchViewModel svm)
         {
 
