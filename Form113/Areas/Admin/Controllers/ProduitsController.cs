@@ -63,6 +63,7 @@ namespace Form113.Areas.Admin.Controllers
                     {
                         var fileName = Path.GetFileName(file[i].FileName);
                         var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                        file[i].SaveAs(path);                           
                         var photo = new DataLayer.Models.Photos();
                         photo.IdProduit = produits.IdProduit;
                         photo.PhotoName = fileName.ToString();
