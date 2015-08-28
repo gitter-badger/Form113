@@ -1,9 +1,25 @@
 USE [Form113]
 
-
-
-
-  
+if exists (select * from sysobjects where name = 'Administrateurs' and type = 'U')
+	drop table Administrateurs;
+if exists (select * from sysobjects where name = 'Commandes_details' and type = 'U')
+	drop table Commandes_details;
+if exists (select * from sysobjects where name = 'Commandes' and type = 'U')
+	drop table Commandes;
+if exists (select * from sysobjects where name = 'Photos' and type = 'U')
+	drop table Photos;
+if exists (select * from sysobjects where name = 'Utilisateurs' and type = 'U')
+	drop table Utilisateurs;
+if exists (select * from sysobjects where name = 'Produits' and type = 'U')
+	drop table Produits;
+if exists (select * from sysobjects where name = 'SousCategories' and type = 'U')
+	drop table SousCategories;
+if exists (select * from sysobjects where name = 'Categories' and type = 'U')
+	drop table Categories;
+if exists (select * from sysobjects where name = 'Identites' and type = 'U')
+	drop table Identites;
+if exists (select * from sysobjects where name = 'Adresses' and type = 'U')
+	drop table Adresses;
 
 CREATE TABLE [dbo].[Administrateurs](
 	[IdAdministrateur] [int] NOT NULL,
@@ -170,6 +186,7 @@ CREATE TABLE [dbo].[Utilisateurs](
 	[IdUtilisateur] [int] IDENTITY(1,1) NOT NULL,
 	[IdAsp] [nvarchar](128) NOT NULL,
 	[IdAdresse] [int] NOT NULL,
+	[NbCommande] [int] default 0,
 	[DateInscription] [datetime2](7) NOT NULL,
 	[LastConnection] [datetime2](7) NULL,
 	[IdIdentite] [int] NULL,

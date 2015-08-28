@@ -25,6 +25,7 @@ namespace DataLayer.Models
         public Nullable<System.DateTime> LastConnection { get; set; }
         public Nullable<int> IdIdentite { get; set; }
         public string IdAsp { get; set; }
+        public Nullable<int> NbCommande { get; set; }
     
         public virtual Adresses Adresses { get; set; }
         public virtual ICollection<Commandes> Commandes { get; set; }

@@ -213,6 +213,7 @@
           <Property Name="IdUtilisateur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdAsp" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdAdresse" Type="int" Nullable="false" />
+          <Property Name="NbCommande" Type="int" />
           <Property Name="DateInscription" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastConnection" Type="datetime2" Precision="7" />
           <Property Name="IdIdentite" Type="int" />
@@ -859,6 +860,7 @@
           <NavigationProperty Name="Identites" Relationship="Self.fk_utilisateurs_identites" FromRole="Utilisateurs" ToRole="Identites" />
           <Property Name="IdAsp" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="BestArtModel.fk_utilisateurs_ASPusers" FromRole="Utilisateurs" ToRole="AspNetUsers" />
+          <Property Name="NbCommande" Type="Int32" />
         </EntityType>
         <EntityType Name="Villes">
           <Key>
@@ -1451,6 +1453,7 @@
           <EntitySetMapping Name="Utilisateurs">
             <EntityTypeMapping TypeName="BestArtModel.Utilisateurs">
               <MappingFragment StoreEntitySet="Utilisateurs">
+                <ScalarProperty Name="NbCommande" ColumnName="NbCommande" />
                 <ScalarProperty Name="IdAsp" ColumnName="IdAsp" />
                 <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
                 <ScalarProperty Name="IdAdresse" ColumnName="IdAdresse" />
