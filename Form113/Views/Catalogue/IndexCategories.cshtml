@@ -2,19 +2,31 @@
 
 
 <!DOCTYPE html>
-
+@section styles {
+<script src="~/Scripts/bootstrap.js"></script>
+    <link href="~/Scripts/Catalog/Image.css" rel="stylesheet" />
+}
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>IndexCategories</title>
 </head>
+
 <body>
-    <div>@foreach (var cat in @Model)
-         {
-        <div class="col-lg-4">
-            @Html.Action("Categorie", "Categorie", new { id=cat})
-            </div>
+    <div>
+        <div class="row">
+            @foreach (var cat in @Model)
+            {
+                @*<div class="col-lg-4">
+                    @Html.Action("Categorie", "Categorie", new { id = cat })
+                </div>*@
+                <div class="col-lg-4">
+                    <div class="Product">
+                        @Html.Action("Categorie", "Categorie", new { id = cat })
+                    </div>
+                </div>
             }
+        </div>
         <div class="col-lg-4">
             <div class="panel">
                 <div class="panel-heading">Toutes les catégories de produits</div>

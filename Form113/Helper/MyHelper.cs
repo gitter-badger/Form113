@@ -640,6 +640,7 @@ namespace Form113.Helper
             TagBuilder image = new TagBuilder("img");
             image.MergeAttribute("src", dir + imgname);
             image.MergeAttribute("alt", "Image non disponible");
+            image.AddCssClass("img-responsive");
             return new MvcHtmlString(image.ToString());
         }
 
