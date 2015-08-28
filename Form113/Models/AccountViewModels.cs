@@ -84,15 +84,20 @@ namespace Form113.Models
         public Dictionary<string, Dictionary<string, string>> RegionsDepartements { get; set; }
 
         public string CodeVille { get; set; }
-        [DisplayName("numero de voie")]
+        [DisplayName("numero de voie :")]
         public string Adresse1 { get; set; }
 
-        [DisplayName("Voie")]
+        [DisplayName("Voie :")]
         public string Adresse2 { get; set; }
 
-        [DisplayName("Complément d'adresse")]
+        [DisplayName("Complément d'adresse :")]
         public string Adresse3 { get; set; }
 
+        [DisplayName("Nom :")]
+        public string Nom { get; set; }
+
+        [DisplayName("Prenom :")]
+        public string Prenom { get; set; }
     }
 
     public class ResetPasswordViewModel
