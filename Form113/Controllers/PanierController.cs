@@ -23,7 +23,7 @@ namespace Form113.Controllers
 
         public PanierController()
         {
-            var bci = new BreadCrumItem("Panier", "Index", "Panier");
+            var bci = new BreadCrumItem("Panier", "Index", "");
             ListeBreadCrumItem.Add(bci);
         }
 

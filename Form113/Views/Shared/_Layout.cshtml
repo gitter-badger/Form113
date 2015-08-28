@@ -29,6 +29,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Catalogue", "IndexCategories", "Catalogue")</li>
                     <li>@Html.ActionLink("Recherche", "Index", "Search")</li>
+                    <li>@Html.ActionLink("Panier", "Index", "Panier")</li>
                     @if (User.IsInRole("ADMIN"))
                     {
                         <li>@Html.ActionLink("Menu Administration", "Index", "Produits", new { Area = "Admin"}, new { })</li>}
