@@ -169,7 +169,6 @@
     <Compile Include="Controllers\BestArtController.cs" />
     <Compile Include="Controllers\CatalogueController.cs" />
     <Compile Include="Controllers\CategorieController.cs" />
-    <Compile Include="Controllers\CommandeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalisationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -193,7 +192,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BreadCrumItem.cs" />
     <Compile Include="Models\CheckBoxItem.cs" />
-    <Compile Include="Models\CommandeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ResultViewModels.cs" />
@@ -248,6 +246,7 @@
     <Content Include="Plugins\Chosen\js\chosen.proto.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Home\section.css" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -261,7 +260,6 @@
     <Content Include="Scripts\Pagination\js\Pagination.js" />
     <Content Include="Scripts\Produit\js\AjoutPanier.js" />
     <Content Include="Scripts\Produit\js\GestionPanier.js" />
-    <Content Include="Scripts\Produit\js\PasserCommande.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Search\js\Search.js" />
@@ -317,7 +315,6 @@
     <Content Include="Views\Produit\Result.cshtml" />
     <Content Include="Views\Panier\Index.cshtml" />
     <Content Include="Views\Produit\_AdminProduit.cshtml" />
-    <Content Include="Views\Commande\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
