@@ -2,25 +2,40 @@
 
 
 <!DOCTYPE html>
+@section scripts {
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+}
+@section styles {
+<link href="~/Scripts/Catalog/Image2.css" rel="stylesheet" />
 
+}
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>IndexSousCategories</title>
 </head>
 <body>
-    <div> 
-        @foreach (var scat in @Model)
-        {
-            <div class="col-lg-4">
-                @Html.Action("SousCategorie", "SousCategorie", new { id = scat })
-            </div>
-        }
+    <div>
+        @*@foreach (var scat in @Model)
+            {
+                <div class="col-lg-4">
+                    @Html.Action("SousCategorie", "SousCategorie", new { id = scat })
+                </div>
+            }*@
+        <ul class="rig columns-3">
+            @foreach (var scat in @Model)
+            {
+                <li>
+                    @Html.Action("SousCategorie", "SousCategorie", new { id = scat })
+                </li>
+            }
+        </ul>
         <div class="col-lg-4">
             <div class="panel">
                 <div class="panel-heading">Toutes les sous catégories de produits</div>
                 <div class="panel-body">
-                    @Html.ActionLink("Voir produits", (string)("ProduitsCategorie/"+@ViewBag.idcat), "Catalogue")
+                    @Html.ActionLink("Voir produits", (string)("ProduitsCategorie/" + @ViewBag.idcat), "Catalogue")
                 </div>
             </div>
         </div>
