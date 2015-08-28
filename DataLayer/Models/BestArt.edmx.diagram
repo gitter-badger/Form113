@@ -46,6 +46,7 @@
         <AssociationConnector Association="BestArtModel.FK_Produits_SousCategorie" ManuallyRouted="false" />
         <AssociationConnector Association="BestArtModel.fk_zipcodes_villes" ManuallyRouted="false" />
         <AssociationConnector Association="BestArtModel.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="BestArtModel.fk_utilisateurs_ASPusers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

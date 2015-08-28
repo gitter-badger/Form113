@@ -211,6 +211,7 @@
             <PropertyRef Name="IdUtilisateur" />
           </Key>
           <Property Name="IdUtilisateur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAsp" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="IdAdresse" Type="int" Nullable="false" />
           <Property Name="DateInscription" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastConnection" Type="datetime2" Precision="7" />
@@ -279,6 +280,18 @@
             </Principal>
             <Dependent Role="Commandes_details">
               <PropertyRef Name="IdCommande" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_commande_details_produit">
+          <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
+          <End Role="Commandes_details" Type="Self.Commandes_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produits">
+              <PropertyRef Name="IdProduit" />
+            </Principal>
+            <Dependent Role="Commandes_details">
+              <PropertyRef Name="IdProduit" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -362,6 +375,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_photos_produits">
+          <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
+          <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produits">
+              <PropertyRef Name="IdProduit" />
+            </Principal>
+            <Dependent Role="Photos">
+              <PropertyRef Name="IdProduit" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_produits_pays">
+          <End Role="Pays" Type="Self.Pays" Multiplicity="0..1" />
+          <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pays">
+              <PropertyRef Name="CodeIso3" />
+            </Principal>
+            <Dependent Role="Produits">
+              <PropertyRef Name="CodePays" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produits_SousCategorie">
+          <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="1" />
+          <End Role="Produits" Type="Self.Produits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SousCategories">
+              <PropertyRef Name="IdSousCategorie" />
+            </Principal>
+            <Dependent Role="Produits">
+              <PropertyRef Name="IdSousCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SousCategory_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="*" />
@@ -383,6 +432,18 @@
             </Principal>
             <Dependent Role="Utilisateurs">
               <PropertyRef Name="IdAdresse" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_utilisateurs_ASPusers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Utilisateurs">
+              <PropertyRef Name="IdAsp" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -482,6 +543,10 @@
             <End Role="Commandes" EntitySet="Commandes" />
             <End Role="Commandes_details" EntitySet="Commandes_details" />
           </AssociationSet>
+          <AssociationSet Name="fk_commande_details_produit" Association="Self.fk_commande_details_produit">
+            <End Role="Produits" EntitySet="Produits" />
+            <End Role="Commandes_details" EntitySet="Commandes_details" />
+          </AssociationSet>
           <AssociationSet Name="fk_commande_utilisateur" Association="Self.fk_commande_utilisateur">
             <End Role="Utilisateurs" EntitySet="Utilisateurs" />
             <End Role="Commandes" EntitySet="Commandes" />
@@ -506,12 +571,28 @@
             <End Role="RegionsFR" EntitySet="RegionsFR" />
             <End Role="Departements" EntitySet="Departements" />
           </AssociationSet>
+          <AssociationSet Name="fk_photos_produits" Association="Self.fk_photos_produits">
+            <End Role="Produits" EntitySet="Produits" />
+            <End Role="Photos" EntitySet="Photos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_produits_pays" Association="Self.fk_produits_pays">
+            <End Role="Pays" EntitySet="Pays" />
+            <End Role="Produits" EntitySet="Produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produits_SousCategorie" Association="Self.FK_Produits_SousCategorie">
+            <End Role="SousCategories" EntitySet="SousCategories" />
+            <End Role="Produits" EntitySet="Produits" />
+          </AssociationSet>
           <AssociationSet Name="FK_SousCategory_Categories" Association="Self.FK_SousCategory_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="SousCategories" EntitySet="SousCategories" />
           </AssociationSet>
           <AssociationSet Name="fk_utilisateurs_adresse" Association="Self.fk_utilisateurs_adresse">
             <End Role="Adresses" EntitySet="Adresses" />
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_utilisateurs_ASPusers" Association="Self.fk_utilisateurs_ASPusers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Utilisateurs" EntitySet="Utilisateurs" />
           </AssociationSet>
           <AssociationSet Name="fk_utilisateurs_identites" Association="Self.fk_utilisateurs_identites">
@@ -617,6 +698,7 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Utilisateurs" Relationship="BestArtModel.fk_utilisateurs_ASPusers" FromRole="AspNetUsers" ToRole="Utilisateurs" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -775,6 +857,8 @@
           <NavigationProperty Name="Adresses" Relationship="Self.fk_utilisateurs_adresse" FromRole="Utilisateurs" ToRole="Adresses" />
           <NavigationProperty Name="Commandes" Relationship="Self.fk_commande_utilisateur" FromRole="Utilisateurs" ToRole="Commandes" />
           <NavigationProperty Name="Identites" Relationship="Self.fk_utilisateurs_identites" FromRole="Utilisateurs" ToRole="Identites" />
+          <Property Name="IdAsp" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="BestArtModel.fk_utilisateurs_ASPusers" FromRole="Utilisateurs" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Villes">
           <Key>
@@ -1133,7 +1217,23 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <AssociationSet Name="fk_utilisateurs_ASPusers" Association="BestArtModel.fk_utilisateurs_ASPusers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="fk_utilisateurs_ASPusers">
+          <End Type="BestArtModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="BestArtModel.Utilisateurs" Role="Utilisateurs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Utilisateurs">
+              <PropertyRef Name="IdAsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1351,6 +1451,7 @@
           <EntitySetMapping Name="Utilisateurs">
             <EntityTypeMapping TypeName="BestArtModel.Utilisateurs">
               <MappingFragment StoreEntitySet="Utilisateurs">
+                <ScalarProperty Name="IdAsp" ColumnName="IdAsp" />
                 <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
                 <ScalarProperty Name="IdAdresse" ColumnName="IdAdresse" />
                 <ScalarProperty Name="DateInscription" ColumnName="DateInscription" />

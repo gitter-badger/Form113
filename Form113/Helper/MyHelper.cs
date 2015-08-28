@@ -628,6 +628,12 @@ namespace Form113.Helper
         }
         #endregion
 
+        /// <summary>
+        /// public static MvcHtmlString ImageHelp(this HtmlHelper self, string imgname)
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="imgname"></param> Nom de l'image
+        /// <returns></returns>
         public static MvcHtmlString ImageHelp(this HtmlHelper self, string imgname)
         {
             string dir = "/Uploads/";

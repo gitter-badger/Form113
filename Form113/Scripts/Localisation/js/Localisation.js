@@ -3,6 +3,10 @@
     ListeDesRegions();
     $("#idContinent").change(ListeDesRegions);
     $("#idRegions").change(ListeDesPays);
+    $("#ListeDepartements").change(ListeDesVilles);
+    
+    
+    ListeDesVilles();
 });
 function ListeDesRegions() {
     var idcont = $("#idContinent").val();
@@ -36,6 +40,19 @@ function ListeDesPays() {
             }
         });
         $("#idPays").html(option);
+        UpdateChosen();
+    });
+}
+
+function ListeDesVilles() {
+    var iddep = $("#ListeDepartements").val();
+    console.log(iddep);
+    var option = "";
+    $.getJSON('/Localisation/GetJSONVILLE/' + iddep, function (data) {
+        $.each(data, function (index, ville) {
+            option += '<option value="' + ville.idv + '">' + ville.nom + '</option>';
+        });
+        $("#idville").html(option);
         UpdateChosen();
     });
 }

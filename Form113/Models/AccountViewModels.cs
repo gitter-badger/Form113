@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Form113.Models
@@ -79,6 +80,19 @@ namespace Form113.Models
         [Display(Name = "Confirmer le mot de passe ")]
         [Compare("Password", ErrorMessage = "Le mot de passe et le mot de passe de confirmation ne correspondent pas.")]
         public string ConfirmPassword { get; set; }
+
+        public Dictionary<string, Dictionary<string, string>> RegionsDepartements { get; set; }
+
+        public string CodeVille { get; set; }
+        [DisplayName("numero de voie")]
+        public string Adresse1 { get; set; }
+
+        [DisplayName("Voie")]
+        public string Adresse2 { get; set; }
+
+        [DisplayName("Complément d'adresse")]
+        public string Adresse3 { get; set; }
+
     }
 
     public class ResetPasswordViewModel

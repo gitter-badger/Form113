@@ -9,12 +9,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Form113.Models;
+using DataLayer.Models;
 
 namespace Form113.Controllers
 {
     [Authorize]
     public class AccountController : BestArtController
     {
+        private BestArtEntities db = new BestArtEntities();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -141,7 +143,13 @@ namespace Form113.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel rvm = new RegisterViewModel();
+            rvm.RegionsDepartements = db.RegionsFR.OrderBy(r => r.Nom)
+               .ToDictionary(r => r.Nom,
+               r => r.Departements.OrderBy(d => d.Nom)
+                   .ToDictionary(d => d.NumDep, d => d.Nom)
+                   );
+            return View(rvm);
         }
 
         //
@@ -158,13 +166,26 @@ namespace Form113.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    var db = new BestArtEntities();
+                    var utilisateur = new Utilisateurs();
+                    var ville=db.Villes.Where(v=>v.CodeINSEE==model.CodeVille).FirstOrDefault();
+                    var adresse = new Adresses();
+                    adresse.CodeINSEE = ville.CodeINSEE;
+                    adresse.CodePostal = ville.ZipCodes.FirstOrDefault().CodePostal;
+                    adresse.Ligne1 = model.Adresse1;
+                    adresse.Ligne2 = model.Adresse2;
+                    adresse.Ligne3 = model.Adresse3;
+                    utilisateur.Adresses = adresse;
+                    utilisateur.IdAsp = db.AspNetUsers.Where(u => u.Email == model.Email).FirstOrDefault().Id;
+                    utilisateur.DateInscription = DateTime.Now;
+                    db.Utilisateurs.Add(utilisateur);
+                    db.SaveChanges();
                     // Pour plus d'informations sur l'activation de la confirmation du compte et la réinitialisation du mot de passe, consultez http://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
-
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);

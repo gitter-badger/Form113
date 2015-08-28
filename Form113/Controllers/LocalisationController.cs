@@ -29,5 +29,15 @@ namespace Form113.Controllers
                                     .ToList();
             return Json(LD, JsonRequestBehavior.AllowGet);
         }
+        
+        public JsonResult GetJSONVILLE(string id)
+        {
+            
+            var LV = db.Villes.Where(v => v.NumDep == id)
+                                    .OrderBy(v=>v.Nom)
+                                    .Select(v => new { idv = v.CodeINSEE, nom=v.Nom })
+                                    .ToList();
+            return Json(LV, JsonRequestBehavior.AllowGet);
+        }
     }
 }

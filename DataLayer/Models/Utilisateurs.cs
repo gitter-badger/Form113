@@ -24,9 +24,11 @@ namespace DataLayer.Models
         public System.DateTime DateInscription { get; set; }
         public Nullable<System.DateTime> LastConnection { get; set; }
         public Nullable<int> IdIdentite { get; set; }
+        public string IdAsp { get; set; }
     
         public virtual Adresses Adresses { get; set; }
         public virtual ICollection<Commandes> Commandes { get; set; }
         public virtual Identites Identites { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }
