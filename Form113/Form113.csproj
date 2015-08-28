@@ -248,7 +248,7 @@
     <Content Include="Plugins\Chosen\js\chosen.proto.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Inscription\Register.js" />
+    <Content Include="Scripts\Catalog\Image.css" />
     <Content Include="Scripts\Home\section.css" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />

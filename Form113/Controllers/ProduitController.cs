@@ -176,6 +176,12 @@ namespace Form113.Controllers
 
             return View("Result", rvm);
         }
+        [ChildActionOnly]
+        public PartialViewResult Promotion()
+        {
+
+            return PartialView("_HighlightedProduct");
+        }
 
          //Boutton admin
         [ChildActionOnly]

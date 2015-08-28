@@ -35,7 +35,10 @@ namespace Form113.Areas.Admin.Controllers
         public ActionResult ChangePromotion(int idProduit, int Promotion)
         {
             var produit = db.Produits.Find(idProduit);
-            produit.Promotion = (100 - Promotion) / 100;
+            if(Promotion<100 && Promotion>0)
+            {
+                produit.Promotion = (100 - Promotion) / 100f;
+            }
             db.Entry(produit).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");

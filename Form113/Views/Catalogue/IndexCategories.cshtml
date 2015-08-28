@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 @section styles {
-<script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
     <link href="~/Scripts/Catalog/Image.css" rel="stylesheet" />
 }
 <html>
@@ -18,13 +18,18 @@
             @foreach (var cat in @Model)
             {
                 @*<div class="col-lg-4">
-                    @Html.Action("Categorie", "Categorie", new { id = cat })
-                </div>*@
-                <div class="col-lg-4">
-                    <div class="Product">
                         @Html.Action("Categorie", "Categorie", new { id = cat })
-                    </div>
-                </div>
+                    </div>*@
+    <a href="/Catalogue/IndexSousCategories/@cat" class="fill-div">
+        <div class="col-lg-4">
+
+            <div class="Product">
+                @Html.Action("Categorie", "Categorie", new { id = cat })
+
+            </div>
+
+        </div>
+    </a>
             }
         </div>
         <div class="col-lg-4">
@@ -35,6 +40,6 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 </body>
 </html>

@@ -3,7 +3,7 @@
     /*float: left;*/
     /*width:  50px;
     height: 50px;
-    display: inline-block;*/*/
+    display: inline-block;*/
     /*background-position: 50% 50%;
     background-repeat:   no-repeat;
     background-size:     cover;*/
@@ -24,7 +24,7 @@
     border-radius: 10px;
     height:  100%;
     text-align: center;
-    min-height: 300px;
+    min-height: 50px;
     /*max-height:300px;*/
     margin-top:  15px;
     /*position: absolute;*/
@@ -33,4 +33,10 @@
 }
 .panel{
     min-height:250px;
+}
+a.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
 }
