@@ -2,30 +2,48 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@section styles {
+     
+<link href="~/Scripts/Home/section.css" rel="stylesheet" />
+}
 
 <div class="row">
+    <div class="col-lg-offset-2 col-lg-8">
+        <img src="~/Uploads/Banner.png" class="img-rounded img-responsive">
+    </div>
+
+</div>
+<br />
+<div id="section1" class="container-fluid">
+    <h1>Commerce équitable</h1>
+    <p>Le commerce équitable est un partenariat commercial fondé sur le dialogue, la transparence et le respect, dont l'objectif est de parvenir à une plus grande équité dans le commerce mondial.
+Il contribue au développement durable en offrant de meilleures conditions commerciales et en garantissant les droits des producteurs et des travailleurs marginalisés, tout particulièrement au Sud de la planète.</p>
+</div>
+<br />
+<div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <img src="~/Uploads/commerce-equitable.jpg" class="img-rounded img-responsive" height="300">
+   
+        <h2>Acheter Autrement</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            BestArt propose une offre globale de produits 100% équitable
+            épicerie sucrée et salée (café, chocolat, jus de fruits,…) ; large choix de produits artisanaux (bijoux, décoration…); trois gammes de produits de beauté.
         </p>
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        
+        <img src="~/Uploads/worldCitizen.jpg" class="img-rounded img-responsive" height="300">
+        <h2>Etre citoyen</h2>
+        <p>BestArt s’inscrit dans une démarche de formation citoyenne ouverte à tous. Son objectif : la construction d'un regard critique sur les dysfonctionnements du commerce international et d'une citoyenneté active.</p>
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <img src="~/Uploads/resistance.jpg" class="img-rounded img-responsive" height="300">
+        <h2>Faire Pression</h2>
+        <p>YArtisans du Monde sensibilise et associe les citoyens à travers des campagnes de pression en direction des décideurs économiques et politiques. Nous défendons des positions en faveur des droits économiques, sociaux, culturels et environnementaux.</p>
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+    
