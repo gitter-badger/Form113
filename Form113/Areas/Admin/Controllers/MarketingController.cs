@@ -7,6 +7,7 @@ using DataLayer.Models;
 
 namespace Form113.Areas.Admin.Controllers
 {
+     [Authorize(Roles = "ADMIN")]
     public class MarketingController : Controller
     {
         private BestArtEntities db = new BestArtEntities();

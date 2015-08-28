@@ -11,6 +11,7 @@ using System.IO;
 
 namespace Form113.Areas.Admin.Controllers
 {
+     [Authorize(Roles = "ADMIN")]
     public class CategoriesController : Controller
     {
         private BestArtEntities db = new BestArtEntities();
