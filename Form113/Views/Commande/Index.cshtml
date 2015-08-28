@@ -1,0 +1,33 @@
+﻿@using Form113.Helper
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Commande</h2>
+
+
+@using (Html.BeginForm("Payment", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <input type="hidden" id="ListeProduitCommande" name="ListeProduitCommande" value="">
+    using (Html.MyFieldsetHelper("Payment Commande"))
+    {
+
+        <input type="submit" value="Payment Commande" />
+    }
+}
+
+@using (Html.BeginForm("PaymentAdresseVariable", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <input type="hidden" id="ListeProduitCommande" name="ListeProduitCommande" value="">
+    using (Html.MyFieldsetHelper("Payment Commande avec adresse differente"))
+    {
+        <p>Vue Partiel Adresse a ajouter</p>
+
+        <input type="submit" value="Payment Commande" />
+    }
+}
+
+@section scripts {
+    <script src="~/Scripts/Produit/js/PasserCommande.js"></script>
+}
