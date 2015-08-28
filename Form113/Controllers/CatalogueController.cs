@@ -41,6 +41,8 @@ namespace Form113.Controllers
         }
         public ActionResult ProduitsCategorie(string id)
         {
+            var bci = new BreadCrumItem("Index Categories", "IndexCategories", "Catalogue");
+            ListeBreadCrumItem.Add(bci);
             var svm = SearchViewModel.InitializeSVM();
             List<Produits> result=null;
             if (id !=null)
@@ -50,20 +52,20 @@ namespace Form113.Controllers
                 svm.idCategories = new int[] { idcat };
                 var sousCategories = db.SousCategories.Where(sc => sc.IdCategorie == idcat).Select(sc => sc.IdSousCategorie).ToList();
                 result = db.Produits.Where(p =>sousCategories.Contains(p.IdSousCategorie)).ToList();
+                bci = new BreadCrumItem(db.Categories.Where(sc => sc.IdCategorie == idcat).FirstOrDefault().Libelle, "", "");
+                ListeBreadCrumItem.Add(bci);
             }
             else
             {
                 result = db.Produits.ToList();
                 svm.idCategories=null;
-
+                bci = new BreadCrumItem("Tous les Produits", "", "");
+                ListeBreadCrumItem.Add(bci);
             }
             svm.Prixmax = db.Produits.Max(p => p.Prix);
 
             var rvm = ResultViewModels.RvmCreate(svm, result);
             rvm.BackToSearch = false;
-
-            var bci = new BreadCrumItem("Index Categories", "IndexCategories", "Catalogue");
-            ListeBreadCrumItem.Add(bci);
             return View("../Produit/Result", rvm);
 
 
