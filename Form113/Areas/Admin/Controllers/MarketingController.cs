@@ -56,6 +56,19 @@ namespace Form113.Areas.Admin.Controllers
             return "";
         }
 
+        // Outil Admin dans catalog ------------------------------------------------
+        public ActionResult MettreEnAvant(string id)
+        {
+            int idProduit = int.Parse(id);
+            var produit = db.Produits.Find(idProduit);
+            produit.MisEnAvant=1;
+            db.Entry(produit).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        //--------------------------------------------------------------------------
 
         
 

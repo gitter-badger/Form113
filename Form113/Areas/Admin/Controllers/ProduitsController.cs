@@ -183,6 +183,8 @@ namespace Form113.Areas.Admin.Controllers
             }
             return PartialView("_PhotoProduit",listPhoto);
         }
+
+
         [HttpPost]
         public ActionResult SaveModifiedPic([Bind(Include="IdPhoto,IdProduit")] Photos photo,HttpPostedFileBase file)
         {

@@ -21,5 +21,8 @@
         @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
     </div>
     @if (User.IsInRole("ADMIN"))
-    {@Html.ActionLink("Mettre en avant", "MettreEnAvant", "Produits", new { Area = "Admin" }, new {id = Model.IdProduit })}
+    {@Html.ActionLink("Mettre en avant", "MettreEnAvant", "Marketing", new { Area = "Admin", id = Model.IdProduit }, new { })
+        <br />
+    @Html.ActionLink("Modifier", "Edit", "Produits", new { Area = "Admin", id = Model.IdProduit }, new { })
+    }
 </div>
