@@ -1,7 +1,26 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Panier</h2>
 
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <div id="JQ">
+        </div>
+        <div id="button" class="row">
+            <p>
+                <input type="submit" class="Commande" value="Commandé" />
+            </p>
+            <p>
+                <input type="button" class="ButtonViderPanier" value="Vider Panier" />
+            </p>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script src="~/Scripts/Produit/js/AjoutPanier.js"></script>
+    <script src="~/Scripts/Produit/js/GestionPanier.js"></script>
+}
