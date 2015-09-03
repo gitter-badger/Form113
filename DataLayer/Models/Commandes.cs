@@ -21,12 +21,13 @@ namespace DataLayer.Models
     
         public int IdCommande { get; set; }
         public Nullable<int> IdAcheteur { get; set; }
-        public string EtatCommande { get; set; }
+        public Nullable<int> EtatCommande { get; set; }
         public Nullable<System.DateTime> DateCommande { get; set; }
         public Nullable<System.DateTime> DateLivraison { get; set; }
         public Nullable<int> IdAdresse { get; set; }
     
         public virtual ICollection<Commandes_details> Commandes_details { get; set; }
         public virtual Utilisateurs Utilisateurs { get; set; }
+        public virtual StatusCommande StatusCommande { get; set; }
     }
 }

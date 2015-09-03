@@ -103,6 +103,9 @@
     <Compile Include="Models\Identites.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Marketing.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pays.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
@@ -119,6 +122,12 @@
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SousCategories.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StatusCommande.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Utilisateurs.cs">

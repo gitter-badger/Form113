@@ -12,24 +12,16 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Utilisateurs
+    public partial class StatusCommande
     {
-        public Utilisateurs()
+        public StatusCommande()
         {
             this.Commandes = new HashSet<Commandes>();
         }
     
-        public int IdUtilisateur { get; set; }
-        public string IdAsp { get; set; }
-        public int IdAdresse { get; set; }
-        public Nullable<int> NbCommande { get; set; }
-        public System.DateTime DateInscription { get; set; }
-        public Nullable<System.DateTime> LastConnection { get; set; }
-        public Nullable<int> IdIdentite { get; set; }
+        public int IdStatusCommande { get; set; }
+        public string StatusCommande1 { get; set; }
     
-        public virtual Adresses Adresses { get; set; }
-        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual ICollection<Commandes> Commandes { get; set; }
-        public virtual Identites Identites { get; set; }
     }
 }

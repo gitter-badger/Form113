@@ -28,10 +28,10 @@ namespace DataLayer.Models
         public int IdSousCategorie { get; set; }
         public System.DateTime DateMiseEnVente { get; set; }
         public Nullable<double> Promotion { get; set; }
+        public byte MisEnAvant { get; set; }
         public string CodePays { get; set; }
         public Nullable<int> Stock { get; set; }
         public Nullable<int> NbVues { get; set; }
-        public byte MisEnAvant { get; set; }
     
         public virtual ICollection<Commandes_details> Commandes_details { get; set; }
         public virtual Pays Pays { get; set; }

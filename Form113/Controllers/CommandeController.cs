@@ -61,6 +61,7 @@ namespace Form113.Controllers
             var iduserASP = db.AspNetUsers.Where(x => x.Email == User.Identity.Name).Select(x => x.Id).FirstOrDefault();
             var user = db.Utilisateurs.Where(x => x.IdAsp == iduserASP).FirstOrDefault();
             var Commande = new Commandes();
+            Commande.DateCommande = DateTime.Now;
 
             if (cvm.Adresse1 != null) // Adresse de livraison diferrente de celle du client
             {
@@ -74,9 +75,6 @@ namespace Form113.Controllers
                                                      .Where(a => a.Ligne3 == cvm.Adresse3)
                                                      .Select(a => a.IdAdresse)
                                                      .FirstOrDefault();
-                Commande.DateCommande = DateTime.Now;
-                Commande.EtatCommande = "0";
-
                 if (AdresseIdToSave != 0)
                 {
                     Commande.IdAdresse = AdresseIdToSave;
@@ -98,22 +96,34 @@ namespace Form113.Controllers
             }
             else // Adresse de livraison etant celle du client
             {
-                Commande.DateCommande = DateTime.Now;
-                Commande.EtatCommande = "0";
                 Commande.IdAdresse = db.Utilisateurs.Where(u => u.IdUtilisateur == user.IdUtilisateur).Select(x => x.IdAdresse).FirstOrDefault();
             }
 
             user.NbCommande = db.Commandes.Where(c => c.IdAcheteur == user.IdUtilisateur).Count() + 1;
 
             EnregistrementCommandesDetails(listeRes, Commande, user.NbCommande);
+
             user.Commandes.Add(Commande);
             db.SaveChanges();
         }
         private void EnregistrementCommandesDetails(List<KeyValuePair<int, int>> listeRes, Commandes Commande, int? nombreCommande)
         {
-            if (nombreCommande != null && nombreCommande >= 0)
+            var NbPourReduc = db.Marketing.Select(m => m.NbreCommandePourReduc).FirstOrDefault();
+            if (nombreCommande != null && nombreCommande >= NbPourReduc)
             {
+                foreach (var item in listeRes)
+                {
+                    var prix = db.Produits.Where(p => p.IdProduit == item.Key).Select(p => p.Prix).FirstOrDefault();
 
+                    var OrderDetail = new Commandes_details()
+                    {
+                        IdProduit = item.Key,
+                        quantite = item.Value,
+                        Promotion = db.Produits.Where(p => p.IdProduit == item.Key).Select(p => p.Promotion).FirstOrDefault(),
+                        prix_unitaire = prix - (prix * (10 / 100)),
+                    };
+                    Commande.Commandes_details.Add(OrderDetail);
+                }
             }
             else
             {

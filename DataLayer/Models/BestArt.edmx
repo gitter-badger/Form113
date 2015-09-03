@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -97,7 +97,7 @@
           </Key>
           <Property Name="IdCommande" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdAcheteur" Type="int" />
-          <Property Name="EtatCommande" Type="nvarchar" MaxLength="30" />
+          <Property Name="EtatCommande" Type="int" />
           <Property Name="DateCommande" Type="datetime" />
           <Property Name="DateLivraison" Type="datetime" />
           <Property Name="IdAdresse" Type="int" />
@@ -138,6 +138,12 @@
           <Property Name="Identifiant" Type="char" MaxLength="10" />
           <Property Name="Password" Type="char" MaxLength="10" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Marketing">
+          <Key>
+            <PropertyRef Name="NbreCommandePourReduc" />
+          </Key>
+          <Property Name="NbreCommandePourReduc" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Pays">
           <Key>
@@ -205,6 +211,23 @@
           <Property Name="Nom" Type="nchar" MaxLength="30" />
           <Property Name="IdCategorie" Type="int" />
           <Property Name="Photo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="StatusCommande">
+          <Key>
+            <PropertyRef Name="IdStatusCommande" />
+          </Key>
+          <Property Name="IdStatusCommande" Type="int" Nullable="false" />
+          <Property Name="StatusCommande" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Utilisateurs">
           <Key>
@@ -376,6 +399,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_EtatCommande">
+          <End Role="StatusCommande" Type="Self.StatusCommande" Multiplicity="0..1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusCommande">
+              <PropertyRef Name="IdStatusCommande" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="EtatCommande" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_photos_produits">
           <End Role="Produits" Type="Self.Produits" Multiplicity="1" />
           <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
@@ -523,12 +558,15 @@
           <EntitySet Name="Continents" EntityType="Self.Continents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departements" EntityType="Self.Departements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Identites" EntityType="Self.Identites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marketing" EntityType="Self.Marketing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pays" EntityType="Self.Pays" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produits" EntityType="Self.Produits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegionsFR" EntityType="Self.RegionsFR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SousCategories" EntityType="Self.SousCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusCommande" EntityType="Self.StatusCommande" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Villes" EntityType="Self.Villes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZipCodes" EntityType="Self.ZipCodes" Schema="dbo" store:Type="Tables" />
@@ -571,6 +609,10 @@
           <AssociationSet Name="fk_departements_regions" Association="Self.fk_departements_regions">
             <End Role="RegionsFR" EntitySet="RegionsFR" />
             <End Role="Departements" EntitySet="Departements" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EtatCommande" Association="Self.fk_EtatCommande">
+            <End Role="StatusCommande" EntitySet="StatusCommande" />
+            <End Role="Commandes" EntitySet="Commandes" />
           </AssociationSet>
           <AssociationSet Name="fk_photos_produits" Association="Self.fk_photos_produits">
             <End Role="Produits" EntitySet="Produits" />
@@ -617,7 +659,8 @@
             <End Role="Regions" EntitySet="Regions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BestArtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -698,8 +741,8 @@
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Utilisateurs" Relationship="Self.fk_utilisateurs_ASPusers" FromRole="AspNetUsers" ToRole="Utilisateurs" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-          <NavigationProperty Name="Utilisateurs" Relationship="BestArtModel.fk_utilisateurs_ASPusers" FromRole="AspNetUsers" ToRole="Utilisateurs" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -716,12 +759,13 @@
           </Key>
           <Property Name="IdCommande" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdAcheteur" Type="Int32" />
-          <Property Name="EtatCommande" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="EtatCommande" Type="Int32" />
           <Property Name="DateCommande" Type="DateTime" Precision="3" />
           <Property Name="DateLivraison" Type="DateTime" Precision="3" />
           <Property Name="IdAdresse" Type="Int32" />
           <NavigationProperty Name="Commandes_details" Relationship="Self.fk_commande_details_commande" FromRole="Commandes" ToRole="Commandes_details" />
           <NavigationProperty Name="Utilisateurs" Relationship="Self.fk_commande_utilisateur" FromRole="Commandes" ToRole="Utilisateurs" />
+          <NavigationProperty Name="StatusCommande" Relationship="Self.fk_EtatCommande" FromRole="Commandes" ToRole="StatusCommande" />
         </EntityType>
         <EntityType Name="Commandes_details">
           <Key>
@@ -767,6 +811,12 @@
           <NavigationProperty Name="Administrateurs" Relationship="Self.fk_administrateurs_identites" FromRole="Identites" ToRole="Administrateurs" />
           <NavigationProperty Name="Utilisateurs" Relationship="Self.fk_utilisateurs_identites" FromRole="Identites" ToRole="Utilisateurs" />
         </EntityType>
+        <EntityType Name="Marketing">
+          <Key>
+            <PropertyRef Name="NbreCommandePourReduc" />
+          </Key>
+          <Property Name="NbreCommandePourReduc" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Pays">
           <Key>
             <PropertyRef Name="CodeIso3" />
@@ -808,6 +858,7 @@
           <Property Name="IdSousCategorie" Type="Int32" Nullable="false" />
           <Property Name="DateMiseEnVente" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Promotion" Type="Double" />
+          <Property Name="MisEnAvant" Type="Byte" Nullable="false" />
           <Property Name="CodePays" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="Stock" Type="Int32" />
           <Property Name="NbVues" Type="Int32" />
@@ -815,7 +866,6 @@
           <NavigationProperty Name="Pays" Relationship="Self.fk_produits_pays" FromRole="Produits" ToRole="Pays" />
           <NavigationProperty Name="Photos" Relationship="Self.fk_photos_produits" FromRole="Produits" ToRole="Photos" />
           <NavigationProperty Name="SousCategories" Relationship="Self.FK_Produits_SousCategorie" FromRole="Produits" ToRole="SousCategories" />
-          <Property Name="MisEnAvant" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="Regions">
           <Key>
@@ -846,21 +896,39 @@
           <NavigationProperty Name="Categories" Relationship="Self.FK_SousCategory_Categories" FromRole="SousCategories" ToRole="Categories" />
           <NavigationProperty Name="Produits" Relationship="Self.FK_Produits_SousCategorie" FromRole="SousCategories" ToRole="Produits" />
         </EntityType>
+        <EntityType Name="StatusCommande">
+          <Key>
+            <PropertyRef Name="IdStatusCommande" />
+          </Key>
+          <Property Name="IdStatusCommande" Type="Int32" Nullable="false" />
+          <Property Name="StatusCommande1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Commandes" Relationship="Self.fk_EtatCommande" FromRole="StatusCommande" ToRole="Commandes" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="Utilisateurs">
           <Key>
             <PropertyRef Name="IdUtilisateur" />
           </Key>
           <Property Name="IdUtilisateur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAsp" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IdAdresse" Type="Int32" Nullable="false" />
+          <Property Name="NbCommande" Type="Int32" />
           <Property Name="DateInscription" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="LastConnection" Type="DateTime" Precision="7" />
           <Property Name="IdIdentite" Type="Int32" />
           <NavigationProperty Name="Adresses" Relationship="Self.fk_utilisateurs_adresse" FromRole="Utilisateurs" ToRole="Adresses" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.fk_utilisateurs_ASPusers" FromRole="Utilisateurs" ToRole="AspNetUsers" />
           <NavigationProperty Name="Commandes" Relationship="Self.fk_commande_utilisateur" FromRole="Utilisateurs" ToRole="Commandes" />
           <NavigationProperty Name="Identites" Relationship="Self.fk_utilisateurs_identites" FromRole="Utilisateurs" ToRole="Identites" />
-          <Property Name="IdAsp" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="BestArtModel.fk_utilisateurs_ASPusers" FromRole="Utilisateurs" ToRole="AspNetUsers" />
-          <Property Name="NbCommande" Type="Int32" />
         </EntityType>
         <EntityType Name="Villes">
           <Key>
@@ -960,6 +1028,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_utilisateurs_ASPusers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Utilisateurs">
+              <PropertyRef Name="IdAsp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SousCategory_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
           <End Role="SousCategories" Type="Self.SousCategories" Multiplicity="*" />
@@ -993,6 +1073,18 @@
             </Principal>
             <Dependent Role="Commandes">
               <PropertyRef Name="IdAcheteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_EtatCommande">
+          <End Role="StatusCommande" Type="Self.StatusCommande" Multiplicity="0..1" />
+          <End Role="Commandes" Type="Self.Commandes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusCommande">
+              <PropertyRef Name="IdStatusCommande" />
+            </Principal>
+            <Dependent Role="Commandes">
+              <PropertyRef Name="EtatCommande" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1134,12 +1226,15 @@
           <EntitySet Name="Continents" EntityType="Self.Continents" />
           <EntitySet Name="Departements" EntityType="Self.Departements" />
           <EntitySet Name="Identites" EntityType="Self.Identites" />
+          <EntitySet Name="Marketing" EntityType="Self.Marketing" />
           <EntitySet Name="Pays" EntityType="Self.Pays" />
           <EntitySet Name="Photos" EntityType="Self.Photos" />
           <EntitySet Name="Produits" EntityType="Self.Produits" />
           <EntitySet Name="Regions" EntityType="Self.Regions" />
           <EntitySet Name="RegionsFR" EntityType="Self.RegionsFR" />
           <EntitySet Name="SousCategories" EntityType="Self.SousCategories" />
+          <EntitySet Name="StatusCommande" EntityType="Self.StatusCommande" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" />
           <EntitySet Name="Villes" EntityType="Self.Villes" />
           <EntitySet Name="ZipCodes" EntityType="Self.ZipCodes" />
@@ -1163,6 +1258,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
+          <AssociationSet Name="fk_utilisateurs_ASPusers" Association="Self.fk_utilisateurs_ASPusers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+          </AssociationSet>
           <AssociationSet Name="FK_SousCategory_Categories" Association="Self.FK_SousCategory_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="SousCategories" EntitySet="SousCategories" />
@@ -1173,6 +1272,10 @@
           </AssociationSet>
           <AssociationSet Name="fk_commande_utilisateur" Association="Self.fk_commande_utilisateur">
             <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_EtatCommande" Association="Self.fk_EtatCommande">
+            <End Role="StatusCommande" EntitySet="StatusCommande" />
             <End Role="Commandes" EntitySet="Commandes" />
           </AssociationSet>
           <AssociationSet Name="fk_commande_details_produit" Association="Self.fk_commande_details_produit">
@@ -1219,23 +1322,7 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <AssociationSet Name="fk_utilisateurs_ASPusers" Association="BestArtModel.fk_utilisateurs_ASPusers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
-          </AssociationSet>
         </EntityContainer>
-        <Association Name="fk_utilisateurs_ASPusers">
-          <End Type="BestArtModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="BestArtModel.Utilisateurs" Role="Utilisateurs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Utilisateurs">
-              <PropertyRef Name="IdAsp" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1377,6 +1464,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Marketing">
+            <EntityTypeMapping TypeName="BestArtModel.Marketing">
+              <MappingFragment StoreEntitySet="Marketing">
+                <ScalarProperty Name="NbreCommandePourReduc" ColumnName="NbreCommandePourReduc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Pays">
             <EntityTypeMapping TypeName="BestArtModel.Pays">
               <MappingFragment StoreEntitySet="Pays">
@@ -1408,7 +1502,6 @@
           <EntitySetMapping Name="Produits">
             <EntityTypeMapping TypeName="BestArtModel.Produits">
               <MappingFragment StoreEntitySet="Produits">
-                <ScalarProperty Name="MisEnAvant" ColumnName="MisEnAvant" />
                 <ScalarProperty Name="IdProduit" ColumnName="IdProduit" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
                 <ScalarProperty Name="Couleur" ColumnName="Couleur" />
@@ -1417,6 +1510,7 @@
                 <ScalarProperty Name="IdSousCategorie" ColumnName="IdSousCategorie" />
                 <ScalarProperty Name="DateMiseEnVente" ColumnName="DateMiseEnVente" />
                 <ScalarProperty Name="Promotion" ColumnName="Promotion" />
+                <ScalarProperty Name="MisEnAvant" ColumnName="MisEnAvant" />
                 <ScalarProperty Name="CodePays" ColumnName="CodePays" />
                 <ScalarProperty Name="Stock" ColumnName="Stock" />
                 <ScalarProperty Name="NbVues" ColumnName="NbVues" />
@@ -1450,13 +1544,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="StatusCommande">
+            <EntityTypeMapping TypeName="BestArtModel.StatusCommande">
+              <MappingFragment StoreEntitySet="StatusCommande">
+                <ScalarProperty Name="IdStatusCommande" ColumnName="IdStatusCommande" />
+                <ScalarProperty Name="StatusCommande1" ColumnName="StatusCommande" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BestArtModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Utilisateurs">
             <EntityTypeMapping TypeName="BestArtModel.Utilisateurs">
               <MappingFragment StoreEntitySet="Utilisateurs">
-                <ScalarProperty Name="NbCommande" ColumnName="NbCommande" />
-                <ScalarProperty Name="IdAsp" ColumnName="IdAsp" />
                 <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
+                <ScalarProperty Name="IdAsp" ColumnName="IdAsp" />
                 <ScalarProperty Name="IdAdresse" ColumnName="IdAdresse" />
+                <ScalarProperty Name="NbCommande" ColumnName="NbCommande" />
                 <ScalarProperty Name="DateInscription" ColumnName="DateInscription" />
                 <ScalarProperty Name="LastConnection" ColumnName="LastConnection" />
                 <ScalarProperty Name="IdIdentite" ColumnName="IdIdentite" />

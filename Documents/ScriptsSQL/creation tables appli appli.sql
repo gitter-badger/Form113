@@ -25,6 +25,14 @@ if exists (select * from sysobjects where name = 'StatusCommande' and type = 'U'
 if exists (select * from sysobjects where name = 'Marketing' and type = 'U')
 	drop table Marketing;
 	
+	
+if exists (select * from sysobjects where name = 'AspNetUserRoles' and type = 'U')
+	delete from AspNetUserRoles;
+if exists (select * from sysobjects where name = 'AspNetUsers' and type = 'U')
+	delete from AspNetUsers;
+if exists (select * from sysobjects where name = 'AspNetRoles' and type = 'U')
+	delete from AspNetRoles;
+
 GO
 CREATE TABLE [dbo].[Administrateurs](
 	[IdAdministrateur] [int] NOT NULL,
@@ -205,6 +213,12 @@ GO
 /****** Object:  Table [dbo].[Villes]    Script Date: 24-Aug-15 5:09:46 PM ******/
 
 
+create table StatusCommande (
+	IdStatusCommande int Primary key not null,
+	StatusCommande nvarchar(30) not null
+)
+GO
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -214,11 +228,11 @@ GO
 CREATE TABLE [dbo].[Commandes](
 	[IdCommande] [int] IDENTITY(1,1) NOT NULL,
 	[IdAcheteur] [int] NULL,
-	[EtatCommande] [nvarchar](30) NULL,
+	[EtatCommande] [int] default 1,
 	[DateCommande] [datetime] NULL,
 	[DateLivraison] [datetime] NULL,
 	[IdAdresse] [int] NULL,
-	
+
 CONSTRAINT [Pk_Commande] PRIMARY KEY CLUSTERED 
 (
 	[IdCommande] ASC
@@ -249,11 +263,16 @@ CONSTRAINT [Idx_Commandes_details] PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+go 
+create table Marketing (
+	NbreCommandePourReduc int,
+CONSTRAINT [Pk_Marketing] PRIMARY KEY CLUSTERED 
+(
+	[NbreCommandePourReduc] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
 go
-create table StatusCommande (
-	IdStatusCommande int Primary key not null,
-	StatusCommande nvarchar(30) not null
-)
 insert StatusCommande (IdStatusCommande,StatusCommande)
 values (1,'Commandé')
 insert StatusCommande (IdStatusCommande,StatusCommande)
@@ -261,19 +280,30 @@ values (2,'Envoyé')
 insert StatusCommande (IdStatusCommande,StatusCommande)
 values (3,'Reçu')
 
-go 
-create table Marketing (
-	NbreCommandePourReduc int,
-)
-
-go
-
-Alter table Commandes alter column EtatCommande INT;
-alter table Commandes
-add constraint fk_EtatCommande
-foreign key (EtatCommande)
-references StatusCommande(IdStatusCommande)
-
+GO
+INSERT INTO [dbo].[Adresses] ([Ligne1],[Ligne2],[Ligne3],[CodePostal],[CodeINSEE])
+VALUES ('1','rue du trebuchet','Cedex 3',40700,40016)
+GO
+INSERT INTO [dbo].[Identites] ([Nom],[Prenom],[Email])
+VALUES ('test','test','test@test.test'),('test','test','test@admin.test')
+GO
+INSERT INTO [dbo].[AspNetRoles] ([Id],[Name])
+VALUES (1,'ADMIN'),(2,'USERS')
+GO
+INSERT INTO [dbo].[AspNetUsers] ([Id],[Email],[EmailConfirmed],[PasswordHash],[SecurityStamp],[PhoneNumberConfirmed],[TwoFactorEnabled],[LockoutEnabled],[AccessFailedCount],[UserName])
+values ('d1e08df8-6408-4d7c-b8c5-bd001e0b274b','test@test.test','False','ANOK+8Wf7T0nH0Bnu7pt55Vz8OJwZZDtHYMXU7aPeIPtFCecBjtziWhwcf46IQZX+g==','b7786f19-248f-42c3-ae6a-b59306f3a273','False','False','True',0,'test@test.test'),
+	   ('d1e08df8-6408-4d7c-b8c5-bd001e0b274c','test@admin.test','False','ANOK+8Wf7T0nH0Bnu7pt55Vz8OJwZZDtHYMXU7aPeIPtFCecBjtziWhwcf46IQZX+g==','b7786f19-248f-42c3-ae6a-b59306f3a273','False','False','True',0,'test@admin.test')
+GO
+INSERT INTO [dbo].[AspNetUserRoles] ([UserId],[RoleId])
+VALUES ('d1e08df8-6408-4d7c-b8c5-bd001e0b274b',2),('d1e08df8-6408-4d7c-b8c5-bd001e0b274c',1)
+GO
+SET IDENTITY_INSERT [dbo].[Utilisateurs] ON
+INSERT INTO [dbo].[Utilisateurs] ([IdUtilisateur],[IdAsp],[IdAdresse],[DateInscription],[IdIdentite])
+VALUES (1,'d1e08df8-6408-4d7c-b8c5-bd001e0b274b',1,GETDATE(),1),(2,'d1e08df8-6408-4d7c-b8c5-bd001e0b274c',1,GETDATE(),2)
+SET IDENTITY_INSERT [dbo].[Utilisateurs] OFF
+GO
+insert Marketing (NbreCommandePourReduc)
+values (3)
 GO
 SET ANSI_PADDING OFF
 
@@ -406,8 +436,10 @@ ALTER TABLE [dbo].[Produits]  WITH CHECK ADD  CONSTRAINT [fk_produits_pays] FORE
 REFERENCES [dbo].[Pays] ([CodeIso3])
 GO
 ALTER TABLE [dbo].[Utilisateurs] CHECK CONSTRAINT [fk_utilisateurs_adresse]
-GO
 
+GO
+ALTER TABLE [dbo].[Commandes] WITH CHECK ADD CONSTRAINT [fk_EtatCommande] foreign key ([EtatCommande]) references [dbo].[StatusCommande]([IdStatusCommande])
+Go
 ALTER TABLE [dbo].[Commandes]  WITH CHECK ADD  CONSTRAINT [fk_commande_utilisateur] FOREIGN KEY([IdAcheteur])
 REFERENCES [dbo].[Utilisateurs] ([IdUtilisateur])
 GO
