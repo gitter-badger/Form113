@@ -10,7 +10,7 @@
 <input type="hidden" id="PrixTotal" value="">
 <input type="hidden" id="NbCommande" value="@Model.NbCommande">
 <input type="hidden" id="NbCommandeFid" value="@Model.NbCommandeFid">
-@using (Html.BeginForm("Index", "Commande"))
+@using (Html.BeginForm("Index", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <div class="form-group">
         <div id="JQ">

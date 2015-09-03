@@ -8,6 +8,12 @@
 
 <h2>Commande</h2>
 
+<h3 class="PrixPanier"></h3>
+<h3 class="PrixPanierRemiser" style="color:red;"></h3>
+<input type="hidden" id="PrixTotal" value="">
+<input type="hidden" id="NbCommande" value="@Model.NbCommande">
+<input type="hidden" id="NbCommandeFid" value="@Model.NbCommandeFid">
+<div class="row"><br /></div>
 
 @using (Html.BeginForm("Payement", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
 {
@@ -28,7 +34,7 @@
         @Html.MyTextBoxFor(model => model.Adresse3)
 
         <div class="form-group">
-            <div>
+            <div class="col-sm-offset-4 col-sm-8">
                 <select id="ListeDepartements" class="chosen-select" name="NumDep">
                     @foreach (var reg in Model.RegionsDepartements.Keys)
                     {
@@ -37,14 +43,20 @@
                             {
                                 <option value="@dep.Key">@dep.Value</option>
                             }
+
                         </optgroup>
                     }
                 </select>
-                <select id="idville" name="CodeVille" />
+
+            </div>
+            <div class="col-sm-offset-4 col-sm-8">
+                <select id="idville" name="CodeVille" class="chosen-single"></select>
             </div>
         </div>
 
-        <input type="submit" value="Payement Commande" />
+        <div class="col-sm-offset-4 col-sm-8">
+            <input type="submit" value="Payement Commande" />
+        </div>
     }
 }
 

@@ -23,5 +23,8 @@ namespace Form113.Models
 
         [DisplayName("Complément d'adresse :")]
         public string Adresse3 { get; set; }
+
+        public int NbCommande { get; set; }
+        public int NbCommandeFid { get; set; }
     }
 }

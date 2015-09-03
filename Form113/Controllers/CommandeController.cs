@@ -11,8 +11,6 @@ namespace Form113.Controllers
     [Authorize]
     public class CommandeController : BestArtController
     {
-        private static BestArtEntities db = new BestArtEntities();
-
         public CommandeController()
         {
             var bci = new BreadCrumItem("Commande", "Index", "");
@@ -21,12 +19,24 @@ namespace Form113.Controllers
 
         private CommandeViewModels InitCVM()
         {
+            var db = new BestArtEntities();
+
             var cvm = new CommandeViewModels();
             cvm.RegionsDepartements = db.RegionsFR.OrderBy(r => r.Nom)
                .ToDictionary(r => r.Nom,
                r => r.Departements.OrderBy(d => d.Nom)
                    .ToDictionary(d => d.NumDep, d => d.Nom)
                    );
+            
+            cvm.NbCommande = 0;
+            cvm.NbCommandeFid = db.Marketing.Select(m => m.NbreCommandePourReduc).FirstOrDefault();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var iduserASP = db.AspNetUsers.Where(x => x.Email == User.Identity.Name).Select(x => x.Id).FirstOrDefault();
+                var user = db.Utilisateurs.Where(x => x.IdAsp == iduserASP).FirstOrDefault();
+                cvm.NbCommande = user.NbCommande ?? 0;
+            }
             return cvm;
         }
 
@@ -47,6 +57,7 @@ namespace Form113.Controllers
 
         private void EnregistrementPayment(CommandeViewModels cvm)
         {
+            var db = new BestArtEntities();
 
             var str = cvm.ListeProduitCommande;
             var liste = str.Split('/');
@@ -103,12 +114,14 @@ namespace Form113.Controllers
 
             EnregistrementCommandesDetails(listeRes, Commande, user.NbCommande);
 
-            // Commande . etatcommande a 1
+            Commande.StatusCommande = db.StatusCommande.Where(x => x.IdStatusCommande == 1).FirstOrDefault();
             user.Commandes.Add(Commande);
             db.SaveChanges();
         }
         private void EnregistrementCommandesDetails(List<KeyValuePair<int, int>> listeRes, Commandes Commande, int? nombreCommande)
         {
+            var db = new BestArtEntities();
+
             var NbPourReduc = db.Marketing.Select(m => m.NbreCommandePourReduc).FirstOrDefault();
             if (nombreCommande != null && nombreCommande >= NbPourReduc)
             {

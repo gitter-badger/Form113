@@ -1,5 +1,6 @@
 ﻿$(function () {
     AfficheProduit();
+    console.log("toto");
     $("input.ButtonViderPanier").click(ViderPanier);
     VerifButton();
 });
@@ -12,7 +13,6 @@ function AfficheProduit() {
             var key = localStorage.key(i);
             UnProduit(key, i);
         }
-        $("#JQ").html($("#JQ").html() + str);
 
         var prixtotal = parseFloat($("#PrixTotal").val());
         $("#PrixPanier").html("Prix total de votre commande : " + prixtotal + " €");
@@ -20,11 +20,8 @@ function AfficheProduit() {
     else {
         $("#JQ").html('<p>Votre Panier est Vide !</p>');
     }
+
 }
-
-/*
-
-*/
 
 function UnProduit(id, tour) {
     // $.getJSON('/Panier/GetJSONPROD/' + id, function (produit) {
@@ -89,6 +86,7 @@ function ViderPanier() {
         localStorage.clear();
     }
     AfficheProduit();
+    $(".PrixPanier").hide();
     VerifButton();
 }
 

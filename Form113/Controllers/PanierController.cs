@@ -30,7 +30,7 @@ namespace Form113.Controllers
         // GET: Panier
         public ActionResult Index()
         {
-            var db = new BestArtEntities(); //obligattion de crée une nouvelle connexion a chaque fois car sinon la mise a jour des donnée utilisateur ne ce fait aps
+            var db = new BestArtEntities(); //obligattion de crée une nouvelle connexion a chaque fois car sinon la mise a jour des donnée utilisateur ne ce fait pas
 
             var pvm = new PanierViewModels()
             {
