@@ -26,7 +26,7 @@ namespace Form113.Controllers
 
         public SearchController()
         {
-            var bci = new BreadCrumItem("Search", "Index", "Search");
+            var bci = new BreadCrumItem("Search", "", "");
             ListeBreadCrumItem.Add(bci);
         }
 

@@ -13,7 +13,7 @@
 <div class="panel panel-success">
     <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
-        <a href="Produit/Detail/@Model.IdProduit" class=" fill-div">
+        <a href="../Produit/Detail/@Model.IdProduit" class=" fill-div">
             <div class="Product">
                 @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
                 Provenance : @Model.Pays.Name

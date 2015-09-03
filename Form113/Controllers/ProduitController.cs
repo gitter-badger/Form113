@@ -38,6 +38,8 @@ namespace Form113.Controllers
         public PartialViewResult HighlightedProduct()
         {
             var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Where(p=>p.MisEnAvant==1).Take(3).Select(p=>p.IdProduit).ToList();
+            
+
             return PartialView("_HighlightedProduct", res);
         }
 
