@@ -9,23 +9,20 @@
 <h2>Commande</h2>
 
 
-@using (Html.BeginForm("Payment", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Payement", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <input type="hidden" class="ListeProduitCommande" name="ListeProduitCommande" value="">
-    using (Html.MyFieldsetHelper("Payment Commande"))
+    using (Html.MyFieldsetHelper("Payement Commande"))
     {
-
         <input type="submit" value="Payment Commande" />
     }
 }
 
-@using (Html.BeginForm("Payment", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Payement", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     <input type="hidden" class="ListeProduitCommande" name="ListeProduitCommande" value="">
-    using (Html.MyFieldsetHelper("Payment Commande avec adresse differente"))
+    using (Html.MyFieldsetHelper("Payement Commande avec adresse differente"))
     {
-
-
         @Html.MyTextBoxFor(model => model.Adresse1)
         @Html.MyTextBoxFor(model => model.Adresse2)
         @Html.MyTextBoxFor(model => model.Adresse3)
@@ -40,16 +37,14 @@
                             {
                                 <option value="@dep.Key">@dep.Value</option>
                             }
-
                         </optgroup>
                     }
                 </select>
-                @*<---Html.MyDropDownListFor(model=> "idville",null)--->*@
                 <select id="idville" name="CodeVille" />
             </div>
         </div>
 
-        <input type="submit" value="Payment Commande" />
+        <input type="submit" value="Payement Commande" />
     }
 }
 

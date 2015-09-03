@@ -1,9 +1,15 @@
-﻿@{
+﻿@model Form113.Models.PanierViewModels
+
+@{
     ViewBag.Title = "Index";
 }
 
 <h2>Panier</h2>
-
+<h3 class="PrixPanier"></h3>
+<h3 class="PrixPanierRemiser" style="color:red;"></h3>
+<input type="hidden" id="PrixTotal" value="">
+<input type="hidden" id="NbCommande" value="@Model.NbCommande">
+<input type="hidden" id="NbCommandeFid" value="@Model.NbCommandeFid">
 @using (Html.BeginForm("Index", "Commande"))
 {
     <div class="form-group">
@@ -11,7 +17,7 @@
         </div>
         <div id="button" class="row">
             <p>
-                <input type="submit" class="Commande" value="Commandé" />
+                <input type="submit" class="Commande" value="Commander" />
             </p>
             <p>
                 <input type="button" class="ButtonViderPanier" value="Vider Panier" />

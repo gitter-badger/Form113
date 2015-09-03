@@ -39,7 +39,7 @@ namespace Form113.Controllers
 
 
         [HttpPost]
-        public ActionResult Payment(CommandeViewModels cvm)
+        public ActionResult Payement(CommandeViewModels cvm)
         {
             EnregistrementPayment(cvm);
             return View("Result");
@@ -103,6 +103,7 @@ namespace Form113.Controllers
 
             EnregistrementCommandesDetails(listeRes, Commande, user.NbCommande);
 
+            // Commande . etatcommande a 1
             user.Commandes.Add(Commande);
             db.SaveChanges();
         }
