@@ -26,7 +26,7 @@ namespace Form113.Controllers
             ListeBreadCrumItem.Add(bci);
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -38,9 +38,9 @@ namespace Form113.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -108,6 +108,15 @@ namespace Form113.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
+        public JsonResult CheckEmail(string email)
+        {
+
+            bool test = (db.Utilisateurs.Where(u => u.Identites.Email == email).Count() == 0);
+
+            var result = test;
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+        }
         //
         // POST: /Account/VerifyCode
         [HttpPost]
@@ -124,7 +133,7 @@ namespace Form113.Controllers
             // Si un utilisateur entre des codes incorrects pendant un certain intervalle, le compte de cet utilisateur 
             // est alors verrouillé pendant une durée spécifiée. 
             // Vous pouvez configurer les paramètres de verrouillage du compte dans IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -165,12 +174,12 @@ namespace Form113.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    var db = new BestArtEntities();
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);                    
                     var utilisateur = new Utilisateurs();
-                    var ville=db.Villes.Where(v=>v.CodeINSEE==model.CodeVille).FirstOrDefault();
+                    var ville = db.Villes.Where(v => v.CodeINSEE == model.CodeVille).FirstOrDefault();
                     var adresse = new Adresses();
                     var identite = new Identites();
+                    /*Ici nous prenons en compte nos tables pour les alimenter en même temps que l'EF génère automatiquement un utilisateur*/
                     identite.Email = model.Email;
                     identite.Nom = model.Nom;
                     identite.Prenom = model.Prenom;
@@ -190,14 +199,20 @@ namespace Form113.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
-                    
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
 
-            // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
-            return View(model);
+            // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire (il faut donc recharger la liste des régions)
+            RegisterViewModel rvm = new RegisterViewModel();
+            rvm.RegionsDepartements = db.RegionsFR.OrderBy(r => r.Nom)
+               .ToDictionary(r => r.Nom,
+               r => r.Departements.OrderBy(d => d.Nom)
+                   .ToDictionary(d => d.NumDep, d => d.Nom)
+                   );
+            return View(rvm);
         }
 
         //

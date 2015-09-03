@@ -12,10 +12,14 @@
     <h4>Créer un nouveau compte.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    
-    @Html.MyTextBoxFor(model => model.Nom)
-    @Html.MyTextBoxFor(model => model.Prenom)
 
+    @*section ajoutée pour les champs nom prenom*@
+
+    @Html.MyTextBoxFor(model => model.Nom,2)
+    @Html.MyTextBoxFor(model => model.Prenom,2)
+
+    
+    @*section générée automatiquement par microsoft*@
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -34,10 +38,12 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
+    @*FIN section générée automatiquement par microsoft*@
     
-    @Html.MyTextBoxFor(model => model.Adresse1)
-    @Html.MyTextBoxFor(model => model.Adresse2)
-    @Html.MyTextBoxFor(model => model.Adresse3)
+    @*section ajoutée pour les champs adresse*@
+    @Html.MyTextBoxFor(model => model.Adresse1,2)
+    @Html.MyTextBoxFor(model => model.Adresse2,2)
+    @Html.MyTextBoxFor(model => model.Adresse3,2)
 
     <div class="form-group">
         <div>
@@ -53,11 +59,11 @@
                     </optgroup>
                 }
             </select>
-            @*<---Html.MyDropDownListFor(model=> "idville",null)--->*@
+
             <select id="idville" name="CodeVille"/>
         </div>
     </div>
-    
+    @*autre possibilité : Html.MyDropDownListFor(model=> "idville",null)*@
 
     
     <div class="form-group">
@@ -71,7 +77,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/Inscription/Register.js"></script>
+    <script src="~/Scripts/Inscription/Register.js"></script>@*contient la gestion des valeurs affichées par les listes déroulantes pour les départements et villes*@
     <script src="~/Plugins/Chosen/js/chosen.jquery.min.js"></script>
 }
 @section styles {

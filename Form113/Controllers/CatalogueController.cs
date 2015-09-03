@@ -16,7 +16,11 @@ namespace Form113.Controllers
         private static BestArtEntities db = new BestArtEntities();
       
         // GET: Catalogue
-       
+       /// <summary>
+        /// public ActionResult IndexCategories()
+       /// index du catalogue, fournit une liste d'id de catégorie à la vue IndexCategorie qui appellera des vues partielles pour afficher les categories
+       /// </summary>
+       /// <returns></returns>
         public ActionResult IndexCategories()
         {
             var cat = db.Categories.Select(c=>c.IdCategorie).ToList();
@@ -24,6 +28,13 @@ namespace Form113.Controllers
             ListeBreadCrumItem.Add(bci);
             return View(cat);
         }
+
+        /// <summary>
+        /// public ActionResult IndexSousCategories(string id)
+        /// Retourne la liste des id des sous catégories de la catégorie sélectionnée à partir de son id
+        /// </summary>
+        /// <param name="id">id de la categorie selectyionnée par le visiteur</param>
+        /// <returns></returns>
         public ActionResult IndexSousCategories(string id)
         {
             if (id == null) { return RedirectToAction("IndexCategories"); }
@@ -39,6 +50,13 @@ namespace Form113.Controllers
             }
             
         }
+
+        /// <summary>
+        /// public ActionResult ProduitsCategorie(string id)
+        /// pour gérer les cas d'affichage de "toutes les sous categories d'une categorie" et "toutes les categories"
+        /// </summary>
+        /// <param name="id">id d'une categorie, si il est null le cas "tous les produits" a été cliqué</param>
+        /// <returns></returns>
         public ActionResult ProduitsCategorie(string id)
         {
             var bci = new BreadCrumItem("Index Categories", "IndexCategories", "Catalogue");
@@ -70,7 +88,12 @@ namespace Form113.Controllers
 
 
         }
-
+        /// <summary>
+        /// public ActionResult ProduitsSousCategorie(string id)
+        /// retourne la liste des produits d'une sous catégorie donnée
+        /// </summary>
+        /// <param name="id">identifiant de la sous categorie concernée</param>
+        /// <returns>liste des produits de la sous categorie</returns>
         public ActionResult ProduitsSousCategorie(string id)
         {
             var idsouscat = Int32.Parse(id);

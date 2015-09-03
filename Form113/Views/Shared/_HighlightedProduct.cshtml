@@ -5,6 +5,7 @@
         <strong>Nouveautés !</strong>
     </div>
     <div class="panel-body">
+        @*Pour chaque produit à afficher (3) on appelle la vue partielle correspondante*@
             @foreach (var element in @Model)
             {
                 @Html.Action("MiniatProduit", "Produit", new { id = element })

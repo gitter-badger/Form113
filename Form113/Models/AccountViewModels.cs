@@ -62,11 +62,15 @@ namespace Form113.Models
         [Display(Name = "Mémoriser le mot de passe ?")]
         public bool RememberMe { get; set; }
     }
-
+    /// <summary>
+    /// Modifié pour ajouter des données autres que email/mot de passe pour un utilisateur.
+    /// 
+    /// </summary>
     public class RegisterViewModel
     {
         [Required]
         [EmailAddress]
+        [System.Web.Mvc.Remote("CheckEmail", "Account", ErrorMessage = "l'email est déjà utilisé")]
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }
 
@@ -80,9 +84,15 @@ namespace Form113.Models
         [Display(Name = "Confirmer le mot de passe ")]
         [Compare("Password", ErrorMessage = "Le mot de passe et le mot de passe de confirmation ne correspondent pas.")]
         public string ConfirmPassword { get; set; }
-
+        /// <summary>
+        /// pour stocker les données regions/departements à fournir aux listes déroulantes
+        /// </summary>
         public Dictionary<string, Dictionary<string, string>> RegionsDepartements { get; set; }
 
+
+        /// <summary>
+        /// code insee de la ville
+        /// </summary>
         public string CodeVille { get; set; }
         [DisplayName("numero de voie :")]
         public string Adresse1 { get; set; }
