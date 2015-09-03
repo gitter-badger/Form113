@@ -37,6 +37,14 @@ namespace Form113.Controllers
             return View(cvm);
         }
 
+
+        [HttpPost]
+        public ActionResult Payment(CommandeViewModels cvm)
+        {
+            EnregistrementPayment(cvm);
+            return View("Result");
+        }
+
         private void EnregistrementPayment(CommandeViewModels cvm)
         {
 
@@ -54,7 +62,7 @@ namespace Form113.Controllers
             var user = db.Utilisateurs.Where(x => x.IdAsp == iduserASP).FirstOrDefault();
             var Commande = new Commandes();
 
-            if(cvm.Adresse1 != null) // Adresse de livraison diferrente de celle du client
+            if (cvm.Adresse1 != null) // Adresse de livraison diferrente de celle du client
             {
                 var ville = db.Villes.Where(v => v.CodeINSEE == cvm.CodeVille).FirstOrDefault();
                 var CP = ville.ZipCodes.FirstOrDefault().CodePostal;
@@ -95,32 +103,31 @@ namespace Form113.Controllers
                 Commande.IdAdresse = db.Utilisateurs.Where(u => u.IdUtilisateur == user.IdUtilisateur).Select(x => x.IdAdresse).FirstOrDefault();
             }
 
-            EnregistrementCommandesDetails(listeRes, Commande);
-
-            user.Commandes.Add(Commande);
             user.NbCommande = db.Commandes.Where(c => c.IdAcheteur == user.IdUtilisateur).Count() + 1;
+
+            EnregistrementCommandesDetails(listeRes, Commande, user.NbCommande);
+            user.Commandes.Add(Commande);
             db.SaveChanges();
         }
-
-        [HttpPost]
-        public ActionResult Payment(CommandeViewModels cvm)
+        private void EnregistrementCommandesDetails(List<KeyValuePair<int, int>> listeRes, Commandes Commande, int? nombreCommande)
         {
-            EnregistrementPayment(cvm);
-            return View("Result");
-        }
-
-        private void EnregistrementCommandesDetails(List<KeyValuePair<int, int>> listeRes, Commandes Commande)
-        {
-            foreach (var item in listeRes)
+            if (nombreCommande != null && nombreCommande >= 0)
             {
-                var OrderDetail = new Commandes_details()
+
+            }
+            else
+            {
+                foreach (var item in listeRes)
                 {
-                    IdProduit = item.Key,
-                    quantite = item.Value,
-                    Promotion = db.Produits.Where(p => p.IdProduit == item.Key).Select(p => p.Promotion).FirstOrDefault(),
-                    prix_unitaire = db.Produits.Where(p => p.IdProduit == item.Key).Select(p => p.Prix).FirstOrDefault(),
-                };
-                Commande.Commandes_details.Add(OrderDetail);
+                    var OrderDetail = new Commandes_details()
+                    {
+                        IdProduit = item.Key,
+                        quantite = item.Value,
+                        Promotion = db.Produits.Where(p => p.IdProduit == item.Key).Select(p => p.Promotion).FirstOrDefault(),
+                        prix_unitaire = db.Produits.Where(p => p.IdProduit == item.Key).Select(p => p.Prix).FirstOrDefault(),
+                    };
+                    Commande.Commandes_details.Add(OrderDetail);
+                }
             }
         }
     }

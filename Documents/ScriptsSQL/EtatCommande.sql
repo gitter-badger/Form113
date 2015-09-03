@@ -1,6 +1,7 @@
 use form113
 go
 drop table "StatusCommande";
+drop table "Marketing";
 go
 create table StatusCommande (
 	IdStatusCommande int Primary key not null,

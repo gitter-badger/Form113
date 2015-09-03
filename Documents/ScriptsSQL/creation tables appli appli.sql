@@ -20,7 +20,12 @@ if exists (select * from sysobjects where name = 'Identites' and type = 'U')
 	drop table Identites;
 if exists (select * from sysobjects where name = 'Adresses' and type = 'U')
 	drop table Adresses;
-
+if exists (select * from sysobjects where name = 'StatusCommande' and type = 'U')
+	drop table StatusCommande;
+if exists (select * from sysobjects where name = 'Marketing' and type = 'U')
+	drop table Marketing;
+	
+GO
 CREATE TABLE [dbo].[Administrateurs](
 	[IdAdministrateur] [int] NOT NULL,
  CONSTRAINT [Pk_Administrateurs] PRIMARY KEY CLUSTERED 
@@ -243,6 +248,31 @@ CONSTRAINT [Idx_Commandes_details] PRIMARY KEY CLUSTERED
 	[IdProduit] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
+go
+create table StatusCommande (
+	IdStatusCommande int Primary key not null,
+	StatusCommande nvarchar(30) not null
+)
+insert StatusCommande (IdStatusCommande,StatusCommande)
+values (1,'Commandé')
+insert StatusCommande (IdStatusCommande,StatusCommande)
+values (2,'Envoyé')
+insert StatusCommande (IdStatusCommande,StatusCommande)
+values (3,'Reçu')
+
+go 
+create table Marketing (
+	NbreCommandePourReduc int,
+)
+
+go
+
+Alter table Commandes alter column EtatCommande INT;
+alter table Commandes
+add constraint fk_EtatCommande
+foreign key (EtatCommande)
+references StatusCommande(IdStatusCommande)
 
 GO
 SET ANSI_PADDING OFF
