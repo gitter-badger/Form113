@@ -16,11 +16,11 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IdCommande)
 
+        
         <div class="form-group">
             @Html.LabelFor(model => model.IdAcheteur, "IdAcheteur", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IdAcheteur", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdAcheteur, "", new { @class = "text-danger" })
+                <p>@Model.IdAcheteur</p>
             </div>
         </div>
 
@@ -35,8 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateCommande, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateCommande, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateCommande, "", new { @class = "text-danger" })
+              <p>@Model.DateCommande.ToString()</p>
             </div>
         </div>
 
@@ -51,8 +50,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IdAdresse, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IdAdresse, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdAdresse, "", new { @class = "text-danger" })
+               @Html.Action("Adresse",Model.IdAdresse)
             </div>
         </div>
 

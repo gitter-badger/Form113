@@ -31,7 +31,7 @@
 
 @foreach (var item in Model)
 {
-    if (item.OrderAge < 3 && item.CommandeStatus == "Commandé")
+    if (item.OrderAge > 3 && item.CommandeStatus == "Commandé")
     { <text><tr>
     <td>
         <font color="red">@item.Nom</font>  
@@ -52,7 +52,9 @@
         <font color="red"> @item.CommandeStatus</font>  
 </td>
     <td>
-        <font color="red">  @Html.ActionLink("Gerer", "Edit", new { id = item.IdCommande })</font>  
+        <font color="red">  @Html.ActionLink("Gerer", "Edit", new { id = item.IdCommande }) 
+        @Html.ActionLink("Supprimer", "Delete", new  {id = item.IdCommande })
+        </font>  
 </td>
 </tr> </text>}
     else { <text><tr>

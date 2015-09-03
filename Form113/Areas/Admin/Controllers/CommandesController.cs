@@ -126,6 +126,12 @@ namespace Form113.Areas.Admin.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [ChildActionOnly]
+        public PartialViewResult Adresse(int id)
+        {
+            var adresse = db.Adresses.Find(id);
+            return PartialView("_Adresse",adresse);
+        }
 
         protected override void Dispose(bool disposing)
         {

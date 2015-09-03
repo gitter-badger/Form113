@@ -242,9 +242,9 @@
     <Content Include="Areas\Admin\Views\Marketing\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Commandes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Commandes\_Adresse.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Plugins\Chosen\css\chosen.css" />
     <Content Include="Plugins\Chosen\css\chosen.min.css" />
