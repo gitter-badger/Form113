@@ -1,0 +1,86 @@
+﻿@model List<DataLayer.Commande>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Commandes</h2>
+
+<table class="table">
+    <tr>
+        <th>
+           Nom
+        </th>
+        <th>
+            Prenom
+        </th>
+        <th>
+           Date de Commande
+        </th>
+        <th>
+           Age Commande (j)
+        </th>
+        <th>
+           Total
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    if (item.OrderAge < 3 && item.CommandeStatus == "Commandé")
+    { <text><tr>
+    <td>
+        <font color="red">@item.Nom</font>  
+    </td>
+    <td>
+        <font color="red"> @item.Prenom</font>  
+</td>
+    <td>
+        <font color="red"> @item.OrderDate</font>  
+</td>
+    <td>
+        <font color="red"> @item.OrderAge</font>  
+</td>
+    <td>
+        <font color="red"> @item.TotalCommande</font>  
+</td>
+    <td>
+        <font color="red"> @item.CommandeStatus</font>  
+</td>
+    <td>
+        <font color="red">  @Html.ActionLink("Gerer", "Edit", new { id = item.IdCommande })</font>  
+</td>
+</tr> </text>}
+    else { <text><tr>
+    <td>
+        @item.Nom
+    </td>
+    <td>
+        @item.Prenom
+    </td>
+    <td>
+        @item.OrderDate
+    </td>
+    <td>
+        @item.OrderAge
+    </td>
+    <td>
+        @item.TotalCommande
+    </td>
+    <td>
+        @item.CommandeStatus
+    </td>
+    <td>
+        @Html.ActionLink("Gerer", "Edit", new { id = item.IdCommande })
+    </td>
+</tr> </text>}
+        
+    
+}
+
+</table>
+<p>Le texte en rouge indique que le produit n'est pas envoyé depuis plus de trois jours.</p>

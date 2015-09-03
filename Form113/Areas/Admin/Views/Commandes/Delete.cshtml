@@ -1,0 +1,64 @@
+﻿@model DataLayer.Models.Commandes
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Commandes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCommande)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCommande)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateLivraison)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateLivraison)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAdresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdAdresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilisateurs.IdAsp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utilisateurs.IdAsp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusCommande.StatusCommande1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusCommande.StatusCommande1)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
