@@ -5,20 +5,20 @@
 }
 
 <h2>@ViewBag.Title.</h2>
+<h4>Créer un nouveau compte.</h4>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Créer un nouveau compte.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
     @*section ajoutée pour les champs nom prenom*@
 
-    @Html.MyTextBoxFor(model => model.Nom,2)
-    @Html.MyTextBoxFor(model => model.Prenom,2)
+    @Html.MyTextBoxFor(model => model.Nom, 2)
+    @Html.MyTextBoxFor(model => model.Prenom, 2)
 
-    
+
     @*section générée automatiquement par microsoft*@
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -39,14 +39,14 @@
         </div>
     </div>
     @*FIN section générée automatiquement par microsoft*@
-    
+
     @*section ajoutée pour les champs adresse*@
-    @Html.MyTextBoxFor(model => model.Adresse1,2)
-    @Html.MyTextBoxFor(model => model.Adresse2,2)
-    @Html.MyTextBoxFor(model => model.Adresse3,2)
+    @Html.MyTextBoxFor(model => model.Adresse1, 2)
+    @Html.MyTextBoxFor(model => model.Adresse2, 2)
+    @Html.MyTextBoxFor(model => model.Adresse3, 2)
 
     <div class="form-group">
-        <div>
+        <div class="col-md-offset-2 col-md-10">
             <select id="ListeDepartements" class="chosen-select" name="NumDep">
                 @foreach (var reg in Model.RegionsDepartements.Keys)
                 {
@@ -60,19 +60,16 @@
                 }
             </select>
 
-            <select id="idville" name="CodeVille"/>
+            <select id="idville" name="CodeVille" ></select>
         </div>
     </div>
     @*autre possibilité : Html.MyDropDownListFor(model=> "idville",null)*@
 
-    
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Inscription" />
+            <button type="submit" class="btn btn-default" >Inscription</button>
         </div>
     </div>
-
-
 }
 
 @section Scripts {

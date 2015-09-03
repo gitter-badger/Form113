@@ -25,7 +25,6 @@ namespace DataLayer.Models
         public Nullable<System.DateTime> DateCommande { get; set; }
         public Nullable<System.DateTime> DateLivraison { get; set; }
         public Nullable<int> IdAdresse { get; set; }
-    
         public virtual ICollection<Commandes_details> Commandes_details { get; set; }
         public virtual Utilisateurs Utilisateurs { get; set; }
         public virtual StatusCommande StatusCommande { get; set; }
