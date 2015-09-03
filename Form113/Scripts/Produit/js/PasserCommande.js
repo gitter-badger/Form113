@@ -14,5 +14,5 @@ function InitialiseHidden() {
             str += key + "," + valeur;
         }
     }
-    $("#ListeProduitCommande").val(str);
+    $("input.ListeProduitCommande").val(str);
 }

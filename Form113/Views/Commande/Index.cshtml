@@ -1,5 +1,7 @@
 ﻿@using Form113.Helper
 
+@model Form113.Models.CommandeViewModels
+
 @{
     ViewBag.Title = "Index";
 }
@@ -9,7 +11,7 @@
 
 @using (Html.BeginForm("Payment", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    <input type="hidden" id="ListeProduitCommande" name="ListeProduitCommande" value="">
+    <input type="hidden" class="ListeProduitCommande" name="ListeProduitCommande" value="">
     using (Html.MyFieldsetHelper("Payment Commande"))
     {
 
@@ -17,17 +19,47 @@
     }
 }
 
-@using (Html.BeginForm("PaymentAdresseVariable", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Payment", "Commande", FormMethod.Post, new { @class = "form-horizontal" }))
 {
-    <input type="hidden" id="ListeProduitCommande" name="ListeProduitCommande" value="">
+    <input type="hidden" class="ListeProduitCommande" name="ListeProduitCommande" value="">
     using (Html.MyFieldsetHelper("Payment Commande avec adresse differente"))
     {
-        <p>Vue Partiel Adresse a ajouter</p>
+
+
+        @Html.MyTextBoxFor(model => model.Adresse1)
+        @Html.MyTextBoxFor(model => model.Adresse2)
+        @Html.MyTextBoxFor(model => model.Adresse3)
+
+        <div class="form-group">
+            <div>
+                <select id="ListeDepartements" class="chosen-select" name="NumDep">
+                    @foreach (var reg in Model.RegionsDepartements.Keys)
+                    {
+                        <optgroup label="@reg">
+                            @foreach (var dep in Model.RegionsDepartements[reg])
+                            {
+                                <option value="@dep.Key">@dep.Value</option>
+                            }
+
+                        </optgroup>
+                    }
+                </select>
+                @*<---Html.MyDropDownListFor(model=> "idville",null)--->*@
+                <select id="idville" name="CodeVille" />
+            </div>
+        </div>
 
         <input type="submit" value="Payment Commande" />
     }
 }
 
+@section styles {
+    <link href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css" rel="stylesheet" />
+}
+
 @section scripts {
+
     <script src="~/Scripts/Produit/js/PasserCommande.js"></script>
+    <script src="~/Scripts/Inscription/Register.js"></script>
+    <script src="~/Plugins/Chosen/js/chosen.jquery.min.js"></script>
 }

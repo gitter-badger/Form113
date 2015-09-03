@@ -19,15 +19,27 @@ namespace Form113.Controllers
             ListeBreadCrumItem.Add(bci);
         }
 
+        private CommandeViewModels InitCVM()
+        {
+            var cvm = new CommandeViewModels();
+            cvm.RegionsDepartements = db.RegionsFR.OrderBy(r => r.Nom)
+               .ToDictionary(r => r.Nom,
+               r => r.Departements.OrderBy(d => d.Nom)
+                   .ToDictionary(d => d.NumDep, d => d.Nom)
+                   );
+            return cvm;
+        }
+
         // GET: Commande
         public ActionResult Index()
         {
-            return View();
+            var cvm = InitCVM();
+            return View(cvm);
         }
 
-        [HttpPost]
-        public ActionResult Payment(CommandeViewModels cvm)
+        private void EnregistrementPayment(CommandeViewModels cvm)
         {
+
             var str = cvm.ListeProduitCommande;
             var liste = str.Split('/');
             var listeRes = new List<KeyValuePair<int, int>>();
@@ -39,14 +51,66 @@ namespace Form113.Controllers
             }
 
             var iduserASP = db.AspNetUsers.Where(x => x.Email == User.Identity.Name).Select(x => x.Id).FirstOrDefault();
-            var iduser = db.Utilisateurs.Where(x => x.IdAsp == iduserASP).FirstOrDefault();
-            var Commande = new Commandes()
-            {
-                DateCommande = DateTime.Now,
-                EtatCommande = "0",
-                IdAdresse = db.Utilisateurs.Where(u => u.IdUtilisateur == iduser.IdUtilisateur).Select(x => x.IdAdresse).FirstOrDefault(),
-            };
+            var user = db.Utilisateurs.Where(x => x.IdAsp == iduserASP).FirstOrDefault();
+            var Commande = new Commandes();
 
+            if(cvm.Adresse1 != null) // Adresse de livraison diferrente de celle du client
+            {
+                var ville = db.Villes.Where(v => v.CodeINSEE == cvm.CodeVille).FirstOrDefault();
+                var CP = ville.ZipCodes.FirstOrDefault().CodePostal;
+
+                var AdresseIdToSave = db.Adresses.Where(a => a.CodeINSEE == ville.CodeINSEE)
+                                                     .Where(a => a.CodePostal == CP)
+                                                     .Where(a => a.Ligne1 == cvm.Adresse1)
+                                                     .Where(a => a.Ligne2 == cvm.Adresse2)
+                                                     .Where(a => a.Ligne3 == cvm.Adresse3)
+                                                     .Select(a => a.IdAdresse)
+                                                     .FirstOrDefault();
+                Commande.DateCommande = DateTime.Now;
+                Commande.EtatCommande = "0";
+
+                if (AdresseIdToSave != 0)
+                {
+                    Commande.IdAdresse = AdresseIdToSave;
+                }
+                else
+                {
+                    var Adresse = new Adresses()
+                    {
+                        Ligne1 = cvm.Adresse1,
+                        Ligne2 = cvm.Adresse2,
+                        Ligne3 = cvm.Adresse3,
+                        CodeINSEE = ville.CodeINSEE,
+                        CodePostal = CP,
+                    };
+                    db.Adresses.Add(Adresse);
+                    db.SaveChanges();
+                    Commande.IdAdresse = Adresse.IdAdresse;
+                }
+            }
+            else // Adresse de livraison etant celle du client
+            {
+                Commande.DateCommande = DateTime.Now;
+                Commande.EtatCommande = "0";
+                Commande.IdAdresse = db.Utilisateurs.Where(u => u.IdUtilisateur == user.IdUtilisateur).Select(x => x.IdAdresse).FirstOrDefault();
+            }
+
+            EnregistrementCommandesDetails(listeRes, Commande);
+
+            user.Commandes.Add(Commande);
+            user.NbCommande = db.Commandes.Where(c => c.IdAcheteur == user.IdUtilisateur).Count() + 1;
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public ActionResult Payment(CommandeViewModels cvm)
+        {
+            EnregistrementPayment(cvm);
+            return View("Result");
+        }
+
+        private void EnregistrementCommandesDetails(List<KeyValuePair<int, int>> listeRes, Commandes Commande)
+        {
             foreach (var item in listeRes)
             {
                 var OrderDetail = new Commandes_details()
@@ -58,16 +122,6 @@ namespace Form113.Controllers
                 };
                 Commande.Commandes_details.Add(OrderDetail);
             }
-            //db.Commandes.Add(Commande);
-            iduser.Commandes.Add(Commande);
-            db.SaveChanges();
-            return View("Result");
-        }
-
-        [HttpPost]
-        public ActionResult PaymentAdresseVariable(CommandeViewModels cvm)
-        {
-            return View("Result");
         }
     }
 }
