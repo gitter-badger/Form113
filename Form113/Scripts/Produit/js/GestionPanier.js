@@ -10,7 +10,7 @@ function AfficheProduit() {
 
         for (var i = 0; i < localStorage.length; i++) {
             var key = localStorage.key(i);
-            UnProduit(key,i);
+            UnProduit(key, i);
         }
     }
     else {
@@ -18,21 +18,13 @@ function AfficheProduit() {
     }
 }
 
-function UnProduit(id,tour) {
+function UnProduit(id, tour) {
 
     $.getJSON('/Panier/GetJSONPROD/' + id, function (produit) {
         var valeur = localStorage.getItem(id);
 
-        if (tour % 2 == 0)
-        {
-            var str = '<div class="row panel panel-info">';
-
-        }
-        else
-        {    
-            var str = '<div class="row panel panel-success">';
-        }
-        str += '<div class="panel-heading">'+produit.prod+'</div>';
+        var str = '<div class="row panel panel-info">';
+        str += '<div class="panel-heading">' + produit.prod + '</div>';
         str += '<div class="panel-body">';
 
         str += '<label for="' + id + '" class="col-sm-2">Quantité : </label>';

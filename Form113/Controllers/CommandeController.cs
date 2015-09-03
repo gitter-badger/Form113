@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Form113.Controllers
 {
+    [Authorize]
     public class CommandeController : BestArtController
     {
         private static BestArtEntities db = new BestArtEntities();
@@ -38,13 +39,12 @@ namespace Form113.Controllers
             }
 
             var iduserASP = db.AspNetUsers.Where(x => x.Email == User.Identity.Name).Select(x => x.Id).FirstOrDefault();
-            int iduser = db.Utilisateurs.Where(x => x.IdAsp == iduserASP).Select(x => x.IdUtilisateur).FirstOrDefault();
+            var iduser = db.Utilisateurs.Where(x => x.IdAsp == iduserASP).FirstOrDefault();
             var Commande = new Commandes()
             {
                 DateCommande = DateTime.Now,
                 EtatCommande = "0",
-                IdAcheteur = iduser,
-                IdAdresse = db.Utilisateurs.Where(u => u.IdUtilisateur == iduser).Select(x => x.IdAdresse).FirstOrDefault(),
+                IdAdresse = db.Utilisateurs.Where(u => u.IdUtilisateur == iduser.IdUtilisateur).Select(x => x.IdAdresse).FirstOrDefault(),
             };
 
             foreach (var item in listeRes)
@@ -58,7 +58,8 @@ namespace Form113.Controllers
                 };
                 Commande.Commandes_details.Add(OrderDetail);
             }
-            db.Commandes.Add(Commande);
+            //db.Commandes.Add(Commande);
+            iduser.Commandes.Add(Commande);
             db.SaveChanges();
             return View("Result");
         }
