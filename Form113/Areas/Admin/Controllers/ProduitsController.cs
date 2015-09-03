@@ -139,6 +139,9 @@ namespace Form113.Areas.Admin.Controllers
                     .First();
             return View(Photo);
         }
+        
+       
+        
         // GET: Admin/Produits/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -213,6 +216,41 @@ namespace Form113.Areas.Admin.Controllers
             return View("Index");
         }
 
+        [HttpPost]
+        public ActionResult AddPicture([Bind(Include="IdProduit")] Produits produit, HttpPostedFileBase file)
+        {
+             bool pictureValide = true;
+            if (file == null || file.ContentLength <= 0)
+            {
+                pictureValide = false;
+            }
+            var fileName = Path.GetFileName(file.FileName);
+            if (fileName == null)
+            {
+                pictureValide = false;
+            }
+            if (pictureValide == true)
+            {
+                var path = Path.Combine(Server.MapPath("~/Uploads/"), fileName);
+                file.SaveAs(path);
+                var photo = new DataLayer.Models.Photos();
+                photo.IdProduit = produit.IdProduit;
+                photo.PhotoName = file.FileName.ToString();
+                db.Photos.Add(photo);
+                db.SaveChanges();
+
+            }
+            return RedirectToAction("Edit", new { id = produit.IdProduit });
+        }
+
+        [HttpPost]
+        public ActionResult DeletePicture([Bind(Include="IdPhoto,IdProduit")]Photos _photo)
+        {
+            var photo = db.Photos.Find(_photo.IdPhoto);
+            db.Photos.Remove(photo);
+            db.SaveChanges();
+            return RedirectToAction("Edit", new {id = _photo.IdProduit });
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
