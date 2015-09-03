@@ -185,11 +185,13 @@
     <Compile Include="Helper\MyHelper.cs" />
     <Compile Include="Infrastructure\SearchArt\Base\SearchBase.cs" />
     <Compile Include="Infrastructure\SearchArt\Base\SearchOption.cs" />
+    <Compile Include="Infrastructure\SearchArt\Option\SearchOptionCategories.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionContinent.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPays.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPrixMax.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPrixMin.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionRegion.cs" />
+    <Compile Include="Infrastructure\SearchArt\Option\SearchOptionSousCategories.cs" />
     <Compile Include="Infrastructure\SearchArt\Search.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BreadCrumItem.cs" />
