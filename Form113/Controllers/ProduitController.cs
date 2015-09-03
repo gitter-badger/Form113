@@ -37,7 +37,7 @@ namespace Form113.Controllers
         [ChildActionOnly]
         public PartialViewResult HighlightedProduct()
         {
-            var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Take(3).Select(p=>p.IdProduit).ToList();
+            var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Where(p=>p.MisEnAvant==1).Take(3).Select(p=>p.IdProduit).ToList();
             return PartialView("_HighlightedProduct", res);
         }
 
@@ -56,6 +56,53 @@ namespace Form113.Controllers
             return PartialView("_Produit", res);
         }
 
+        [ChildActionOnly]
+        public PartialViewResult ProduitsEnPromo()
+        {
+            var restemp = db.Produits.Where(p => p.Promotion != 1);
+            var rand = new Random();
+            int[] val=new int[3];
+            if (restemp.Count()>3)
+            {
+                val[0] = rand.Next(restemp.Count());
+                var tmp=val[0];
+                while (tmp== val[0]) {
+                    tmp = rand.Next(restemp.Count());
+                }
+                val[1] = tmp;
+                tmp = val[0];
+                while (tmp == val[0] || tmp == val[1])
+                {
+                    tmp = rand.Next(restemp.Count());
+                }
+                val[2] = tmp;
+                var res = new List<Produits>();
+                for (int i=0;i<3;i++)
+                {
+                    res.Add(restemp.ToList().ElementAt(val[i]));
+                }
+                return PartialView("_ProduitsEnPromo", res.Select(p => p.IdProduit).ToList());
+            }
+            else if (restemp.Count()>0)
+            {
+                return PartialView("_ProduitsEnPromo", restemp.Select(p=>p.IdProduit).ToList());
+            }
+            else
+            {
+                return PartialView("_ProduitsEnPromo", null);
+            }
+            
+            
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ProduitPromo(string id)
+        {
+            var idprod = Int32.Parse(id);
+            var res = db.Produits.Where(p => p.IdProduit == idprod).First();
+            return PartialView("_ProduitPromo", res);
+
+        }
         [HttpPost]
         public ActionResult Result(SearchViewModel svm)
         {

@@ -1,0 +1,32 @@
+﻿@model List<int>
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        @if(Model.Count()>1){<strong>Promotions du moment !!</strong>
+        }
+        else
+        {
+            <strong>Promotion du moment !!</strong>
+        }
+        
+    </div>
+    <div class="panel-body">
+
+        @*Pour chaque produit à afficher (3 maximum) on appelle la vue partielle correspondante.*@
+        @if (Model != null) {
+        foreach (var element in @Model)
+        {
+            @Html.Action("ProduitPromo", "Produit", new { id = element })
+        } }
+        
+        
+        @* si il n'y a pas de produits reçu c'est qu'il n'y a pas de promotions en ce moment.*@
+        @if (Model == null)
+        {
+            <text>Pas de promotions en ce moment :(</text>
+        }
+            
+    </div>
+</div>
+
+

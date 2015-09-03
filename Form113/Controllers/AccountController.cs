@@ -20,11 +20,7 @@ namespace Form113.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
-        {
-            var bci = new BreadCrumItem("Account", "Index", "Account");
-            ListeBreadCrumItem.Add(bci);
-        }
+        public AccountController(){}
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -158,6 +154,8 @@ namespace Form113.Controllers
                r => r.Departements.OrderBy(d => d.Nom)
                    .ToDictionary(d => d.NumDep, d => d.Nom)
                    );
+            var bci = new BreadCrumItem("Creation de Compte", "", "");
+            ListeBreadCrumItem.Add(bci);
             return View(rvm);
         }
 
@@ -212,6 +210,7 @@ namespace Form113.Controllers
                r => r.Departements.OrderBy(d => d.Nom)
                    .ToDictionary(d => d.NumDep, d => d.Nom)
                    );
+            
             return View(rvm);
         }
 

@@ -6,8 +6,8 @@
 <div class="panel">
     <h3>@Model.Libelle</h3>
     <div class="panel-body">
-
-        <div id="CategorieImg">@Html.ImageHelp(Model.Photo)</div>
-        @Html.ActionLink("Details", "IndexSousCategories/" + Model.IdCategorie, "Catalogue")
+        <a href="/Catalogue/IndexSousCategories/@Model.IdCategorie" class="fill-div">
+            <div id="CategorieImg">@Html.ImageHelp(Model.Photo)</div>
+        </a>
     </div>
 </div>

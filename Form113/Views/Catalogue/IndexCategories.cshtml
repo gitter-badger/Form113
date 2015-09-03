@@ -25,12 +25,8 @@
                         @Html.Action("Categorie", "Categorie", new { id = cat })
                     </div>*@
                 
-                    <li>
-                        <a href="/Catalogue/IndexSousCategories/@cat" class="fill-div">
-                            <div class="Product">
-                                @Html.Action("Categorie", "Categorie", new { id = cat })
-                            </div>
-                        </a>
+                    <li>@Html.Action("Categorie", "Categorie", new { id = cat })
+                        
 </li>
                 
             }

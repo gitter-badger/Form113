@@ -5,8 +5,9 @@
 <div class="panel">
     <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
-        <div id="CategorieImg">@Html.ImageHelp(Model.Photo)</div>
-        @Html.ActionLink("Voir Produits", "ProduitsSousCategorie/"+Model.IdSousCategorie, "Catalogue")
+        <a href="/Catalogue/ProduitsSousCategorie/@Model.IdSousCategorie" class="fill-div">
+            <div id="CategorieImg">@Html.ImageHelp(Model.Photo)</div>
+        </a>
     </div>
 
 

@@ -1,0 +1,25 @@
+﻿@using Form113.Helper
+@model DataLayer.Models.Produits
+
+@*Affichage simple d'un produit*@
+@section styles {
+    <link href="~/Scripts/Catalog/Image2.css" rel="stylesheet" />
+
+}
+@section scripts {
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-2.1.4.js"></script>
+}
+<div class="panel panel-success">
+    <div class="panel-heading">@Model.Nom</div>
+    <div class="panel-body">
+        <a href="Produit/Detail/@Model.IdProduit" class=" fill-div">
+            <div class="Product">
+                @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
+                Provenance : @Model.Pays.Name
+                Prix Original : @Model.Prix
+                Prix avec réduction : @(Model.Prix * Model.Promotion)
+            </div>
+        </a>
+    </div>
+</div>
