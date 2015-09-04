@@ -60,6 +60,13 @@ namespace Form113.Areas.Admin.Controllers
             return "";
         }
 
+        [ChildActionOnly]
+         public PartialViewResult SellsInHurry()
+        {
+            var listCommande = DataLayer.Commande.giveMeList();
+            return PartialView("_SellsInHurry",listCommande.Where(x=>x.OrderAge<3).ToList());
+        }
+
         // Outil Admin dans catalog ------------------------------------------------
         public ActionResult MettreEnAvant(string id)
         {

@@ -1,0 +1,31 @@
+﻿@model List<DataLayer.Commande>
+
+@foreach(var item in Model)
+{
+    <text><tr>
+        <td>
+            <font color="red">@item.Nom</font>
+        </td>
+        <td>
+            <font color="red"> @item.Prenom</font>
+        </td>
+        <td>
+            <font color="red"> @item.OrderDate</font>
+        </td>
+        <td>
+            <font color="red"> @item.OrderAge</font>
+        </td>
+        <td>
+            <font color="red"> @item.TotalCommande</font>
+        </td>
+        <td>
+            <font color="red"> @item.CommandeStatus</font>
+        </td>
+        <td>
+            <font color="red">
+                @Html.ActionLink("Gerer", "Edit", new { id = item.IdCommande })
+                @Html.ActionLink("Supprimer", "Delete", new { id = item.IdCommande })
+            </font>
+        </td>
+    </tr> </text>
+}

@@ -249,6 +249,7 @@
     <Content Include="Areas\Admin\Views\Commandes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\_Adresse.cshtml" />
+    <Content Include="Areas\Admin\Views\Marketing\_SellsInHurry.cshtml" />
     <None Include="Properties\PublishProfiles\Form113.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Plugins\Chosen\css\chosen.css" />
