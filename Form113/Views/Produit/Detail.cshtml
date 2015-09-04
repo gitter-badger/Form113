@@ -21,11 +21,55 @@
             <input class="form-control Quantiter" data-val="true" data-val-number="Le champ Quantité doit être un nombre." data-val-required="Le champ Quantité est requis." id="@Model.IdProduit" name="IdProduit" value="3" type="text">
         </p>
         <p>
+            <a href="#" class="Reply">Commenter</a>
+        </p>
+        <p>
             <input type="button" class="ButtonAjoutPanier" value="Ajouter au Panier" />
         </p>
         @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
     </div>
 </div>
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div class="panel panel-danger">
+            <div class="panel-heading">Il faut être connecter pour poster un commentaire ou répondre !!!</div>
+        </div>
+    </div>
+}
+<div class="row">
+    @using (Html.MyFieldsetHelper("Commentaire Produit"))
+    {
+        if (Model.Commentaire != null)
+        {
+            foreach (var item in Model.Commentaire)
+            {
+                <div>
+                    @Html.Action("CommentaireProduit", "Produit", new { id = item.IdCommentaire })
+                </div>
+            }
+        }
+    }
+</div>
+@using (Html.BeginForm("Commenter", "Produit", FormMethod.Post))
+{
+    <div id="ZoneCommenter" class="row">
+        <div class="panel panel-danger">
+
+            <div class="panel-success">Votre Commentaire</div>
+            <div class="panel-body">
+                <input type="hidden" id="ComProduit" name="ComProduit" value="" />
+                <input type="hidden" id="ComCom" name="ComCom" value="" />
+                <p>
+                    <textarea id="ComTexte" name="ComTexte" class="text-center TexteAreaPerso"></textarea>
+                </p>
+                <p>
+                    <input type="submit" value="Enregistrer Commentaire" />
+                </p>
+            </div>
+        </div>
+    </div>
+}
 
 @section scripts {
     <script src="~/Scripts/Produit/js/AjoutPanier.js"></script>

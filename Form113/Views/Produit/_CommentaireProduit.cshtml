@@ -1,0 +1,35 @@
+﻿@using Form113.Helper
+@using DataLayer.Models
+@model List<Commentaire>
+@{
+    ViewBag.Title = "_CommentaireProduit";
+}
+<h2></h2>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="panel panel-info">
+            <div class="panel-heading">@item.Utilisateurs.Identites.Nom : @item.DateComm</div>
+            <div class="panel-body">
+                <p>@item.Texte</p>
+                <p>
+                    <a href="#" class="Reply">Répondre</a>
+                </p>
+                <p>
+                    <div class="row">
+                        @if (item.Commentaire1 != null)
+                        {
+                            foreach (var iteminterne in item.Commentaire1)
+                            {
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-11">
+                                    @Html.Action("CommentaireProduit", "Produit", new { id = iteminterne.IdCommentaire })
+                                </div>
+                            }
+                        }
+                    </div>
+            </div>
+        </div>
+    }
+}

@@ -1,5 +1,7 @@
 ﻿$(function () {
     $("input.ButtonAjoutPanier").click(AjoutPanier);
+    $("a.Reply").click(Repondre);
+    $("#ZoneCommenter").hide();
 });
 
 function AjoutPanier()
@@ -9,4 +11,10 @@ function AjoutPanier()
     //console.log(valeur.attr("id"));
     localStorage.setItem(valeur.attr("id"), valeur.val());
     //console.log(sessionStorage);
+}
+
+function Repondre()
+{    
+
+    $("#ZoneCommenter").show();
 }

@@ -92,6 +92,9 @@
     <Compile Include="Models\Commandes_details.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Commentaire.cs">
+      <DependentUpon>BestArt.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Continents.cs">
       <DependentUpon>BestArt.tt</DependentUpon>
     </Compile>

@@ -12,22 +12,24 @@ namespace DataLayer.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Commandes
+    public partial class Commentaire
     {
-        public Commandes()
+        public Commentaire()
         {
-            this.Commandes_details = new HashSet<Commandes_details>();
+            this.Commentaire1 = new HashSet<Commentaire>();
         }
     
-        public int IdCommande { get; set; }
-        public Nullable<int> IdAcheteur { get; set; }
-        public Nullable<int> EtatCommande { get; set; }
-        public Nullable<System.DateTime> DateCommande { get; set; }
-        public Nullable<System.DateTime> DateLivraison { get; set; }
-        public Nullable<int> IdAdresse { get; set; }
+        public int IdCommentaire { get; set; }
+        public Nullable<int> ProduitRef { get; set; }
+        public Nullable<int> CommRef { get; set; }
+        public string Texte { get; set; }
+        public Nullable<int> Num { get; set; }
+        public System.DateTime DateComm { get; set; }
+        public Nullable<int> UserRef { get; set; }
     
-        public virtual ICollection<Commandes_details> Commandes_details { get; set; }
+        public virtual ICollection<Commentaire> Commentaire1 { get; set; }
+        public virtual Commentaire Commentaire2 { get; set; }
+        public virtual Produits Produits { get; set; }
         public virtual Utilisateurs Utilisateurs { get; set; }
-        public virtual StatusCommande StatusCommande { get; set; }
     }
 }

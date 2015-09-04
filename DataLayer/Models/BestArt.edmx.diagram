@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cc565039ecb44ca6bc3f663e6ff9642e" Name="Diagram1">
+      <Diagram DiagramId="cc565039ecb44ca6bc3f663e6ff9642e" Name="Diagram1" ZoomLevel="109">
         <EntityTypeShape EntityType="BestArtModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BestArtModel.Administrateurs" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BestArtModel.Adresses" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
@@ -51,6 +51,10 @@
         <AssociationConnector Association="BestArtModel.FK_Produits_SousCategorie" ManuallyRouted="false" />
         <AssociationConnector Association="BestArtModel.fk_zipcodes_villes" ManuallyRouted="false" />
         <AssociationConnector Association="BestArtModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BestArtModel.Commentaire" Width="1.5" PointX="7.5" PointY="41.25" />
+        <AssociationConnector Association="BestArtModel.fk_Commentaire_Commentaire" />
+        <AssociationConnector Association="BestArtModel.fk_Commentaire_Produit" />
+        <AssociationConnector Association="BestArtModel.fk_Commentaire_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

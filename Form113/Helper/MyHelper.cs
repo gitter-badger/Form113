@@ -620,9 +620,15 @@ namespace Form113.Helper
             }
 
             divIntern.InnerHtml = sb.ToString();
-
-            string button = ButtonPrecedentSuivantCarousele(Id.ToString());
-            divTag.InnerHtml = divIntern.ToString() + button;
+            if (ListPhotos.Count() != 0)
+            {
+                string button = ButtonPrecedentSuivantCarousele(Id.ToString());
+                divTag.InnerHtml = divIntern.ToString() + button;
+            }
+            else
+            {
+                divTag.InnerHtml = divIntern.ToString();
+            }
 
             return new MvcHtmlString(divTag.ToString());
         }

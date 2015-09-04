@@ -42,3 +42,9 @@ table {
 .notclick{
     pointer-events: none;
 }
+
+.TexteAreaPerso 
+{
+    width:100%;
+    height:120px;
+}
