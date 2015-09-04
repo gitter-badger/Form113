@@ -50,5 +50,6 @@ namespace DataLayer.Models
         public virtual DbSet<Utilisateurs> Utilisateurs { get; set; }
         public virtual DbSet<Villes> Villes { get; set; }
         public virtual DbSet<ZipCodes> ZipCodes { get; set; }
+        public virtual DbSet<Commentaire> Commentaire { get; set; }
     }
 }

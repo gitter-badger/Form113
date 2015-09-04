@@ -200,6 +200,13 @@ namespace Form113.Controllers
             return PartialView("_CompareProduits", P);
         }
 
+        public PartialViewResult CommentaireProduit(int id)
+        {
+            var C = db.Commentaire.Where(c => c.IdCommentaire == id).OrderBy(c => c .Num).ToList();
+            return PartialView("_CommentaireProduit", C);
+        }
+
+
         [HttpPost, ValidateInput(false)]
         public ViewResult Pagination(ResultViewModels rvm)
         {

@@ -1,5 +1,7 @@
 USE [Form113]
 
+if exists (select * from sysobjects where name = 'Commentaire' and type = 'U')
+	drop table Commentaire;
 if exists (select * from sysobjects where name = 'Administrateurs' and type = 'U')
 	drop table Administrateurs;
 if exists (select * from sysobjects where name = 'Commandes_details' and type = 'U')
@@ -272,7 +274,23 @@ CONSTRAINT [Pk_Marketing] PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
-go
+
+GO
+CREATE TABLE [dbo].[Commentaire](
+	[IdCommentaire] [int] IDENTITY(1,1) NOT NULL,
+	[ProduitRef] [int] NULL,
+	[CommRef] [int] NULL,
+	[UserRef] [int] NULL,
+	[Texte] [text] NULL,
+	[Num] [int] default 0,
+	[DateComm] [datetime2](7) NOT NULL,
+ CONSTRAINT [PK_Commentaire] PRIMARY KEY CLUSTERED 
+(
+	[IdCommentaire] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
 insert StatusCommande (IdStatusCommande,StatusCommande)
 values (1,'Commandé')
 insert StatusCommande (IdStatusCommande,StatusCommande)
@@ -285,7 +303,7 @@ INSERT INTO [dbo].[Adresses] ([Ligne1],[Ligne2],[Ligne3],[CodePostal],[CodeINSEE
 VALUES ('1','rue du trebuchet','Cedex 3',40700,40016)
 GO
 INSERT INTO [dbo].[Identites] ([Nom],[Prenom],[Email])
-VALUES ('test','test','test@test.test'),('test','test','test@admin.test')
+VALUES ('NomTest','PrenomTest','test@test.test'),('NomAdmin','PrenomAdmin','test@admin.test')
 GO
 INSERT INTO [dbo].[AspNetRoles] ([Id],[Name])
 VALUES (1,'ADMIN'),(2,'USERS')
@@ -367,16 +385,16 @@ INSERT [dbo].[SousCategories] ([IdSousCategorie], [Nom], [IdCategorie], [Photo])
 SET IDENTITY_INSERT [dbo].[SousCategories] OFF
 SET IDENTITY_INSERT [dbo].[Produits] ON 
 
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (1, N'cacao', N'bleu', N'Restabat ut Caesar post haec properaret accitus et abstergendae causa suspicionis sororem suam, eius uxorem, Constantius ad se tandem desideratam venire multis fictisque blanditiis hortabatur. quae licet ambigeret metuens saepe cruentum, spe tamen quod eum lenire poterit ut germanum profecta, cum Bithyniam introisset, in statione quae Caenos Gallicanos appellatur, absumpta est vi febrium repentina. cuius post obitum maritus contemplans cecidisse fiduciam qua se fultum existimabat, anxia cogitatione, quid moliretur haerebat.', 500, 1, CAST(N'1984-10-15 00:00:00.000' AS DateTime), 0.2, 1, N'AIA', 50, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (2, N'Théière Coeurs', N'bleu', N'Véritable objet de collection du commerce équitable, cette théière coeur est confectionnée de manière artisanale par les artisans de l''association for craft producers, qui officie au Népal depuis 1984 et dont l''objectif est d''améliorer les conditions de vie des artisans en visant plus partiulièrement les femmes.  Fabriqué à partir de céramique.  Information utile : ce produit est adapté au lave-vaiselle et au micro-ondes !', 43, 1, CAST(N'1984-10-15 00:00:00.000' AS DateTime), 1, 0, N'NPL', 50, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (3, N'Théière Sen', N'Blanc', N'Céramique. Turquoise et blanc. H 15 x 19cm Lavage à la main. Non adapté au micro-ondes...', 30, 1, CAST(N'1984-10-10 00:00:00.000' AS DateTime), 1, 0, N'VNM', 500, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (4, N'Service à thé', N'blanc Rose', N'Bois d''alstonia (service 10 pièces), eucalyptus (plateau) et coton (2 serviettes) Plateau: 34 x 25cm. Service: approx: 5 x 4cm.', 40, 1, CAST(N'1984-10-10 00:00:00.000' AS DateTime), 1, 0, N'EST', 500, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (5, N'Théière blanc et noir', N'blanc noir', N'Diam. 15 x H14/16cm, contenance 1 litre Micro-ondes et laive-vaisselle déconseillé Céramique...', 13, 1, CAST(N'1984-10-15 00:00:00.000' AS DateTime), 1, 0, N'AUS', 10, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (6, N'Théière Dao', N'blanc', N'Céramique.Blanc et pois multicolores. Diam 11 x H13cm. Capacité 0,7l Non-adapté au lave-vaisselle', 40, 1, CAST(N'1984-10-15 00:00:00.000' AS DateTime), 1, 0, N'CHN', 500, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (8, N'Passoire à thé en bambou', NULL, N'Passoire à thé en bambou - Inde', 4, 1, CAST(N'1984-10-15 00:00:00.000' AS DateTime), 1, 0, N'IND', 500, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (9, N'Théière Aube rouge', N'blanc', N'Théière Aube rouge - Ceramique - Vietnam', 28, 1, CAST(N'1984-10-10 00:00:00.000' AS DateTime), 1, 0, N'VNM', 500, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (10, N'Théière Aube rouge', N'blanc', N'Théière Aube rouge - Ceramique - Vietnam', 28, 1, CAST(N'1984-10-10 00:00:00.000' AS DateTime), 1, 0, N'VNM', 500, 0)
-INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (11, N'Théière Aube rouge sans image', N'blanc', N'Théière Aube rouge - Ceramique - Vietnam', 28, 1, CAST(N'1984-10-10 00:00:00.000' AS DateTime), 1, 0, N'VNM', 500, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (1, N'cacao', N'bleu', N'Restabat ut Caesar post haec properaret accitus et abstergendae causa suspicionis sororem suam, eius uxorem, Constantius ad se tandem desideratam venire multis fictisque blanditiis hortabatur. quae licet ambigeret metuens saepe cruentum, spe tamen quod eum lenire poterit ut germanum profecta, cum Bithyniam introisset, in statione quae Caenos Gallicanos appellatur, absumpta est vi febrium repentina. cuius post obitum maritus contemplans cecidisse fiduciam qua se fultum existimabat, anxia cogitatione, quid moliretur haerebat.', 500, 1, GETDATE(), 0.2, 1, N'AIA', 50, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (2, N'Théière Coeurs', N'bleu', N'Véritable objet de collection du commerce équitable, cette théière coeur est confectionnée de manière artisanale par les artisans de l''association for craft producers, qui officie au Népal depuis 1984 et dont l''objectif est d''améliorer les conditions de vie des artisans en visant plus partiulièrement les femmes.  Fabriqué à partir de céramique.  Information utile : ce produit est adapté au lave-vaiselle et au micro-ondes !', 43, 1, GETDATE(), 1, 0, N'NPL', 50, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (3, N'Théière Sen', N'Blanc', N'Céramique. Turquoise et blanc. H 15 x 19cm Lavage à la main. Non adapté au micro-ondes...', 30, 1, GETDATE(), 1, 0, N'VNM', 500, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (4, N'Service à thé', N'blanc Rose', N'Bois d''alstonia (service 10 pièces), eucalyptus (plateau) et coton (2 serviettes) Plateau: 34 x 25cm. Service: approx: 5 x 4cm.', 40, 1, GETDATE(), 1, 0, N'EST', 500, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (5, N'Théière blanc et noir', N'blanc noir', N'Diam. 15 x H14/16cm, contenance 1 litre Micro-ondes et laive-vaisselle déconseillé Céramique...', 13, 1, GETDATE(), 1, 0, N'AUS', 10, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (6, N'Théière Dao', N'blanc', N'Céramique.Blanc et pois multicolores. Diam 11 x H13cm. Capacité 0,7l Non-adapté au lave-vaisselle', 40, 1, GETDATE(), 1, 0, N'CHN', 500, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (8, N'Passoire à thé en bambou', NULL, N'Passoire à thé en bambou - Inde', 4, 1, GETDATE(), 1, 0, N'IND', 500, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (9, N'Théière Aube rouge', N'blanc', N'Théière Aube rouge - Ceramique - Vietnam', 28, 1, GETDATE(), 1, 0, N'VNM', 500, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (10, N'Théière Aube rouge', N'blanc', N'Théière Aube rouge - Ceramique - Vietnam', 28, 1, GETDATE(), 1, 0, N'VNM', 500, 0)
+INSERT [dbo].[Produits] ([IdProduit], [Nom], [Couleur], [Description], [Prix], [IdSousCategorie], [DateMiseEnVente], [Promotion], [MisEnAvant], [CodePays], [Stock], [NbVues]) VALUES (11, N'Théière Aube rouge sans image', N'blanc', N'Théière Aube rouge - Ceramique - Vietnam', 28, 1, GETDATE(), 1, 0, N'VNM', 500, 0)
 SET IDENTITY_INSERT [dbo].[Produits] OFF
 SET IDENTITY_INSERT [dbo].[Photos] ON 
 
@@ -395,6 +413,15 @@ INSERT [dbo].[Photos] ([PhotoName], [IdProduit], [IdPhoto]) VALUES (N'shuttersto
 INSERT [dbo].[Photos] ([PhotoName], [IdProduit], [IdPhoto]) VALUES (N'MAI134_3.jpg', 9, 13)
 INSERT [dbo].[Photos] ([PhotoName], [IdProduit], [IdPhoto]) VALUES (N'shutterstock_197353127_6.jpg', 9, 14)
 SET IDENTITY_INSERT [dbo].[Photos] OFF
+
+GO
+SET IDENTITY_INSERT [dbo].[Commentaire] ON
+INSERT INTO [dbo].[Commentaire] ([IdCommentaire],[ProduitRef],[CommRef],[UserRef],[Texte],[Num],[DateComm])
+values(1,1,null,1,'commentaire numero 1',0,GETDATE()),(2,1,null,2,'commentaire numero 2',0,GETDATE()),
+	  (3,null,1,2,'commentaire numero 3 dans commentaire 1',0,GETDATE()),(4,null,3,1,'commentaire numero 4 dans commentaire 3',0,GETDATE()),
+	  (5,null,3,2,'commentaire numero 5 dans commentaire 3',1,GETDATE())
+SET IDENTITY_INSERT [dbo].[Commentaire] OFF
+GO
 
 GO
 ALTER TABLE [dbo].[Administrateurs]  WITH CHECK ADD  CONSTRAINT [fk_administrateurs_identites] FOREIGN KEY([IdAdministrateur])
@@ -464,4 +491,12 @@ REFERENCES [dbo].[AspNetUsers] ([Id])
 GO
 ALTER TABLE [dbo].[Utilisateurs] CHECK CONSTRAINT [fk_utilisateurs_identites]
 GO
-
+ALTER TABLE [dbo].[Commentaire]  WITH CHECK ADD  CONSTRAINT [fk_Commentaire_Commentaire] FOREIGN KEY([CommRef])
+REFERENCES [dbo].[Commentaire] ([IdCommentaire])
+GO
+ALTER TABLE [dbo].[Commentaire]  WITH CHECK ADD  CONSTRAINT [fk_Commentaire_Produit] FOREIGN KEY([ProduitRef])
+REFERENCES [dbo].[Produits] ([IdProduit])
+GO
+ALTER TABLE [dbo].[Commentaire]  WITH CHECK ADD  CONSTRAINT [fk_Commentaire_User] FOREIGN KEY([UserRef])
+REFERENCES [dbo].[Utilisateurs] ([IdUtilisateur])
+GO

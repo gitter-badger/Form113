@@ -338,6 +338,7 @@
     <Content Include="Views\Commande\Result.cshtml" />
     <Content Include="Views\Produit\_ProduitsEnPromo.cshtml" />
     <Content Include="Views\Produit\_ProduitPromo.cshtml" />
+    <Content Include="Views\Produit\_CommentaireProduit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

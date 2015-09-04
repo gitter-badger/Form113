@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BestArtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -112,6 +112,18 @@
           <Property Name="prix_unitaire" Type="float" />
           <Property Name="Promotion" Type="float" />
           <Property Name="quantite" Type="int" />
+        </EntityType>
+        <EntityType Name="Commentaire">
+          <Key>
+            <PropertyRef Name="IdCommentaire" />
+          </Key>
+          <Property Name="IdCommentaire" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProduitRef" Type="int" />
+          <Property Name="CommRef" Type="int" />
+          <Property Name="UserRef" Type="int" />
+          <Property Name="Texte" Type="text" />
+          <Property Name="Num" Type="int" />
+          <Property Name="DateComm" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Continents">
           <Key>
@@ -328,6 +340,42 @@
             </Principal>
             <Dependent Role="Commandes">
               <PropertyRef Name="IdAcheteur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaire_Commentaire">
+          <End Role="Commentaire" Type="Self.Commentaire" Multiplicity="0..1" />
+          <End Role="Commentaire1" Type="Self.Commentaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commentaire">
+              <PropertyRef Name="IdCommentaire" />
+            </Principal>
+            <Dependent Role="Commentaire1">
+              <PropertyRef Name="CommRef" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaire_Produit">
+          <End Role="Produits" Type="Self.Produits" Multiplicity="0..1" />
+          <End Role="Commentaire" Type="Self.Commentaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produits">
+              <PropertyRef Name="IdProduit" />
+            </Principal>
+            <Dependent Role="Commentaire">
+              <PropertyRef Name="ProduitRef" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaire_User">
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1" />
+          <End Role="Commentaire" Type="Self.Commentaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="IdUtilisateur" />
+            </Principal>
+            <Dependent Role="Commentaire">
+              <PropertyRef Name="UserRef" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -555,6 +603,7 @@
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Commandes" EntityType="Self.Commandes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Commandes_details" EntityType="Self.Commandes_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commentaire" EntityType="Self.Commentaire" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Continents" EntityType="Self.Continents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departements" EntityType="Self.Departements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Identites" EntityType="Self.Identites" Schema="dbo" store:Type="Tables" />
@@ -589,6 +638,18 @@
           <AssociationSet Name="fk_commande_utilisateur" Association="Self.fk_commande_utilisateur">
             <End Role="Utilisateurs" EntitySet="Utilisateurs" />
             <End Role="Commandes" EntitySet="Commandes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaire_Commentaire" Association="Self.fk_Commentaire_Commentaire">
+            <End Role="Commentaire" EntitySet="Commentaire" />
+            <End Role="Commentaire1" EntitySet="Commentaire" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaire_Produit" Association="Self.fk_Commentaire_Produit">
+            <End Role="Produits" EntitySet="Produits" />
+            <End Role="Commentaire" EntitySet="Commentaire" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaire_User" Association="Self.fk_Commentaire_User">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Commentaire" EntitySet="Commentaire" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -659,8 +720,7 @@
             <End Role="Regions" EntitySet="Regions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BestArtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -866,6 +926,7 @@
           <NavigationProperty Name="Pays" Relationship="Self.fk_produits_pays" FromRole="Produits" ToRole="Pays" />
           <NavigationProperty Name="Photos" Relationship="Self.fk_photos_produits" FromRole="Produits" ToRole="Photos" />
           <NavigationProperty Name="SousCategories" Relationship="Self.FK_Produits_SousCategorie" FromRole="Produits" ToRole="SousCategories" />
+          <NavigationProperty Name="Commentaire" Relationship="BestArtModel.fk_Commentaire_Produit" FromRole="Produits" ToRole="Commentaire" />
         </EntityType>
         <EntityType Name="Regions">
           <Key>
@@ -929,6 +990,7 @@
           <NavigationProperty Name="AspNetUsers" Relationship="Self.fk_utilisateurs_ASPusers" FromRole="Utilisateurs" ToRole="AspNetUsers" />
           <NavigationProperty Name="Commandes" Relationship="Self.fk_commande_utilisateur" FromRole="Utilisateurs" ToRole="Commandes" />
           <NavigationProperty Name="Identites" Relationship="Self.fk_utilisateurs_identites" FromRole="Utilisateurs" ToRole="Identites" />
+          <NavigationProperty Name="Commentaire" Relationship="BestArtModel.fk_Commentaire_User" FromRole="Utilisateurs" ToRole="Commentaire" />
         </EntityType>
         <EntityType Name="Villes">
           <Key>
@@ -1322,7 +1384,72 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Commentaire" EntityType="BestArtModel.Commentaire" />
+          <AssociationSet Name="fk_Commentaire_Commentaire" Association="BestArtModel.fk_Commentaire_Commentaire">
+            <End Role="Commentaire" EntitySet="Commentaire" />
+            <End Role="Commentaire1" EntitySet="Commentaire" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaire_Produit" Association="BestArtModel.fk_Commentaire_Produit">
+            <End Role="Produits" EntitySet="Produits" />
+            <End Role="Commentaire" EntitySet="Commentaire" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaire_User" Association="BestArtModel.fk_Commentaire_User">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Commentaire" EntitySet="Commentaire" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Commentaire">
+          <Key>
+            <PropertyRef Name="IdCommentaire" />
+          </Key>
+          <Property Name="IdCommentaire" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProduitRef" Type="Int32" />
+          <Property Name="CommRef" Type="Int32" />
+          <Property Name="Texte" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Num" Type="Int32" />
+          <Property Name="DateComm" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Commentaire1" Relationship="BestArtModel.fk_Commentaire_Commentaire" FromRole="Commentaire" ToRole="Commentaire1" />
+          <NavigationProperty Name="Commentaire2" Relationship="BestArtModel.fk_Commentaire_Commentaire" FromRole="Commentaire1" ToRole="Commentaire" />
+          <NavigationProperty Name="Produits" Relationship="BestArtModel.fk_Commentaire_Produit" FromRole="Commentaire" ToRole="Produits" />
+          <Property Name="UserRef" Type="Int32" />
+          <NavigationProperty Name="Utilisateurs" Relationship="BestArtModel.fk_Commentaire_User" FromRole="Commentaire" ToRole="Utilisateurs" />
+        </EntityType>
+        <Association Name="fk_Commentaire_Commentaire">
+          <End Type="BestArtModel.Commentaire" Role="Commentaire" Multiplicity="0..1" />
+          <End Type="BestArtModel.Commentaire" Role="Commentaire1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commentaire">
+              <PropertyRef Name="IdCommentaire" />
+            </Principal>
+            <Dependent Role="Commentaire1">
+              <PropertyRef Name="CommRef" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaire_Produit">
+          <End Type="BestArtModel.Produits" Role="Produits" Multiplicity="0..1" />
+          <End Type="BestArtModel.Commentaire" Role="Commentaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produits">
+              <PropertyRef Name="IdProduit" />
+            </Principal>
+            <Dependent Role="Commentaire">
+              <PropertyRef Name="ProduitRef" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaire_User">
+          <End Type="BestArtModel.Utilisateurs" Role="Utilisateurs" Multiplicity="0..1" />
+          <End Type="BestArtModel.Commentaire" Role="Commentaire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="IdUtilisateur" />
+            </Principal>
+            <Dependent Role="Commentaire">
+              <PropertyRef Name="UserRef" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1613,6 +1740,19 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Commentaire">
+            <EntityTypeMapping TypeName="BestArtModel.Commentaire">
+              <MappingFragment StoreEntitySet="Commentaire">
+                <ScalarProperty Name="UserRef" ColumnName="UserRef" />
+                <ScalarProperty Name="DateComm" ColumnName="DateComm" />
+                <ScalarProperty Name="Num" ColumnName="Num" />
+                <ScalarProperty Name="Texte" ColumnName="Texte" />
+                <ScalarProperty Name="CommRef" ColumnName="CommRef" />
+                <ScalarProperty Name="ProduitRef" ColumnName="ProduitRef" />
+                <ScalarProperty Name="IdCommentaire" ColumnName="IdCommentaire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
