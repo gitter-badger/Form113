@@ -15,7 +15,14 @@
         <p>Stock disponible : @Model.Stock</p>
         <p>
             <label for="@Model.IdProduit">Quantité :</label>
-            <input class="form-control Quantiter" data-val="true" data-val-number="Le champ Quantité doit être un nombre." data-val-required="Le champ Quantité est requis." id="@Model.IdProduit" name="IdProduit" value="3" type="text">
+            @if (@Model.Stock != 0)
+            {
+                <input class="form-control Quantiter" data-val="true" data-val-number="Le champ Quantité doit être un nombre." data-val-required="Le champ Quantité est requis." id="@Model.IdProduit" name="IdProduit" value="1" type="number" min="1" max="@Model.Stock">
+            }
+            else
+            {
+                <text>Rupture de Stock !</text>
+            }
         </p>
         <p>
             <input type="button" class="ButtonAjoutPanier" value="Ajouter au Panier" />
