@@ -164,8 +164,10 @@
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommandesController.cs" />
     <Compile Include="Areas\Admin\Controllers\MarketingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsletterController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProduitsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SousCategoriesController.cs" />
+    <Compile Include="Areas\Admin\Models\newsLetterViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BestArtController.cs" />
     <Compile Include="Controllers\CatalogueController.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\NewsLetter\EmailTemplate.htm" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -252,6 +255,7 @@
     <Content Include="Areas\Admin\Views\Commandes\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\_Adresse.cshtml" />
     <Content Include="Areas\Admin\Views\Marketing\_SellsInHurry.cshtml" />
+    <Content Include="Areas\Admin\Views\Newsletter\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Form113.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Plugins\Chosen\css\chosen.css" />
@@ -354,7 +358,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Scripts\Search\css\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Json\" />
