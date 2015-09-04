@@ -48,3 +48,24 @@ table {
     width:100%;
     height:120px;
 }
+
+
+.panel-info-Perso1 {
+  border-color: #bce8f1;
+}
+
+.panel-info-Perso1 > .panel-heading {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.panel-info-Perso2 {
+  border-color: #31708f;
+}
+
+.panel-info-Perso2 > .panel-heading {
+  color: #bce8f1;
+  background-color: #31708f;
+  border-color: #bcf8f1;
+}

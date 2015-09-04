@@ -33,12 +33,12 @@ namespace Form113.Controllers
             var nbproduits = db.Produits.Count();
             return PartialView("_NbProduits", nbproduits);
         }
-        
+
         [ChildActionOnly]
         public PartialViewResult HighlightedProduct()
         {
-            var res = db.Produits.OrderBy(p=>(p.DateMiseEnVente)).Where(p=>p.MisEnAvant==1).Take(3).Select(p=>p.IdProduit).ToList();
-            
+            var res = db.Produits.OrderBy(p => (p.DateMiseEnVente)).Where(p => p.MisEnAvant == 1).Take(3).Select(p => p.IdProduit).ToList();
+
 
             return PartialView("_HighlightedProduct", res);
         }
@@ -48,7 +48,7 @@ namespace Form113.Controllers
         {
             var idprod = Int32.Parse(id);
             var res = db.Produits.Where(p => p.IdProduit == idprod).First();
-            return PartialView("_MiniatProduit",res);
+            return PartialView("_MiniatProduit", res);
         }
 
         public PartialViewResult AfficheProduit(string id)
@@ -63,12 +63,13 @@ namespace Form113.Controllers
         {
             var restemp = db.Produits.Where(p => p.Promotion != 1);
             var rand = new Random();
-            int[] val=new int[3];
-            if (restemp.Count()>3)
+            int[] val = new int[3];
+            if (restemp.Count() > 3)
             {
                 val[0] = rand.Next(restemp.Count());
-                var tmp=val[0];
-                while (tmp== val[0]) {
+                var tmp = val[0];
+                while (tmp == val[0])
+                {
                     tmp = rand.Next(restemp.Count());
                 }
                 val[1] = tmp;
@@ -79,22 +80,22 @@ namespace Form113.Controllers
                 }
                 val[2] = tmp;
                 var res = new List<Produits>();
-                for (int i=0;i<3;i++)
+                for (int i = 0; i < 3; i++)
                 {
                     res.Add(restemp.ToList().ElementAt(val[i]));
                 }
                 return PartialView("_ProduitsEnPromo", res.Select(p => p.IdProduit).ToList());
             }
-            else if (restemp.Count()>0)
+            else if (restemp.Count() > 0)
             {
-                return PartialView("_ProduitsEnPromo", restemp.Select(p=>p.IdProduit).ToList());
+                return PartialView("_ProduitsEnPromo", restemp.Select(p => p.IdProduit).ToList());
             }
             else
             {
                 return PartialView("_ProduitsEnPromo", null);
             }
-            
-            
+
+
         }
 
         [ChildActionOnly]
@@ -125,7 +126,7 @@ namespace Form113.Controllers
                 PageSize = pageSize,
                 ItemsQty = itemQty,
                 PageQty = pageQty,
-                BackToSearch=true,
+                BackToSearch = true,
 
                 XmlSearchviewModel = svm.SerializeSearchViewModel(),
 
@@ -178,15 +179,16 @@ namespace Form113.Controllers
                 ViewBag.listeR = svmres.idRegions[0].ToString();
             ViewBag.listeP = srcP;
 
-            return View("../Search/Index",svmres);
+            return View("../Search/Index", svmres);
         }
 
         public ActionResult Detail(int id)
         {
-            var V = db.Produits.Where(p => p.IdProduit == id).FirstOrDefault();
-            V.NbVues++;
+            var P = db.Produits.Where(p => p.IdProduit == id).FirstOrDefault();
+            P.NbVues++;
+            P.Commentaire.OrderBy(c => c.Num);
             db.SaveChanges();
-            return View(V);
+            return View(P);
         }
 
         public ActionResult Compare(ResultViewModels CVM)
@@ -202,15 +204,45 @@ namespace Form113.Controllers
 
         public PartialViewResult CommentaireProduit(int id)
         {
-            var C = db.Commentaire.Where(c => c.IdCommentaire == id).OrderBy(c => c .Num).ToList();
+            var C = db.Commentaire.Where(c => c.IdCommentaire == id).OrderBy(c => c.Num).ToList();
             return PartialView("_CommentaireProduit", C);
         }
 
+        [HttpPost]
+        public ActionResult Commenter(CommentaireViewModels cvm)
+        {
+            var db2 = new BestArtEntities();
+
+            var iduserASP = db.AspNetUsers.Where(x => x.Email == User.Identity.Name).Select(x => x.Id).FirstOrDefault();
+            var user = db.Utilisateurs.Where(x => x.IdAsp == iduserASP).FirstOrDefault();
+
+            var Com = new Commentaire()
+            {
+                Texte = cvm.ComTexte,
+                UserRef = user.IdUtilisateur,
+                DateComm = DateTime.Now,
+            };
+
+            if (cvm.ComCom == 0) // Commentaire sur le Produit
+            {
+                Com.ProduitRef = cvm.ComProduit;
+                Com.Num = db2.Commentaire.Where(c => c.ProduitRef == cvm.ComProduit).Count() + 1;
+            }
+            else // Reponse a un Commentaire
+            {
+                Com.CommRef = cvm.ComCom;
+                Com.Num = db2.Commentaire.Where(c => c.CommRef == cvm.ComCom).Count() + 1;
+            }
+            db2.Commentaire.Add(Com);
+            var P = db2.Produits.Where(p => p.IdProduit == cvm.ComProduit).FirstOrDefault();
+            db2.SaveChanges();
+            return View("Detail", P);
+        }
 
         [HttpPost, ValidateInput(false)]
         public ViewResult Pagination(ResultViewModels rvm)
         {
-            
+
             var bci = new BreadCrumItem("Result", "Result", "");
             ListeBreadCrumItem.Add(bci);
 
@@ -239,7 +271,7 @@ namespace Form113.Controllers
             return PartialView("_HighlightedProduct");
         }
 
-         //Boutton admin
+        //Boutton admin
         [ChildActionOnly]
         public PartialViewResult AdminPart()
         {

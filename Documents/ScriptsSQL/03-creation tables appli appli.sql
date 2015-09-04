@@ -417,9 +417,9 @@ SET IDENTITY_INSERT [dbo].[Photos] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Commentaire] ON
 INSERT INTO [dbo].[Commentaire] ([IdCommentaire],[ProduitRef],[CommRef],[UserRef],[Texte],[Num],[DateComm])
-values(1,1,null,1,'commentaire numero 1',0,GETDATE()),(2,1,null,2,'commentaire numero 2',0,GETDATE()),
-	  (3,null,1,2,'commentaire numero 3 dans commentaire 1',0,GETDATE()),(4,null,3,1,'commentaire numero 4 dans commentaire 3',0,GETDATE()),
-	  (5,null,3,2,'commentaire numero 5 dans commentaire 3',1,GETDATE())
+values(1,1,null,1,'commentaire numero 1',1,GETDATE()),(2,1,null,2,'commentaire numero 2',2,GETDATE()),
+	  (3,null,1,2,'commentaire numero 3 dans commentaire 1',1,GETDATE()),(4,null,3,1,'commentaire numero 4 dans commentaire 3',1,GETDATE()),
+	  (5,null,3,2,'commentaire numero 5 dans commentaire 3',2,GETDATE())
 SET IDENTITY_INSERT [dbo].[Commentaire] OFF
 GO
 

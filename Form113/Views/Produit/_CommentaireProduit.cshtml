@@ -9,12 +9,24 @@
 {
     foreach (var item in Model)
     {
-        <div class="panel panel-info">
+        string Css = "";
+        if (item.Num % 2 == 0)
+        {
+            Css = "panel-info-Perso1";
+        }
+        else
+        {
+            Css = "panel-info-Perso2";
+        }
+        <div class="panel @Css">
+
+
             <div class="panel-heading">@item.Utilisateurs.Identites.Nom : @item.DateComm</div>
             <div class="panel-body">
+                <input type="hidden" class="IdCom" id="@item.IdCommentaire" value="@item.IdCommentaire" />
                 <p>@item.Texte</p>
                 <p>
-                    <a href="#" class="Reply">Répondre</a>
+                    <a href="#ZoneCommenter" class="Reply">Répondre</a>
                 </p>
                 <p>
                     <div class="row">

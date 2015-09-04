@@ -5785,6 +5785,13 @@ button.list-group-item-danger.active:focus {
 .panel-info {
   border-color: #bce8f1;
 }
+
+.panel-info-Perso1 {
+  border-color: #bce8f1;
+}
+.panel-info-Perso2 {
+  border-color: #bcf8f1;
+}
 .panel-info > .panel-heading {
   color: #31708f;
   background-color: #d9edf7;

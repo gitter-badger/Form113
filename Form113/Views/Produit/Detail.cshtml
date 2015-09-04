@@ -8,6 +8,8 @@
 
 <h2>Détail du produit sélectionné</h2>
 
+<input type="hidden" id="IdProduit" value="@Model.IdProduit" />
+
 <div class="panel panel-info">
     <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
@@ -21,7 +23,7 @@
             <input class="form-control Quantiter" data-val="true" data-val-number="Le champ Quantité doit être un nombre." data-val-required="Le champ Quantité est requis." id="@Model.IdProduit" name="IdProduit" value="3" type="text">
         </p>
         <p>
-            <a href="#" class="Reply">Commenter</a>
+            <a href="#ZoneCommenter" class="Comment">Commenter</a>
         </p>
         <p>
             <input type="button" class="ButtonAjoutPanier" value="Ajouter au Panier" />
@@ -54,14 +56,14 @@
 @using (Html.BeginForm("Commenter", "Produit", FormMethod.Post))
 {
     <div id="ZoneCommenter" class="row">
-        <div class="panel panel-danger">
 
-            <div class="panel-success">Votre Commentaire</div>
+        <div class="panel panel-success">
+            <div class="panel-heading">Votre Commentaire</div>
             <div class="panel-body">
                 <input type="hidden" id="ComProduit" name="ComProduit" value="" />
                 <input type="hidden" id="ComCom" name="ComCom" value="" />
-                <p>
-                    <textarea id="ComTexte" name="ComTexte" class="text-center TexteAreaPerso"></textarea>
+                <p class="row">
+                    <textarea id="ComTexte" name="ComTexte" class="text-left TexteAreaPerso"></textarea>
                 </p>
                 <p>
                     <input type="submit" value="Enregistrer Commentaire" />

@@ -199,6 +199,7 @@
     <Compile Include="Models\BreadCrumItem.cs" />
     <Compile Include="Models\CheckBoxItem.cs" />
     <Compile Include="Models\CommandeViewModels.cs" />
+    <Compile Include="Models\CommentaireViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PanierViewModels.cs" />
