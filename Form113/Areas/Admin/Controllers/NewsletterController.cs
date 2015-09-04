@@ -31,7 +31,11 @@ namespace Form113.Areas.Admin.Controllers
             }
             return View();
         }
+        public ActionResult Preview(newsLetterViewModel letter)
+        {
 
+            return View("Index", letter);
+        }
        
         /// <summary>
         /// Remplissage de la newsletter en fonction du nom d'utilisateur du titre et de l'url donné ainsi que de la description. 
