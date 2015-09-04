@@ -32,7 +32,11 @@
                     <li>@Html.ActionLink("Panier", "Index", "Panier")</li>
                     @if (User.IsInRole("ADMIN"))
                     {
-                        <li>@Html.ActionLink("Menu Administration", "Index", "Produits", new { Area = "Admin"}, new { })</li>}
+                        <li>@Html.ActionLink("Menu Administration", "Index", "Produits", new { Area = "Admin" }, new { })</li>}
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Gestion du profil", "Edit", new { Controller = "Utilisateurs", Area = "User", email = User.Identity.Name })</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -56,18 +60,18 @@
         </ol>
         <div class="row">
 
-                <div class="col-lg-2">
-                    @Html.Action("ProduitsEnPromo", "Produit")
-                </div>
+            <div class="col-lg-2">
+                @Html.Action("ProduitsEnPromo", "Produit")
+            </div>
 
             <div class="col-lg-8">
                 @RenderBody()
             </div>
 
-                <div class="col-lg-2">
-                    @Html.Action("NbProduits", "Produit")
-                    @Html.Action("HighlightedProduct", "Produit")
-                    @*@Html.Action("Promotion","Produit")*@
+            <div class="col-lg-2">
+                @Html.Action("NbProduits", "Produit")
+                @Html.Action("HighlightedProduct", "Produit")
+                @*@Html.Action("Promotion","Produit")*@
 
             </div>
         </div>

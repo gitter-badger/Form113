@@ -14,9 +14,10 @@
 /// <reference path="produit/js/ajoutpanier.js" />
 /// <reference path="produit/js/gestionpanier.js" />
 /// <reference path="produit/js/validercommande.js" />
-/// <reference path="inscription/register.js" />
 /// <reference path="produit/js/passercommande.js" />
 /// <reference path="easteregg/easteregg.js" />
+/// <reference path="gestioncomptes/register.js" />
+/// <reference path="gestioncomptes/edit.js" />
 <<<<<<< HEAD
 /// <reference path="inscription/register.js" />
 =======

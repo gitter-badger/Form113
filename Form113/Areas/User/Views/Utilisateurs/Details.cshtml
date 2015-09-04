@@ -1,0 +1,74 @@
+﻿@model DataLayer.Models.Utilisateurs
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Utilisateurs</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NbCommande)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NbCommande)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DateInscription)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DateInscription)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LastConnection)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LastConnection)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Adresses.Ligne1)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Adresses.Ligne1)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.AspNetUsers.Email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Identites.Nom)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Identites.Nom)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.IdUtilisateur }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

@@ -166,6 +166,8 @@
     <Compile Include="Areas\Admin\Controllers\MarketingController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProduitsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SousCategoriesController.cs" />
+    <Compile Include="Areas\User\Controllers\UtilisateursController.cs" />
+    <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BestArtController.cs" />
     <Compile Include="Controllers\CatalogueController.cs" />
@@ -252,6 +254,12 @@
     <Content Include="Areas\Admin\Views\Commandes\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\_Adresse.cshtml" />
     <Content Include="Areas\Admin\Views\Marketing\_SellsInHurry.cshtml" />
+    <Content Include="Areas\User\Views\web.config" />
+    <Content Include="Areas\User\Views\Utilisateurs\Create.cshtml" />
+    <Content Include="Areas\User\Views\Utilisateurs\Delete.cshtml" />
+    <Content Include="Areas\User\Views\Utilisateurs\Details.cshtml" />
+    <Content Include="Areas\User\Views\Utilisateurs\Edit.cshtml" />
+    <Content Include="Areas\User\Views\Utilisateurs\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Form113.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Plugins\Chosen\css\chosen.css" />
@@ -265,8 +273,9 @@
     <Content Include="Scripts\Catalog\Image.css" />
     <Content Include="Scripts\Catalog\Image2.css" />
     <Content Include="Scripts\EasterEgg\EasterEgg.js" />
+    <Content Include="Scripts\GestionComptes\Edit.js" />
     <Content Include="Scripts\Home\section.css" />
-    <Content Include="Scripts\Inscription\Register.js" />
+    <Content Include="Scripts\GestionComptes\Register.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
@@ -355,6 +364,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\User\Models\" />
+    <Folder Include="Areas\User\Views\Shared\" />
     <Folder Include="Scripts\Search\css\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Json\" />

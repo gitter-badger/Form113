@@ -1,0 +1,75 @@
+﻿@model Form113.Models.EditViewModel
+@using Form113.Helper
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script src="~/Scripts/Inscription/Edit.js"></script>@*contient la gestion des valeurs affichées par les listes déroulantes pour les départements et villes*@
+        <script src="~/Plugins/Chosen/js/chosen.jquery.min.js"></script>
+    }
+    @section styles {
+        <link href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css" rel="stylesheet" />
+    }
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Modification de compte utilisateur</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.MyTextBoxFor(model => model.Nom, 2)
+            @Html.MyTextBoxFor(model => model.Prenom, 2)
+
+            @*section ajoutée pour les champs adresse*@
+            @Html.MyTextBoxFor(model => model.Adresse1, 2)
+            @Html.MyTextBoxFor(model => model.Adresse2, 2)
+            @Html.MyTextBoxFor(model => model.Adresse3, 2)
+            <label>Ville Enregistrée</label>
+            <b>@Model.CodeVille</b>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <select id="ListeDepartements" class="chosen-select" name="NumDep">
+                        @foreach (var reg in Model.RegionsDepartements.Keys)
+                        {
+                            <optgroup label="@reg">
+                                @foreach (var dep in Model.RegionsDepartements[reg])
+                                {
+                                    if (dep.Key == Model.iddep)
+                                    {
+                                        <option value="@dep.Key" selected="selected">@dep.Value</option> }
+                                    else
+                                    {
+                                        <option value="@dep.Key">@dep.Value</option> }
+
+                                }
+
+                            </optgroup>
+                        }
+                    </select>
+                    <select id="idville" name="CodeVille"></select>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.iddep)
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    
+</body>
+</html>
