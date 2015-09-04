@@ -634,6 +634,8 @@ namespace Form113.Helper
         }
         #endregion
 
+        //VALIDER
+        #region Image
         /// <summary>
         /// public static MvcHtmlString ImageHelp(this HtmlHelper self, string imgname)
         /// </summary>
@@ -648,7 +650,8 @@ namespace Form113.Helper
             image.MergeAttribute("alt", "Image non disponible");
             image.AddCssClass("img-responsive");
             return new MvcHtmlString(image.ToString());
-        }
+        } 
+        #endregion
 
         // En cours de travail
         #region PhotoClickable

@@ -33,10 +33,13 @@
                     @if (User.IsInRole("ADMIN"))
                     {
                         <li>@Html.ActionLink("Menu Administration", "Index", "Produits", new { Area = "Admin" }, new { })</li>}
+<<<<<<< HEAD
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Gestion du profil", "Edit", new { Controller = "Utilisateurs", Area = "User", email = User.Identity.Name })</li>
                     }
+=======
+>>>>>>> origin/master
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -65,6 +68,16 @@
             </div>
 
             <div class="col-lg-8">
+                <div id="dialog-message" title="Easter Egg" hidden>
+                    <p>
+                        <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+                        Your have found successfully this Easter Egg Congratulation !!!
+                    </p>
+                    <p>
+                        <div id="tictactoe" class="tictactoe center-block"></div>
+                    </p>
+                </div>
+
                 @RenderBody()
             </div>
 

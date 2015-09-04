@@ -164,10 +164,15 @@
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CommandesController.cs" />
     <Compile Include="Areas\Admin\Controllers\MarketingController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsletterController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProduitsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SousCategoriesController.cs" />
+<<<<<<< HEAD
     <Compile Include="Areas\User\Controllers\UtilisateursController.cs" />
     <Compile Include="Areas\User\UserAreaRegistration.cs" />
+=======
+    <Compile Include="Areas\Admin\Models\newsLetterViewModel.cs" />
+>>>>>>> origin/master
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BestArtController.cs" />
     <Compile Include="Controllers\CatalogueController.cs" />
@@ -212,6 +217,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\NewsLetter\EmailTemplate.htm" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -254,12 +260,16 @@
     <Content Include="Areas\Admin\Views\Commandes\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Commandes\_Adresse.cshtml" />
     <Content Include="Areas\Admin\Views\Marketing\_SellsInHurry.cshtml" />
+<<<<<<< HEAD
     <Content Include="Areas\User\Views\web.config" />
     <Content Include="Areas\User\Views\Utilisateurs\Create.cshtml" />
     <Content Include="Areas\User\Views\Utilisateurs\Delete.cshtml" />
     <Content Include="Areas\User\Views\Utilisateurs\Details.cshtml" />
     <Content Include="Areas\User\Views\Utilisateurs\Edit.cshtml" />
     <Content Include="Areas\User\Views\Utilisateurs\Index.cshtml" />
+=======
+    <Content Include="Areas\Admin\Views\Newsletter\Index.cshtml" />
+>>>>>>> origin/master
     <None Include="Properties\PublishProfiles\Form113.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Plugins\Chosen\css\chosen.css" />
@@ -363,9 +373,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\User\Models\" />
     <Folder Include="Areas\User\Views\Shared\" />
+=======
+>>>>>>> origin/master
     <Folder Include="Scripts\Search\css\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Json\" />

@@ -69,3 +69,14 @@ table {
   background-color: #31708f;
   border-color: #bcf8f1;
 }
+
+.MyCarousel
+{
+    width:30%;
+}
+
+.tictactoe
+{
+    width:150px;
+    height:150px;
+}

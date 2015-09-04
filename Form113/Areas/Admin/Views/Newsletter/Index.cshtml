@@ -1,0 +1,34 @@
+﻿@using Form113.Helper
+@model Form113.Areas.Admin.Models.newsLetterViewModel
+
+@{
+    ViewBag.Title = "NewsLetter";
+}
+
+
+<div class="col-md-8">
+    <h1>Ecriture De la news letter : </h1>
+    @using (@Html.BeginForm())
+    {
+
+        <div class="form-group">
+            <p>Titre : </p>
+            <input type="text" name="Title" style="width:50%" />
+            <p>Ecrire la description de la news letter ici :</p>
+            @*<input type="text" name="Description" style="width:100%" />*@
+        </div>
+        <div class="form-group">
+            <textarea name="Description"
+                      rows="20" cols="50"
+                      tabindex="40"></textarea>
+
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Preview" class="btn btn-default" />
+        </div>
+    }
+</div>
+<div class="col-md-4">
+   <h1>Preview</h1>
+
+</div>

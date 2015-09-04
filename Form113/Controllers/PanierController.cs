@@ -16,7 +16,7 @@ namespace Form113.Controllers
 
             int idtempo = int.Parse(id);
             var LR = db.Produits.Where(p => p.IdProduit == idtempo)
-                               .Select(p => new { prod = p.Nom, prix = p.Prix })
+                               .Select(p => new { prod = p.Nom, prix = p.Prix, stock = p.Stock })
                                .FirstOrDefault();
             return Json(LR, JsonRequestBehavior.AllowGet);
         }

@@ -1,8 +1,9 @@
 ﻿$(function () {
     AfficheProduit();
-    console.log("toto");
     $("input.ButtonViderPanier").click(ViderPanier);
+    $("input.Quantiter").change(Verif);
     VerifButton();
+
 });
 
 function AfficheProduit() {
@@ -27,7 +28,7 @@ function UnProduit(id, tour) {
     // $.getJSON('/Panier/GetJSONPROD/' + id, function (produit) {
     // GET JSON SYNCRONE
     $.ajax({
-        url: '/Panier/GetJSONPROD/'+id,
+        url: '/Panier/GetJSONPROD/' + id,
         dataType: 'json',
         async: false,
 
@@ -39,7 +40,7 @@ function UnProduit(id, tour) {
         str += '<div class="panel-body">';
 
         str += '<label for="' + id + '" class="col-sm-2">Quantité : </label>';
-        str += '<input class="form-control col-sm-6 Quantiter" data-val="true" data-val-number="Le champ Quantité doit être un nombre." data-val-required="Le champ Quantité est requis." id="' + id + '" name="IdProduit" value="' + valeur + '" type="text">';
+        str += '<input class="form-control col-sm-6 Quantiter" data-val="true" data-val-number="Le champ Quantité doit être un nombre." data-val-required="Le champ Quantité est requis." id="' + id + '" name="IdProduit" value="' + valeur + '" type="number" max="' + produit.stock + '" min="1">';
         str += '<label for="' + id + '" class="col-sm-2">' + produit.prix * valeur + ' €</label>';
         str += '<input type="button" class="ButtonMaj" value="Modifier Quantité" />';
 
@@ -58,14 +59,12 @@ function UnProduit(id, tour) {
 
         var test1 = parseInt($("#NbCommande").val());
         var test2 = parseInt($("#NbCommandeFid").val());
-        if ( test1 >= test2)
-        {
+        if (test1 >= test2) {
             $(".PrixPanierRemiser").show();
             var prixremiser = prixtotal - (prixtotal * 10 / 100)
             $(".PrixPanierRemiser").html("Votre prix fidelité : " + prixremiser + " €");
         }
-        else
-        {
+        else {
             $(".PrixPanierRemiser").hide;
         }
 
@@ -77,6 +76,13 @@ function UnProduit(id, tour) {
 
 function MajQty() {
     var valeur = $(this).parent().find("input.Quantiter");
+
+    var max = valeur.attr("max");
+    var test = parseInt(valeur.val());
+    if (test >= max) {
+        valeur.val(max);
+    }
+
     localStorage.setItem(valeur.attr("id"), valeur.val());
     AfficheProduit();
 }
