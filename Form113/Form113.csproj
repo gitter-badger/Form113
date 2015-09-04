@@ -190,6 +190,7 @@
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPays.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPrixMax.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPrixMin.cs" />
+    <Compile Include="Infrastructure\SearchArt\Option\SearchOptionPromotions.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionRegion.cs" />
     <Compile Include="Infrastructure\SearchArt\Option\SearchOptionSousCategories.cs" />
     <Compile Include="Infrastructure\SearchArt\Search.cs" />
