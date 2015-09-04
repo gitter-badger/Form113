@@ -255,6 +255,9 @@ namespace Form113.Controllers
             search = new SearchOptionPays(search, svm.idPays);
             search = new SearchOptionRegion(search, svm.idRegions);
             search = new SearchOptionContinent(search, svm.idContinent);
+            search = new SearchOptionCategories(search, svm.idCategories);
+            search = new SearchOptionSousCategories(search, svm.idSousCategories);
+            search = new SearchOptionPromotions(search, svm.Promotion);
             var res = search.GetResult().ToList();
             svm.ListeProduit = res.ToList();
 

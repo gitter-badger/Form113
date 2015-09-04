@@ -21,9 +21,21 @@
                 <input type="hidden" id="PrixMaxSlider" value="@ViewBag.PrixMaxSlider">
             </p>
             <div id="SliderRange" class="col-sm-4">
+               
             </div>
         </div>
         @*Fin Slider*@
+    
+    <div class="col-sm-12">
+        <p class="col-sm-2"><label for="Promot">Promotion</label> </p>
+        <select name="Promotion">
+            @for (int i = 0; i < 100; i += 10)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+
+    </div>
     }
     using (Html.MyFieldsetHelper("Catégories"))
     {

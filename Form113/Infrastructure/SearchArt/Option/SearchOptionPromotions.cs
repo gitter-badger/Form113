@@ -22,7 +22,7 @@ namespace Form113.Infrastructure.SearchArt.Option
         }
             public override IEnumerable<Produits> GetResult()
             {
-                return SearchBase.GetResult().Where(x => (1 - x.Promotion) < _Promotion);
+                return SearchBase.GetResult().Where(x => (1- x.Promotion)*100 >= _Promotion);
             }
     }
 }

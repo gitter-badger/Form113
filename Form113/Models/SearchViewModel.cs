@@ -50,7 +50,11 @@ namespace Form113.Models
         #endregion
         public string[] idPays { get; set; }
 
-
+        #region Spec
+        [XmlAttribute]
+        [DisplayName("Choissiez le niveau de promotion")]
+        #endregion Spec
+        public int Promotion { get; set; }
         [XmlIgnore]
         public List<SelectListItem> ListeCategorie { get; set; }
 
