@@ -6,8 +6,10 @@
 <div class="panel panel-success">
     <div class="panel-heading">@Model.Nom</div>
     <div class="panel-body">
-        @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
-        Provenance : @Model.Pays.Name
-        @Model.Prix
+        <a href="../Produit/Detail/@Model.IdProduit" class=" fill-div">
+            @Html.MyCarousel(@Model.Photos.ToList(), @Model.IdProduit)
+            Provenance : @Model.Pays.Name
+            @Model.Prix
+        </a>
     </div>
 </div>
