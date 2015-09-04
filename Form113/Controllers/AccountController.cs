@@ -104,15 +104,6 @@ namespace Form113.Controllers
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
-        public JsonResult CheckEmail(string email)
-        {
-
-            bool test = (db.Utilisateurs.Where(u => u.Identites.Email == email).Count() == 0);
-
-            var result = test;
-            return Json(result, JsonRequestBehavior.AllowGet);
-
-        }
         //
         // POST: /Account/VerifyCode
         [HttpPost]

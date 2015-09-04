@@ -172,6 +172,7 @@
     <Compile Include="Controllers\CategorieController.cs" />
     <Compile Include="Controllers\CommandeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Controllers\LocalisationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PanierController.cs" />
@@ -355,6 +356,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Scripts\Search\css\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\Json\" />
     <Folder Include="Views\Localisation\" />
   </ItemGroup>
   <PropertyGroup>

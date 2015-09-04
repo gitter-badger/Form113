@@ -70,7 +70,7 @@ namespace Form113.Models
     {
         [Required]
         [EmailAddress]
-        [System.Web.Mvc.Remote("CheckEmail", "Account", ErrorMessage = "l'email est déjà utilisé")]
+        [System.Web.Mvc.Remote("CheckEmail", "Json", ErrorMessage = "l'email est déjà utilisé")]
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }
 
