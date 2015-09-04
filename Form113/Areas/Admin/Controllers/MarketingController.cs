@@ -64,7 +64,7 @@ namespace Form113.Areas.Admin.Controllers
          public PartialViewResult SellsInHurry()
         {
             var listCommande = DataLayer.Commande.giveMeList();
-            return PartialView("_SellsInHurry",listCommande.Where(x=>x.OrderAge<3).ToList());
+            return PartialView("_SellsInHurry",listCommande.Where(x=>x.OrderAge>3).ToList());
         }
 
         // Outil Admin dans catalog ------------------------------------------------

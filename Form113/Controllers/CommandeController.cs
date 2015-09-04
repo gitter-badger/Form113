@@ -137,6 +137,13 @@ namespace Form113.Controllers
                         prix_unitaire = prix - (prix * (10 / 100)),
                     };
                     Commande.Commandes_details.Add(OrderDetail);
+
+                    // --- Gestion des stocks lors de la validation commande
+                    var produit = db.Produits.Find(item.Key);
+                    produit.Stock -= item.Value;
+                    db.Entry(produit).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+
                 }
             }
             else
@@ -151,6 +158,11 @@ namespace Form113.Controllers
                         prix_unitaire = db.Produits.Where(p => p.IdProduit == item.Key).Select(p => p.Prix).FirstOrDefault(),
                     };
                     Commande.Commandes_details.Add(OrderDetail);
+                    // --- Gestion des stocks lors de la validation commande
+                    var produit = db.Produits.Find(item.Key);
+                    produit.Stock -= item.Value;
+                    db.Entry(produit).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
                 }
             }
         }
